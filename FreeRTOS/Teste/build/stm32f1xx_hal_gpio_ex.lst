@@ -1,4 +1,4 @@
-ARM GAS  /tmp/ccjATv59.s 			page 1
+ARM GAS  /tmp/ccSzFggc.s 			page 1
 
 
    1              		.cpu cortex-m3
@@ -58,7 +58,7 @@ ARM GAS  /tmp/ccjATv59.s 			page 1
   19:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****   [..] This driver provides functions to use EVENTOUT Cortex feature
   20:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****     (#) Configure EVENTOUT Cortex feature using the function HAL_GPIOEx_ConfigEventout()
   21:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****     (#) Activate EVENTOUT Cortex feature using the HAL_GPIOEx_EnableEventout()
-ARM GAS  /tmp/ccjATv59.s 			page 2
+ARM GAS  /tmp/ccSzFggc.s 			page 2
 
 
   22:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****     (#) Deactivate EVENTOUT Cortex feature using the HAL_GPIOEx_DisableEventout()
@@ -118,7 +118,7 @@ ARM GAS  /tmp/ccjATv59.s 			page 1
   76:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****   *   This parameter can be a value of @ref GPIOEx_EVENTOUT_PORT.
   77:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****   * @param  GPIO_PinSource Select the pin used to output the Cortex EVENTOUT signal.
   78:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****   *   This parameter can be a value of @ref GPIOEx_EVENTOUT_PIN.
-ARM GAS  /tmp/ccjATv59.s 			page 3
+ARM GAS  /tmp/ccSzFggc.s 			page 3
 
 
   79:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****   * @retval None
@@ -178,7 +178,7 @@ ARM GAS  /tmp/ccjATv59.s 			page 1
   76              	.LVL2:
   77              	.L5:
   84:Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c ****   assert_param(IS_AFIO_EVENTOUT_PIN(GPIO_PinSource));
-ARM GAS  /tmp/ccjATv59.s 			page 4
+ARM GAS  /tmp/ccSzFggc.s 			page 4
 
 
   78              		.loc 1 84 3 discriminator 5 view .LVU10
@@ -238,7 +238,7 @@ ARM GAS  /tmp/ccjATv59.s 			page 1
  122              		.loc 1 98 1 is_stmt 0 view .LVU16
  123 000a 7047     		bx	lr
  124              	.L11:
-ARM GAS  /tmp/ccjATv59.s 			page 5
+ARM GAS  /tmp/ccSzFggc.s 			page 5
 
 
  125              		.align	2
@@ -287,21 +287,21 @@ ARM GAS  /tmp/ccjATv59.s 			page 1
  162              		.file 3 "/home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-no
  163              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
  164              		.file 5 "Core/Inc/stm32f1xx_hal_conf.h"
-ARM GAS  /tmp/ccjATv59.s 			page 6
+ARM GAS  /tmp/ccSzFggc.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 stm32f1xx_hal_gpio_ex.c
-     /tmp/ccjATv59.s:18     .rodata.HAL_GPIOEx_ConfigEventout.str1.4:0000000000000000 $d
-     /tmp/ccjATv59.s:23     .text.HAL_GPIOEx_ConfigEventout:0000000000000000 $t
-     /tmp/ccjATv59.s:29     .text.HAL_GPIOEx_ConfigEventout:0000000000000000 HAL_GPIOEx_ConfigEventout
-     /tmp/ccjATv59.s:98     .text.HAL_GPIOEx_ConfigEventout:0000000000000044 $d
-     /tmp/ccjATv59.s:104    .text.HAL_GPIOEx_EnableEventout:0000000000000000 $t
-     /tmp/ccjATv59.s:110    .text.HAL_GPIOEx_EnableEventout:0000000000000000 HAL_GPIOEx_EnableEventout
-     /tmp/ccjATv59.s:127    .text.HAL_GPIOEx_EnableEventout:000000000000000c $d
-     /tmp/ccjATv59.s:132    .text.HAL_GPIOEx_DisableEventout:0000000000000000 $t
-     /tmp/ccjATv59.s:138    .text.HAL_GPIOEx_DisableEventout:0000000000000000 HAL_GPIOEx_DisableEventout
-     /tmp/ccjATv59.s:155    .text.HAL_GPIOEx_DisableEventout:000000000000000c $d
+     /tmp/ccSzFggc.s:18     .rodata.HAL_GPIOEx_ConfigEventout.str1.4:0000000000000000 $d
+     /tmp/ccSzFggc.s:23     .text.HAL_GPIOEx_ConfigEventout:0000000000000000 $t
+     /tmp/ccSzFggc.s:29     .text.HAL_GPIOEx_ConfigEventout:0000000000000000 HAL_GPIOEx_ConfigEventout
+     /tmp/ccSzFggc.s:98     .text.HAL_GPIOEx_ConfigEventout:0000000000000044 $d
+     /tmp/ccSzFggc.s:104    .text.HAL_GPIOEx_EnableEventout:0000000000000000 $t
+     /tmp/ccSzFggc.s:110    .text.HAL_GPIOEx_EnableEventout:0000000000000000 HAL_GPIOEx_EnableEventout
+     /tmp/ccSzFggc.s:127    .text.HAL_GPIOEx_EnableEventout:000000000000000c $d
+     /tmp/ccSzFggc.s:132    .text.HAL_GPIOEx_DisableEventout:0000000000000000 $t
+     /tmp/ccSzFggc.s:138    .text.HAL_GPIOEx_DisableEventout:0000000000000000 HAL_GPIOEx_DisableEventout
+     /tmp/ccSzFggc.s:155    .text.HAL_GPIOEx_DisableEventout:000000000000000c $d
 
 UNDEFINED SYMBOLS
 assert_failed

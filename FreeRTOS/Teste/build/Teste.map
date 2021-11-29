@@ -874,7 +874,7 @@ Discarded input sections
  .text.osThreadResumeAll
                 0x0000000000000000       0x12 build/cmsis_os.o
  .text.osDelayUntil
-                0x0000000000000000        0x4 build/cmsis_os.o
+                0x0000000000000000        0xe build/cmsis_os.o
  .text.osAbortDelay
                 0x0000000000000000        0x4 build/cmsis_os.o
  .text.osThreadList
@@ -1124,6 +1124,8 @@ Discarded input sections
                 0x0000000000000000        0xc build/tasks.o
  .text.pcTaskGetName
                 0x0000000000000000       0x28 build/tasks.o
+ .text.vTaskDelayUntil
+                0x0000000000000000       0xa4 build/tasks.o
  .text.vTaskSuspend
                 0x0000000000000000       0xe8 build/tasks.o
  .text.vTaskPlaceOnEventList
@@ -1681,7 +1683,7 @@ LOAD /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-de
                 0x0000000008000000                g_pfnVectors
                 0x000000000800010c                . = ALIGN (0x4)
 
-.text           0x0000000008000110     0x332c
+.text           0x0000000008000110     0x336c
                 0x0000000008000110                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000008000110       0xec /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memcpy.o)
@@ -1723,573 +1725,577 @@ LOAD /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-de
                 0x00000000080004c4        0xa build/main.o
                 0x00000000080004c4                StartDefaultTask
  *fill*         0x00000000080004ce        0x2 
- .text.HAL_TIM_PeriodElapsedCallback
+ .text.task2Init
                 0x00000000080004d0       0x18 build/main.o
-                0x00000000080004d0                HAL_TIM_PeriodElapsedCallback
+                0x00000000080004d0                task2Init
+ .text.HAL_TIM_PeriodElapsedCallback
+                0x00000000080004e8       0x18 build/main.o
+                0x00000000080004e8                HAL_TIM_PeriodElapsedCallback
  .text.Error_Handler
-                0x00000000080004e8        0x4 build/main.o
-                0x00000000080004e8                Error_Handler
+                0x0000000008000500        0x4 build/main.o
+                0x0000000008000500                Error_Handler
  .text.SystemClock_Config
-                0x00000000080004ec       0x52 build/main.o
-                0x00000000080004ec                SystemClock_Config
- *fill*         0x000000000800053e        0x2 
- .text.main     0x0000000008000540       0x40 build/main.o
-                0x0000000008000540                main
+                0x0000000008000504       0x52 build/main.o
+                0x0000000008000504                SystemClock_Config
+ *fill*         0x0000000008000556        0x2 
+ .text.main     0x0000000008000558       0x68 build/main.o
+                0x0000000008000558                main
  .text.assert_failed
-                0x0000000008000580        0x2 build/main.o
-                0x0000000008000580                assert_failed
- *fill*         0x0000000008000582        0x2 
+                0x00000000080005c0        0x2 build/main.o
+                0x00000000080005c0                assert_failed
+ *fill*         0x00000000080005c2        0x2 
  .text.HAL_MspInit
-                0x0000000008000584       0x54 build/stm32f1xx_hal_msp.o
-                0x0000000008000584                HAL_MspInit
+                0x00000000080005c4       0x54 build/stm32f1xx_hal_msp.o
+                0x00000000080005c4                HAL_MspInit
  .text.HAL_InitTick
-                0x00000000080005d8       0x78 build/stm32f1xx_hal_timebase_tim.o
-                0x00000000080005d8                HAL_InitTick
+                0x0000000008000618       0x78 build/stm32f1xx_hal_timebase_tim.o
+                0x0000000008000618                HAL_InitTick
  .text.NMI_Handler
-                0x0000000008000650        0x2 build/stm32f1xx_it.o
-                0x0000000008000650                NMI_Handler
+                0x0000000008000690        0x2 build/stm32f1xx_it.o
+                0x0000000008000690                NMI_Handler
  .text.HardFault_Handler
-                0x0000000008000652        0x2 build/stm32f1xx_it.o
-                0x0000000008000652                HardFault_Handler
+                0x0000000008000692        0x2 build/stm32f1xx_it.o
+                0x0000000008000692                HardFault_Handler
  .text.MemManage_Handler
-                0x0000000008000654        0x2 build/stm32f1xx_it.o
-                0x0000000008000654                MemManage_Handler
+                0x0000000008000694        0x2 build/stm32f1xx_it.o
+                0x0000000008000694                MemManage_Handler
  .text.BusFault_Handler
-                0x0000000008000656        0x2 build/stm32f1xx_it.o
-                0x0000000008000656                BusFault_Handler
+                0x0000000008000696        0x2 build/stm32f1xx_it.o
+                0x0000000008000696                BusFault_Handler
  .text.UsageFault_Handler
-                0x0000000008000658        0x2 build/stm32f1xx_it.o
-                0x0000000008000658                UsageFault_Handler
+                0x0000000008000698        0x2 build/stm32f1xx_it.o
+                0x0000000008000698                UsageFault_Handler
  .text.DebugMon_Handler
-                0x000000000800065a        0x2 build/stm32f1xx_it.o
-                0x000000000800065a                DebugMon_Handler
+                0x000000000800069a        0x2 build/stm32f1xx_it.o
+                0x000000000800069a                DebugMon_Handler
  .text.TIM1_UP_IRQHandler
-                0x000000000800065c       0x10 build/stm32f1xx_it.o
-                0x000000000800065c                TIM1_UP_IRQHandler
+                0x000000000800069c       0x10 build/stm32f1xx_it.o
+                0x000000000800069c                TIM1_UP_IRQHandler
  .text.SystemInit
-                0x000000000800066c        0x2 build/system_stm32f1xx.o
-                0x000000000800066c                SystemInit
- *fill*         0x000000000800066e        0x2 
+                0x00000000080006ac        0x2 build/system_stm32f1xx.o
+                0x00000000080006ac                SystemInit
+ *fill*         0x00000000080006ae        0x2 
  .text.HAL_Init
-                0x0000000008000670       0x24 build/stm32f1xx_hal.o
-                0x0000000008000670                HAL_Init
+                0x00000000080006b0       0x24 build/stm32f1xx_hal.o
+                0x00000000080006b0                HAL_Init
  .text.HAL_IncTick
-                0x0000000008000694       0x18 build/stm32f1xx_hal.o
-                0x0000000008000694                HAL_IncTick
+                0x00000000080006d4       0x18 build/stm32f1xx_hal.o
+                0x00000000080006d4                HAL_IncTick
  .text.HAL_GetTick
-                0x00000000080006ac        0xc build/stm32f1xx_hal.o
-                0x00000000080006ac                HAL_GetTick
+                0x00000000080006ec        0xc build/stm32f1xx_hal.o
+                0x00000000080006ec                HAL_GetTick
  .text.HAL_NVIC_SetPriorityGrouping
-                0x00000000080006b8       0x3c build/stm32f1xx_hal_cortex.o
-                0x00000000080006b8                HAL_NVIC_SetPriorityGrouping
+                0x00000000080006f8       0x3c build/stm32f1xx_hal_cortex.o
+                0x00000000080006f8                HAL_NVIC_SetPriorityGrouping
  .text.HAL_NVIC_SetPriority
-                0x00000000080006f4       0x8c build/stm32f1xx_hal_cortex.o
-                0x00000000080006f4                HAL_NVIC_SetPriority
+                0x0000000008000734       0x8c build/stm32f1xx_hal_cortex.o
+                0x0000000008000734                HAL_NVIC_SetPriority
  .text.HAL_NVIC_EnableIRQ
-                0x0000000008000780       0x30 build/stm32f1xx_hal_cortex.o
-                0x0000000008000780                HAL_NVIC_EnableIRQ
+                0x00000000080007c0       0x30 build/stm32f1xx_hal_cortex.o
+                0x00000000080007c0                HAL_NVIC_EnableIRQ
  .text.HAL_GPIO_Init
-                0x00000000080007b0      0x368 build/stm32f1xx_hal_gpio.o
-                0x00000000080007b0                HAL_GPIO_Init
+                0x00000000080007f0      0x368 build/stm32f1xx_hal_gpio.o
+                0x00000000080007f0                HAL_GPIO_Init
  .text.RCC_Delay
-                0x0000000008000b18       0x2c build/stm32f1xx_hal_rcc.o
+                0x0000000008000b58       0x2c build/stm32f1xx_hal_rcc.o
  .text.HAL_RCC_OscConfig
-                0x0000000008000b44      0x548 build/stm32f1xx_hal_rcc.o
-                0x0000000008000b44                HAL_RCC_OscConfig
+                0x0000000008000b84      0x548 build/stm32f1xx_hal_rcc.o
+                0x0000000008000b84                HAL_RCC_OscConfig
  .text.HAL_RCC_GetSysClockFreq
-                0x000000000800108c       0x70 build/stm32f1xx_hal_rcc.o
-                0x000000000800108c                HAL_RCC_GetSysClockFreq
+                0x00000000080010cc       0x70 build/stm32f1xx_hal_rcc.o
+                0x00000000080010cc                HAL_RCC_GetSysClockFreq
  .text.HAL_RCC_ClockConfig
-                0x00000000080010fc      0x228 build/stm32f1xx_hal_rcc.o
-                0x00000000080010fc                HAL_RCC_ClockConfig
+                0x000000000800113c      0x228 build/stm32f1xx_hal_rcc.o
+                0x000000000800113c                HAL_RCC_ClockConfig
  .text.HAL_RCC_GetHCLKFreq
-                0x0000000008001324        0xc build/stm32f1xx_hal_rcc.o
-                0x0000000008001324                HAL_RCC_GetHCLKFreq
+                0x0000000008001364        0xc build/stm32f1xx_hal_rcc.o
+                0x0000000008001364                HAL_RCC_GetHCLKFreq
  .text.HAL_RCC_GetPCLK2Freq
-                0x0000000008001330       0x20 build/stm32f1xx_hal_rcc.o
-                0x0000000008001330                HAL_RCC_GetPCLK2Freq
+                0x0000000008001370       0x20 build/stm32f1xx_hal_rcc.o
+                0x0000000008001370                HAL_RCC_GetPCLK2Freq
  .text.HAL_RCC_GetClockConfig
-                0x0000000008001350       0x64 build/stm32f1xx_hal_rcc.o
-                0x0000000008001350                HAL_RCC_GetClockConfig
+                0x0000000008001390       0x64 build/stm32f1xx_hal_rcc.o
+                0x0000000008001390                HAL_RCC_GetClockConfig
  .text.HAL_TIM_Base_MspInit
-                0x00000000080013b4        0x2 build/stm32f1xx_hal_tim.o
-                0x00000000080013b4                HAL_TIM_Base_MspInit
- *fill*         0x00000000080013b6        0x2 
+                0x00000000080013f4        0x2 build/stm32f1xx_hal_tim.o
+                0x00000000080013f4                HAL_TIM_Base_MspInit
+ *fill*         0x00000000080013f6        0x2 
  .text.HAL_TIM_Base_Start_IT
-                0x00000000080013b8       0x98 build/stm32f1xx_hal_tim.o
-                0x00000000080013b8                HAL_TIM_Base_Start_IT
+                0x00000000080013f8       0x98 build/stm32f1xx_hal_tim.o
+                0x00000000080013f8                HAL_TIM_Base_Start_IT
  .text.HAL_TIM_OC_DelayElapsedCallback
-                0x0000000008001450        0x2 build/stm32f1xx_hal_tim.o
-                0x0000000008001450                HAL_TIM_OC_DelayElapsedCallback
+                0x0000000008001490        0x2 build/stm32f1xx_hal_tim.o
+                0x0000000008001490                HAL_TIM_OC_DelayElapsedCallback
  .text.HAL_TIM_IC_CaptureCallback
-                0x0000000008001452        0x2 build/stm32f1xx_hal_tim.o
-                0x0000000008001452                HAL_TIM_IC_CaptureCallback
+                0x0000000008001492        0x2 build/stm32f1xx_hal_tim.o
+                0x0000000008001492                HAL_TIM_IC_CaptureCallback
  .text.HAL_TIM_PWM_PulseFinishedCallback
-                0x0000000008001454        0x2 build/stm32f1xx_hal_tim.o
-                0x0000000008001454                HAL_TIM_PWM_PulseFinishedCallback
+                0x0000000008001494        0x2 build/stm32f1xx_hal_tim.o
+                0x0000000008001494                HAL_TIM_PWM_PulseFinishedCallback
  .text.HAL_TIM_TriggerCallback
-                0x0000000008001456        0x2 build/stm32f1xx_hal_tim.o
-                0x0000000008001456                HAL_TIM_TriggerCallback
+                0x0000000008001496        0x2 build/stm32f1xx_hal_tim.o
+                0x0000000008001496                HAL_TIM_TriggerCallback
  .text.HAL_TIM_IRQHandler
-                0x0000000008001458      0x17a build/stm32f1xx_hal_tim.o
-                0x0000000008001458                HAL_TIM_IRQHandler
- *fill*         0x00000000080015d2        0x2 
+                0x0000000008001498      0x17a build/stm32f1xx_hal_tim.o
+                0x0000000008001498                HAL_TIM_IRQHandler
+ *fill*         0x0000000008001612        0x2 
  .text.TIM_Base_SetConfig
-                0x00000000080015d4       0x74 build/stm32f1xx_hal_tim.o
-                0x00000000080015d4                TIM_Base_SetConfig
+                0x0000000008001614       0x74 build/stm32f1xx_hal_tim.o
+                0x0000000008001614                TIM_Base_SetConfig
  .text.HAL_TIM_Base_Init
-                0x0000000008001648       0xdc build/stm32f1xx_hal_tim.o
-                0x0000000008001648                HAL_TIM_Base_Init
+                0x0000000008001688       0xdc build/stm32f1xx_hal_tim.o
+                0x0000000008001688                HAL_TIM_Base_Init
  .text.HAL_TIMEx_CommutCallback
-                0x0000000008001724        0x2 build/stm32f1xx_hal_tim_ex.o
-                0x0000000008001724                HAL_TIMEx_CommutCallback
+                0x0000000008001764        0x2 build/stm32f1xx_hal_tim_ex.o
+                0x0000000008001764                HAL_TIMEx_CommutCallback
  .text.HAL_TIMEx_BreakCallback
-                0x0000000008001726        0x2 build/stm32f1xx_hal_tim_ex.o
-                0x0000000008001726                HAL_TIMEx_BreakCallback
+                0x0000000008001766        0x2 build/stm32f1xx_hal_tim_ex.o
+                0x0000000008001766                HAL_TIMEx_BreakCallback
  .text.makeFreeRtosPriority
-                0x0000000008001728        0xc build/cmsis_os.o
+                0x0000000008001768        0xc build/cmsis_os.o
  .text.osKernelStart
-                0x0000000008001734        0xa build/cmsis_os.o
-                0x0000000008001734                osKernelStart
+                0x0000000008001774        0xa build/cmsis_os.o
+                0x0000000008001774                osKernelStart
  .text.osThreadCreate
-                0x000000000800173e       0x6a build/cmsis_os.o
-                0x000000000800173e                osThreadCreate
- .text.osDelay  0x00000000080017a8        0xe build/cmsis_os.o
-                0x00000000080017a8                osDelay
+                0x000000000800177e       0x6a build/cmsis_os.o
+                0x000000000800177e                osThreadCreate
+ .text.osDelay  0x00000000080017e8        0xe build/cmsis_os.o
+                0x00000000080017e8                osDelay
  .text.vListInitialise
-                0x00000000080017b6       0x16 build/list.o
-                0x00000000080017b6                vListInitialise
+                0x00000000080017f6       0x16 build/list.o
+                0x00000000080017f6                vListInitialise
  .text.vListInitialiseItem
-                0x00000000080017cc        0x6 build/list.o
-                0x00000000080017cc                vListInitialiseItem
+                0x000000000800180c        0x6 build/list.o
+                0x000000000800180c                vListInitialiseItem
  .text.vListInsertEnd
-                0x00000000080017d2       0x16 build/list.o
-                0x00000000080017d2                vListInsertEnd
+                0x0000000008001812       0x16 build/list.o
+                0x0000000008001812                vListInsertEnd
  .text.vListInsert
-                0x00000000080017e8       0x32 build/list.o
-                0x00000000080017e8                vListInsert
+                0x0000000008001828       0x32 build/list.o
+                0x0000000008001828                vListInsert
  .text.uxListRemove
-                0x000000000800181a       0x26 build/list.o
-                0x000000000800181a                uxListRemove
+                0x000000000800185a       0x26 build/list.o
+                0x000000000800185a                uxListRemove
  .text.prvTaskExitError
-                0x0000000008001840       0x40 build/port.o
+                0x0000000008001880       0x40 build/port.o
  .text.prvPortStartFirstTask
-                0x0000000008001880       0x20 build/port.o
+                0x00000000080018c0       0x20 build/port.o
  .text.pxPortInitialiseStack
-                0x00000000080018a0       0x24 build/port.o
-                0x00000000080018a0                pxPortInitialiseStack
- *fill*         0x00000000080018c4        0xc 
+                0x00000000080018e0       0x24 build/port.o
+                0x00000000080018e0                pxPortInitialiseStack
+ *fill*         0x0000000008001904        0xc 
  .text.SVC_Handler
-                0x00000000080018d0       0x24 build/port.o
-                0x00000000080018d0                SVC_Handler
+                0x0000000008001910       0x24 build/port.o
+                0x0000000008001910                SVC_Handler
  .text.vPortEnterCritical
-                0x00000000080018f4       0x44 build/port.o
-                0x00000000080018f4                vPortEnterCritical
+                0x0000000008001934       0x44 build/port.o
+                0x0000000008001934                vPortEnterCritical
  .text.vPortExitCritical
-                0x0000000008001938       0x2c build/port.o
-                0x0000000008001938                vPortExitCritical
- *fill*         0x0000000008001964        0xc 
+                0x0000000008001978       0x2c build/port.o
+                0x0000000008001978                vPortExitCritical
+ *fill*         0x00000000080019a4        0xc 
  .text.PendSV_Handler
-                0x0000000008001970       0x44 build/port.o
-                0x0000000008001970                PendSV_Handler
+                0x00000000080019b0       0x44 build/port.o
+                0x00000000080019b0                PendSV_Handler
  .text.SysTick_Handler
-                0x00000000080019b4       0x2c build/port.o
-                0x00000000080019b4                SysTick_Handler
+                0x00000000080019f4       0x2c build/port.o
+                0x00000000080019f4                SysTick_Handler
  .text.vPortSetupTimerInterrupt
-                0x00000000080019e0       0x28 build/port.o
-                0x00000000080019e0                vPortSetupTimerInterrupt
+                0x0000000008001a20       0x28 build/port.o
+                0x0000000008001a20                vPortSetupTimerInterrupt
  .text.xPortStartScheduler
-                0x0000000008001a08       0xc0 build/port.o
-                0x0000000008001a08                xPortStartScheduler
+                0x0000000008001a48       0xc0 build/port.o
+                0x0000000008001a48                xPortStartScheduler
  .text.prvHeapInit
-                0x0000000008001ac8       0x64 build/heap_4.o
+                0x0000000008001b08       0x64 build/heap_4.o
  .text.prvInsertBlockIntoFreeList
-                0x0000000008001b2c       0x60 build/heap_4.o
+                0x0000000008001b6c       0x60 build/heap_4.o
  .text.pvPortMalloc
-                0x0000000008001b8c       0xf0 build/heap_4.o
-                0x0000000008001b8c                pvPortMalloc
+                0x0000000008001bcc       0xf0 build/heap_4.o
+                0x0000000008001bcc                pvPortMalloc
  .text.vPortFree
-                0x0000000008001c7c       0x70 build/heap_4.o
-                0x0000000008001c7c                vPortFree
+                0x0000000008001cbc       0x70 build/heap_4.o
+                0x0000000008001cbc                vPortFree
  .text.prvResetNextTaskUnblockTime
-                0x0000000008001cec       0x2c build/tasks.o
+                0x0000000008001d2c       0x2c build/tasks.o
  .text.prvInitialiseNewTask
-                0x0000000008001d18       0x94 build/tasks.o
+                0x0000000008001d58       0x94 build/tasks.o
  .text.prvInitialiseTaskLists
-                0x0000000008001dac       0x68 build/tasks.o
+                0x0000000008001dec       0x68 build/tasks.o
  .text.prvAddNewTaskToReadyList
-                0x0000000008001e14       0xa8 build/tasks.o
+                0x0000000008001e54       0xa8 build/tasks.o
  .text.prvDeleteTCB
-                0x0000000008001ebc       0x38 build/tasks.o
+                0x0000000008001efc       0x38 build/tasks.o
  .text.prvCheckTasksWaitingTermination
-                0x0000000008001ef4       0x4c build/tasks.o
+                0x0000000008001f34       0x4c build/tasks.o
  .text.prvIdleTask
-                0x0000000008001f40       0x28 build/tasks.o
+                0x0000000008001f80       0x28 build/tasks.o
  .text.prvAddCurrentTaskToDelayedList
-                0x0000000008001f68       0x98 build/tasks.o
+                0x0000000008001fa8       0x98 build/tasks.o
  .text.xTaskCreateStatic
-                0x0000000008002000       0x74 build/tasks.o
-                0x0000000008002000                xTaskCreateStatic
+                0x0000000008002040       0x74 build/tasks.o
+                0x0000000008002040                xTaskCreateStatic
  .text.xTaskCreate
-                0x0000000008002074       0x68 build/tasks.o
-                0x0000000008002074                xTaskCreate
+                0x00000000080020b4       0x68 build/tasks.o
+                0x00000000080020b4                xTaskCreate
  .text.vTaskStartScheduler
-                0x00000000080020dc       0x74 build/tasks.o
-                0x00000000080020dc                vTaskStartScheduler
+                0x000000000800211c       0x74 build/tasks.o
+                0x000000000800211c                vTaskStartScheduler
  .text.vTaskSuspendAll
-                0x0000000008002150       0x10 build/tasks.o
-                0x0000000008002150                vTaskSuspendAll
+                0x0000000008002190       0x10 build/tasks.o
+                0x0000000008002190                vTaskSuspendAll
  .text.xTaskIncrementTick
-                0x0000000008002160      0x118 build/tasks.o
-                0x0000000008002160                xTaskIncrementTick
+                0x00000000080021a0      0x118 build/tasks.o
+                0x00000000080021a0                xTaskIncrementTick
  .text.xTaskResumeAll
-                0x0000000008002278       0xf8 build/tasks.o
-                0x0000000008002278                xTaskResumeAll
+                0x00000000080022b8       0xf8 build/tasks.o
+                0x00000000080022b8                xTaskResumeAll
  .text.vTaskDelay
-                0x0000000008002370       0x4c build/tasks.o
-                0x0000000008002370                vTaskDelay
+                0x00000000080023b0       0x4c build/tasks.o
+                0x00000000080023b0                vTaskDelay
  .text.vTaskSwitchContext
-                0x00000000080023bc       0x98 build/tasks.o
-                0x00000000080023bc                vTaskSwitchContext
+                0x00000000080023fc       0x98 build/tasks.o
+                0x00000000080023fc                vTaskSwitchContext
  .text.Reset_Handler
-                0x0000000008002454       0x48 build/startup_stm32f103xb.o
-                0x0000000008002454                Reset_Handler
+                0x0000000008002494       0x48 build/startup_stm32f103xb.o
+                0x0000000008002494                Reset_Handler
  .text.Default_Handler
-                0x000000000800249c        0x2 build/startup_stm32f103xb.o
-                0x000000000800249c                RTC_Alarm_IRQHandler
-                0x000000000800249c                EXTI2_IRQHandler
-                0x000000000800249c                TIM1_CC_IRQHandler
-                0x000000000800249c                PVD_IRQHandler
-                0x000000000800249c                EXTI3_IRQHandler
-                0x000000000800249c                EXTI0_IRQHandler
-                0x000000000800249c                I2C2_EV_IRQHandler
-                0x000000000800249c                ADC1_2_IRQHandler
-                0x000000000800249c                SPI1_IRQHandler
-                0x000000000800249c                TAMPER_IRQHandler
-                0x000000000800249c                DMA1_Channel4_IRQHandler
-                0x000000000800249c                USART3_IRQHandler
-                0x000000000800249c                RTC_IRQHandler
-                0x000000000800249c                DMA1_Channel7_IRQHandler
-                0x000000000800249c                CAN1_RX1_IRQHandler
-                0x000000000800249c                TIM4_IRQHandler
-                0x000000000800249c                I2C1_EV_IRQHandler
-                0x000000000800249c                DMA1_Channel6_IRQHandler
-                0x000000000800249c                TIM3_IRQHandler
-                0x000000000800249c                RCC_IRQHandler
-                0x000000000800249c                TIM1_TRG_COM_IRQHandler
-                0x000000000800249c                DMA1_Channel1_IRQHandler
-                0x000000000800249c                Default_Handler
-                0x000000000800249c                EXTI15_10_IRQHandler
-                0x000000000800249c                EXTI9_5_IRQHandler
-                0x000000000800249c                SPI2_IRQHandler
-                0x000000000800249c                DMA1_Channel5_IRQHandler
-                0x000000000800249c                EXTI4_IRQHandler
-                0x000000000800249c                USB_LP_CAN1_RX0_IRQHandler
-                0x000000000800249c                USB_HP_CAN1_TX_IRQHandler
-                0x000000000800249c                DMA1_Channel3_IRQHandler
-                0x000000000800249c                WWDG_IRQHandler
-                0x000000000800249c                TIM2_IRQHandler
-                0x000000000800249c                TIM1_BRK_IRQHandler
-                0x000000000800249c                EXTI1_IRQHandler
-                0x000000000800249c                USART2_IRQHandler
-                0x000000000800249c                I2C2_ER_IRQHandler
-                0x000000000800249c                DMA1_Channel2_IRQHandler
-                0x000000000800249c                CAN1_SCE_IRQHandler
-                0x000000000800249c                FLASH_IRQHandler
-                0x000000000800249c                USART1_IRQHandler
-                0x000000000800249c                I2C1_ER_IRQHandler
-                0x000000000800249c                USBWakeUp_IRQHandler
- *fill*         0x000000000800249e        0x2 
+                0x00000000080024dc        0x2 build/startup_stm32f103xb.o
+                0x00000000080024dc                RTC_Alarm_IRQHandler
+                0x00000000080024dc                EXTI2_IRQHandler
+                0x00000000080024dc                TIM1_CC_IRQHandler
+                0x00000000080024dc                PVD_IRQHandler
+                0x00000000080024dc                EXTI3_IRQHandler
+                0x00000000080024dc                EXTI0_IRQHandler
+                0x00000000080024dc                I2C2_EV_IRQHandler
+                0x00000000080024dc                ADC1_2_IRQHandler
+                0x00000000080024dc                SPI1_IRQHandler
+                0x00000000080024dc                TAMPER_IRQHandler
+                0x00000000080024dc                DMA1_Channel4_IRQHandler
+                0x00000000080024dc                USART3_IRQHandler
+                0x00000000080024dc                RTC_IRQHandler
+                0x00000000080024dc                DMA1_Channel7_IRQHandler
+                0x00000000080024dc                CAN1_RX1_IRQHandler
+                0x00000000080024dc                TIM4_IRQHandler
+                0x00000000080024dc                I2C1_EV_IRQHandler
+                0x00000000080024dc                DMA1_Channel6_IRQHandler
+                0x00000000080024dc                TIM3_IRQHandler
+                0x00000000080024dc                RCC_IRQHandler
+                0x00000000080024dc                TIM1_TRG_COM_IRQHandler
+                0x00000000080024dc                DMA1_Channel1_IRQHandler
+                0x00000000080024dc                Default_Handler
+                0x00000000080024dc                EXTI15_10_IRQHandler
+                0x00000000080024dc                EXTI9_5_IRQHandler
+                0x00000000080024dc                SPI2_IRQHandler
+                0x00000000080024dc                DMA1_Channel5_IRQHandler
+                0x00000000080024dc                EXTI4_IRQHandler
+                0x00000000080024dc                USB_LP_CAN1_RX0_IRQHandler
+                0x00000000080024dc                USB_HP_CAN1_TX_IRQHandler
+                0x00000000080024dc                DMA1_Channel3_IRQHandler
+                0x00000000080024dc                WWDG_IRQHandler
+                0x00000000080024dc                TIM2_IRQHandler
+                0x00000000080024dc                TIM1_BRK_IRQHandler
+                0x00000000080024dc                EXTI1_IRQHandler
+                0x00000000080024dc                USART2_IRQHandler
+                0x00000000080024dc                I2C2_ER_IRQHandler
+                0x00000000080024dc                DMA1_Channel2_IRQHandler
+                0x00000000080024dc                CAN1_SCE_IRQHandler
+                0x00000000080024dc                FLASH_IRQHandler
+                0x00000000080024dc                USART1_IRQHandler
+                0x00000000080024dc                I2C1_ER_IRQHandler
+                0x00000000080024dc                USBWakeUp_IRQHandler
+ *fill*         0x00000000080024de        0x2 
  .text.__libc_init_array
-                0x00000000080024a0       0x48 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-init.o)
-                0x00000000080024a0                __libc_init_array
- .text.memset   0x00000000080024e8       0xa4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o)
-                0x00000000080024e8                memset
+                0x00000000080024e0       0x48 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-init.o)
+                0x00000000080024e0                __libc_init_array
+ .text.memset   0x0000000008002528       0xa4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o)
+                0x0000000008002528                memset
  .text.startup.register_fini
-                0x000000000800258c       0x14 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__call_atexit.o)
+                0x00000000080025cc       0x14 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__call_atexit.o)
  .text.__libc_fini_array
-                0x00000000080025a0       0x2c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fini.o)
-                0x00000000080025a0                __libc_fini_array
+                0x00000000080025e0       0x2c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fini.o)
+                0x00000000080025e0                __libc_fini_array
  .text.__retarget_lock_acquire_recursive
-                0x00000000080025cc        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
-                0x00000000080025cc                __retarget_lock_acquire_recursive
+                0x000000000800260c        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
+                0x000000000800260c                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x00000000080025d0        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
-                0x00000000080025d0                __retarget_lock_release_recursive
- .text.atexit   0x00000000080025d4        0xc /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-atexit.o)
-                0x00000000080025d4                atexit
+                0x0000000008002610        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
+                0x0000000008002610                __retarget_lock_release_recursive
+ .text.atexit   0x0000000008002614        0xc /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-atexit.o)
+                0x0000000008002614                atexit
  .text.__register_exitproc
-                0x00000000080025e0       0x8c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__atexit.o)
-                0x00000000080025e0                __register_exitproc
- .text._exit    0x000000000800266c        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(_exit.o)
-                0x000000000800266c                _exit
+                0x0000000008002620       0x8c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__atexit.o)
+                0x0000000008002620                __register_exitproc
+ .text._exit    0x00000000080026ac        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(_exit.o)
+                0x00000000080026ac                _exit
  .text.selfrel_offset31
-                0x0000000008002670       0x14 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x00000000080026b0       0x14 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.search_EIT_table
-                0x0000000008002684       0x60 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x00000000080026c4       0x60 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.__gnu_unwind_get_pr_addr
-                0x00000000080026e4       0x28 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002724       0x28 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.get_eit_entry
-                0x000000000800270c       0xa0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800274c       0xa0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.restore_non_core_regs
-                0x00000000080027ac       0x58 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x00000000080027ec       0x58 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text._Unwind_decode_typeinfo_ptr.constprop.0
-                0x0000000008002804        0xc /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002844        0xc /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text._Unwind_DebugHook
-                0x0000000008002810        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002850        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.unwind_phase2
-                0x0000000008002814       0x40 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002854       0x40 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.unwind_phase2_forced
-                0x0000000008002854       0xd8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002894       0xd8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.__gnu_Unwind_RaiseException
-                0x000000000800292c       0x68 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x000000000800292c                __gnu_Unwind_RaiseException
+                0x000000000800296c       0x68 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800296c                __gnu_Unwind_RaiseException
  .text.__gnu_Unwind_ForcedUnwind
-                0x0000000008002994       0x18 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002994                __gnu_Unwind_ForcedUnwind
+                0x00000000080029d4       0x18 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x00000000080029d4                __gnu_Unwind_ForcedUnwind
  .text.__gnu_Unwind_Resume
-                0x00000000080029ac       0x44 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x00000000080029ac                __gnu_Unwind_Resume
+                0x00000000080029ec       0x44 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x00000000080029ec                __gnu_Unwind_Resume
  .text.__gnu_Unwind_Resume_or_Rethrow
-                0x00000000080029f0       0x18 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x00000000080029f0                __gnu_Unwind_Resume_or_Rethrow
+                0x0000000008002a30       0x18 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002a30                __gnu_Unwind_Resume_or_Rethrow
  .text._Unwind_VRS_Get
-                0x0000000008002a08       0x30 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002a08                _Unwind_VRS_Get
+                0x0000000008002a48       0x30 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002a48                _Unwind_VRS_Get
  .text._Unwind_GetGR
-                0x0000000008002a38       0x1c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002a78       0x1c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text._Unwind_VRS_Set
-                0x0000000008002a54       0x30 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002a54                _Unwind_VRS_Set
+                0x0000000008002a94       0x30 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002a94                _Unwind_VRS_Set
  .text._Unwind_SetGR
-                0x0000000008002a84       0x18 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002ac4       0x18 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.__gnu_Unwind_Backtrace
-                0x0000000008002a9c       0x80 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002a9c                __gnu_Unwind_Backtrace
+                0x0000000008002adc       0x80 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002adc                __gnu_Unwind_Backtrace
  .text.__gnu_unwind_pr_common
-                0x0000000008002b1c      0x2a8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002b5c      0x2a8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .text.__aeabi_unwind_cpp_pr0
-                0x0000000008002dc4        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002dc4                __aeabi_unwind_cpp_pr0
+                0x0000000008002e04        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002e04                __aeabi_unwind_cpp_pr0
  .text.__aeabi_unwind_cpp_pr1
-                0x0000000008002dcc        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002dcc                __aeabi_unwind_cpp_pr1
+                0x0000000008002e0c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002e0c                __aeabi_unwind_cpp_pr1
  .text.__aeabi_unwind_cpp_pr2
-                0x0000000008002dd4        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002dd4                __aeabi_unwind_cpp_pr2
+                0x0000000008002e14        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002e14                __aeabi_unwind_cpp_pr2
  .text._Unwind_VRS_Pop
-                0x0000000008002ddc      0x274 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
-                0x0000000008002ddc                _Unwind_VRS_Pop
+                0x0000000008002e1c      0x274 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008002e1c                _Unwind_VRS_Pop
  .text.next_unwind_byte
-                0x0000000008003050       0x38 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
+                0x0000000008003090       0x38 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
  .text.__gnu_unwind_execute
-                0x0000000008003088      0x2e4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
-                0x0000000008003088                __gnu_unwind_execute
- .text.abort    0x000000000800336c       0x10 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o)
-                0x000000000800336c                abort
- .text.raise    0x000000000800337c       0x5c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o)
-                0x000000000800337c                raise
- .text._kill_r  0x00000000080033d8       0x28 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
-                0x00000000080033d8                _kill_r
+                0x00000000080030c8      0x2e4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
+                0x00000000080030c8                __gnu_unwind_execute
+ .text.abort    0x00000000080033ac       0x10 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o)
+                0x00000000080033ac                abort
+ .text.raise    0x00000000080033bc       0x5c /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o)
+                0x00000000080033bc                raise
+ .text._kill_r  0x0000000008003418       0x28 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
+                0x0000000008003418                _kill_r
  .text._getpid_r
-                0x0000000008003400        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
-                0x0000000008003400                _getpid_r
- .text._getpid  0x0000000008003404       0x10 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(getpid.o)
-                0x0000000008003404                _getpid
- .text._kill    0x0000000008003414       0x10 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(kill.o)
-                0x0000000008003414                _kill
+                0x0000000008003440        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
+                0x0000000008003440                _getpid_r
+ .text._getpid  0x0000000008003444       0x10 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(getpid.o)
+                0x0000000008003444                _getpid
+ .text._kill    0x0000000008003454       0x10 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(kill.o)
+                0x0000000008003454                _kill
  *(.glue_7)
- .glue_7        0x0000000008003424        0x0 linker stubs
+ .glue_7        0x0000000008003464        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0000000008003424        0x0 linker stubs
+ .glue_7t       0x0000000008003464        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x0000000008003424        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+ .eh_frame      0x0000000008003464        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
  *(.init)
- .init          0x0000000008003424        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crti.o
-                0x0000000008003424                _init
- .init          0x0000000008003428        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.o
+ .init          0x0000000008003464        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crti.o
+                0x0000000008003464                _init
+ .init          0x0000000008003468        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.o
  *(.fini)
- .fini          0x0000000008003430        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crti.o
-                0x0000000008003430                _fini
- .fini          0x0000000008003434        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.o
-                0x000000000800343c                . = ALIGN (0x4)
-                0x000000000800343c                _etext = .
+ .fini          0x0000000008003470        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crti.o
+                0x0000000008003470                _fini
+ .fini          0x0000000008003474        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtn.o
+                0x000000000800347c                . = ALIGN (0x4)
+                0x000000000800347c                _etext = .
 
-.vfp11_veneer   0x000000000800343c        0x0
- .vfp11_veneer  0x000000000800343c        0x0 linker stubs
+.vfp11_veneer   0x000000000800347c        0x0
+ .vfp11_veneer  0x000000000800347c        0x0 linker stubs
 
-.v4_bx          0x000000000800343c        0x0
- .v4_bx         0x000000000800343c        0x0 linker stubs
+.v4_bx          0x000000000800347c        0x0
+ .v4_bx         0x000000000800347c        0x0 linker stubs
 
-.iplt           0x000000000800343c        0x0
- .iplt          0x000000000800343c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+.iplt           0x000000000800347c        0x0
+ .iplt          0x000000000800347c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
 
-.rodata         0x000000000800343c      0x140
-                0x000000000800343c                . = ALIGN (0x4)
+.rodata         0x000000000800347c      0x164
+                0x000000000800347c                . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x000000000800343c       0x1c build/main.o
+ .rodata        0x000000000800347c       0x38 build/main.o
  *(.rodata*)
  .rodata.str1.4
-                0x0000000008003458        0xc build/main.o
+                0x00000000080034b4       0x12 build/main.o
+ *fill*         0x00000000080034c6        0x2 
  .rodata.AHBPrescTable
-                0x0000000008003464       0x10 build/system_stm32f1xx.o
-                0x0000000008003464                AHBPrescTable
+                0x00000000080034c8       0x10 build/system_stm32f1xx.o
+                0x00000000080034c8                AHBPrescTable
  .rodata.APBPrescTable
-                0x0000000008003474        0x8 build/system_stm32f1xx.o
-                0x0000000008003474                APBPrescTable
+                0x00000000080034d8        0x8 build/system_stm32f1xx.o
+                0x00000000080034d8                APBPrescTable
  .rodata.HAL_NVIC_SetPriorityGrouping.str1.4
-                0x000000000800347c       0x38 build/stm32f1xx_hal_cortex.o
+                0x00000000080034e0       0x38 build/stm32f1xx_hal_cortex.o
  .rodata.HAL_GPIO_Init.str1.4
-                0x00000000080034b4       0x36 build/stm32f1xx_hal_gpio.o
- *fill*         0x00000000080034ea        0x2 
+                0x0000000008003518       0x36 build/stm32f1xx_hal_gpio.o
+ *fill*         0x000000000800354e        0x2 
  .rodata.HAL_RCC_OscConfig.str1.4
-                0x00000000080034ec       0x35 build/stm32f1xx_hal_rcc.o
- *fill*         0x0000000008003521        0x3 
+                0x0000000008003550       0x35 build/stm32f1xx_hal_rcc.o
+ *fill*         0x0000000008003585        0x3 
  .rodata.HAL_RCC_GetSysClockFreq.str1.4
-                0x0000000008003524       0x11 build/stm32f1xx_hal_rcc.o
- *fill*         0x0000000008003535        0x3 
+                0x0000000008003588       0x11 build/stm32f1xx_hal_rcc.o
+ *fill*         0x0000000008003599        0x3 
  .rodata.TIM_OC1_SetConfig.str1.4
-                0x0000000008003538       0x35 build/stm32f1xx_hal_tim.o
- *fill*         0x000000000800356d        0x3 
+                0x000000000800359c       0x35 build/stm32f1xx_hal_tim.o
+ *fill*         0x00000000080035d1        0x3 
  .rodata.vTaskStartScheduler.str1.4
-                0x0000000008003570        0x5 build/tasks.o
- *fill*         0x0000000008003575        0x3 
+                0x00000000080035d4        0x5 build/tasks.o
+ *fill*         0x00000000080035d9        0x3 
  .rodata._global_impure_ptr
-                0x0000000008003578        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o)
-                0x0000000008003578                _global_impure_ptr
-                0x000000000800357c                . = ALIGN (0x4)
+                0x00000000080035dc        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-impure.o)
+                0x00000000080035dc                _global_impure_ptr
+                0x00000000080035e0                . = ALIGN (0x4)
 
-.ARM.extab      0x000000000800357c        0xc
+.ARM.extab      0x00000000080035e0        0xc
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  .ARM.extab.text.abort
-                0x000000000800357c        0xc /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o)
+                0x00000000080035e0        0xc /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o)
 
-.ARM            0x0000000008003588       0xc8
-                0x0000000008003588                __exidx_start = .
+.ARM            0x00000000080035ec       0xc8
+                0x00000000080035ec                __exidx_start = .
  *(.ARM.exidx*)
  .ARM.exidx.text.__libc_init_array
-                0x0000000008003588        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-init.o)
+                0x00000000080035ec        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-init.o)
  .ARM.exidx.text.memset
-                0x0000000008003590        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o)
+                0x00000000080035f4        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-memset.o)
  .ARM.exidx.text.startup.register_fini
-                0x0000000008003598        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__call_atexit.o)
+                0x00000000080035fc        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__call_atexit.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.__libc_fini_array
-                0x0000000008003598        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fini.o)
+                0x00000000080035fc        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-fini.o)
  .ARM.exidx.text.__retarget_lock_acquire_recursive
-                0x00000000080035a0        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
+                0x0000000008003604        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
  .ARM.exidx.text.__retarget_lock_release_recursive
-                0x00000000080035a8        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
+                0x000000000800360c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.atexit
-                0x00000000080035a8        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-atexit.o)
+                0x000000000800360c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-atexit.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.__register_exitproc
-                0x00000000080035a8        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__atexit.o)
+                0x000000000800360c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__atexit.o)
  .ARM.exidx.text._exit
-                0x00000000080035b0        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(_exit.o)
+                0x0000000008003614        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(_exit.o)
  .ARM.exidx.text.selfrel_offset31
-                0x00000000080035b8        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800361c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.search_EIT_table
-                0x00000000080035b8        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800361c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.__gnu_unwind_get_pr_addr
-                0x00000000080035b8        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800361c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.get_eit_entry
-                0x00000000080035b8        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800361c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.restore_non_core_regs
-                0x00000000080035c0        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003624        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text._Unwind_decode_typeinfo_ptr.constprop.0
-                0x00000000080035c8        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800362c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text._Unwind_DebugHook
-                0x00000000080035d0        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003634        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.unwind_phase2
-                0x00000000080035d0        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003634        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.unwind_phase2_forced
-                0x00000000080035d8        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800363c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__gnu_Unwind_RaiseException
-                0x00000000080035e0        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003644        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__gnu_Unwind_ForcedUnwind
-                0x00000000080035e8        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800364c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__gnu_Unwind_Resume
-                0x00000000080035f0        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003654        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__gnu_Unwind_Resume_or_Rethrow
-                0x00000000080035f8        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800365c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text._Unwind_VRS_Get
-                0x0000000008003600        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003664        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Unwind_GetGR
-                0x0000000008003600        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003664        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Unwind_VRS_Set
-                0x0000000008003600        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003664        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Unwind_SetGR
-                0x0000000008003600        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003664        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.__gnu_Unwind_Backtrace
-                0x0000000008003600        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003664        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__gnu_unwind_pr_common
-                0x0000000008003608        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800366c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__aeabi_unwind_cpp_pr0
-                0x0000000008003610        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x0000000008003674        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.__aeabi_unwind_cpp_pr1
-                0x0000000008003618        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800367c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text.__aeabi_unwind_cpp_pr2
-                0x0000000008003618        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800367c        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Unwind_VRS_Pop
-                0x0000000008003618        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
+                0x000000000800367c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
  .ARM.exidx.text.next_unwind_byte
-                0x0000000008003620        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
+                0x0000000008003684        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
  .ARM.exidx.text.__gnu_unwind_execute
-                0x0000000008003628        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
+                0x000000000800368c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(pr-support.o)
  .ARM.exidx.text.abort
-                0x0000000008003630        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o)
+                0x0000000008003694        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-abort.o)
  .ARM.exidx.text.raise
-                0x0000000008003638        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o)
+                0x000000000800369c        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o)
  .ARM.exidx.text._kill_r
-                0x0000000008003640        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
+                0x00000000080036a4        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
  .ARM.exidx.text._getpid_r
-                0x0000000008003648        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
+                0x00000000080036ac        0x8 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signalr.o)
  .ARM.exidx.text._getpid
-                0x0000000008003650        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(getpid.o)
+                0x00000000080036b4        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(getpid.o)
                                           0x8 (size before relaxing)
  .ARM.exidx.text._kill
-                0x0000000008003650        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(kill.o)
+                0x00000000080036b4        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(kill.o)
                                           0x8 (size before relaxing)
-                0x0000000008003650                __exidx_end = .
+                0x00000000080036b4                __exidx_end = .
 
-.rel.dyn        0x0000000008003650        0x0
- .rel.iplt      0x0000000008003650        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+.rel.dyn        0x00000000080036b4        0x0
+ .rel.iplt      0x00000000080036b4        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
 
-.preinit_array  0x0000000008003650        0x0
-                0x0000000008003650                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x00000000080036b4        0x0
+                0x00000000080036b4                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0000000008003650                PROVIDE (__preinit_array_end = .)
+                0x00000000080036b4                PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000008003650        0x8
-                0x0000000008003650                PROVIDE (__init_array_start = .)
+.init_array     0x00000000080036b4        0x8
+                0x00000000080036b4                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  .init_array.00000
-                0x0000000008003650        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__call_atexit.o)
+                0x00000000080036b4        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-__call_atexit.o)
  *(.init_array*)
- .init_array    0x0000000008003654        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
-                0x0000000008003658                PROVIDE (__init_array_end = .)
+ .init_array    0x00000000080036b8        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+                0x00000000080036bc                PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000000008003658        0x4
-                0x0000000008003658                PROVIDE (__fini_array_start = .)
+.fini_array     0x00000000080036bc        0x4
+                0x00000000080036bc                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000000008003658        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
-                0x000000000800365c                PROVIDE (__fini_array_end = .)
-                0x000000000800365c                _sidata = LOADADDR (.data)
+ .fini_array    0x00000000080036bc        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
+                0x00000000080036c0                PROVIDE (__fini_array_end = .)
+                0x00000000080036c0                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000      0x444 load address 0x000000000800365c
+.data           0x0000000020000000      0x444 load address 0x00000000080036c0
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -2318,11 +2324,11 @@ LOAD /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-de
                 0x0000000020000444                . = ALIGN (0x4)
                 0x0000000020000444                _edata = .
 
-.igot.plt       0x0000000020000444        0x0 load address 0x0000000008003aa0
+.igot.plt       0x0000000020000444        0x0 load address 0x0000000008003b04
  .igot.plt      0x0000000020000444        0x0 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/crtbegin.o
                 0x0000000020000444                . = ALIGN (0x4)
 
-.bss            0x0000000020000444     0x1014 load address 0x0000000008003aa0
+.bss            0x0000000020000444     0x101c load address 0x0000000008003b04
                 0x0000000020000444                _sbss = .
                 0x0000000020000444                __bss_start__ = _sbss
  *(.bss)
@@ -2335,91 +2341,96 @@ LOAD /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-de
                 0x0000000020000460      0x200 build/freertos.o
  .bss.xIdleTaskTCBBuffer
                 0x0000000020000660       0x54 build/freertos.o
- .bss.defaultTaskHandle
+ .bss.Task2Handler
                 0x00000000200006b4        0x4 build/main.o
-                0x00000000200006b4                defaultTaskHandle
- .bss.htim1     0x00000000200006b8       0x48 build/stm32f1xx_hal_timebase_tim.o
-                0x00000000200006b8                htim1
- .bss.uwTick    0x0000000020000700        0x4 build/stm32f1xx_hal.o
-                0x0000000020000700                uwTick
+                0x00000000200006b4                Task2Handler
+ .bss.defaultTaskHandle
+                0x00000000200006b8        0x4 build/main.o
+                0x00000000200006b8                defaultTaskHandle
+ .bss.idx       0x00000000200006bc        0x4 build/main.o
+                0x00000000200006bc                idx
+ .bss.htim1     0x00000000200006c0       0x48 build/stm32f1xx_hal_timebase_tim.o
+                0x00000000200006c0                htim1
+ .bss.uwTick    0x0000000020000708        0x4 build/stm32f1xx_hal.o
+                0x0000000020000708                uwTick
  .bss.ucMaxSysCallPriority
-                0x0000000020000704        0x1 build/port.o
- *fill*         0x0000000020000705        0x3 
+                0x000000002000070c        0x1 build/port.o
+ *fill*         0x000000002000070d        0x3 
  .bss.ulMaxPRIGROUPValue
-                0x0000000020000708        0x4 build/port.o
- .bss.pxEnd     0x000000002000070c        0x4 build/heap_4.o
- .bss.ucHeap    0x0000000020000710      0xc00 build/heap_4.o
+                0x0000000020000710        0x4 build/port.o
+ .bss.pxEnd     0x0000000020000714        0x4 build/heap_4.o
+ .bss.ucHeap    0x0000000020000718      0xc00 build/heap_4.o
  .bss.xBlockAllocatedBit
-                0x0000000020001310        0x4 build/heap_4.o
- .bss.xFreeBytesRemaining
-                0x0000000020001314        0x4 build/heap_4.o
- .bss.xMinimumEverFreeBytesRemaining
                 0x0000000020001318        0x4 build/heap_4.o
- .bss.xStart    0x000000002000131c        0x8 build/heap_4.o
+ .bss.xFreeBytesRemaining
+                0x000000002000131c        0x4 build/heap_4.o
+ .bss.xMinimumEverFreeBytesRemaining
+                0x0000000020001320        0x4 build/heap_4.o
+ .bss.xStart    0x0000000020001324        0x8 build/heap_4.o
  .bss.pxCurrentTCB
-                0x0000000020001324        0x4 build/tasks.o
-                0x0000000020001324                pxCurrentTCB
- .bss.pxDelayedTaskList
-                0x0000000020001328        0x4 build/tasks.o
- .bss.pxOverflowDelayedTaskList
                 0x000000002000132c        0x4 build/tasks.o
+                0x000000002000132c                pxCurrentTCB
+ .bss.pxDelayedTaskList
+                0x0000000020001330        0x4 build/tasks.o
+ .bss.pxOverflowDelayedTaskList
+                0x0000000020001334        0x4 build/tasks.o
  .bss.pxReadyTasksLists
-                0x0000000020001330       0x8c build/tasks.o
+                0x0000000020001338       0x8c build/tasks.o
  .bss.uxCurrentNumberOfTasks
-                0x00000000200013bc        0x4 build/tasks.o
- .bss.uxDeletedTasksWaitingCleanUp
-                0x00000000200013c0        0x4 build/tasks.o
- .bss.uxPendedTicks
                 0x00000000200013c4        0x4 build/tasks.o
- .bss.uxSchedulerSuspended
+ .bss.uxDeletedTasksWaitingCleanUp
                 0x00000000200013c8        0x4 build/tasks.o
- .bss.uxTaskNumber
+ .bss.uxPendedTicks
                 0x00000000200013cc        0x4 build/tasks.o
- .bss.uxTopReadyPriority
+ .bss.uxSchedulerSuspended
                 0x00000000200013d0        0x4 build/tasks.o
+ .bss.uxTaskNumber
+                0x00000000200013d4        0x4 build/tasks.o
+ .bss.uxTopReadyPriority
+                0x00000000200013d8        0x4 build/tasks.o
  .bss.xDelayedTaskList1
-                0x00000000200013d4       0x14 build/tasks.o
+                0x00000000200013dc       0x14 build/tasks.o
  .bss.xDelayedTaskList2
-                0x00000000200013e8       0x14 build/tasks.o
+                0x00000000200013f0       0x14 build/tasks.o
  .bss.xIdleTaskHandle
-                0x00000000200013fc        0x4 build/tasks.o
- .bss.xNextTaskUnblockTime
-                0x0000000020001400        0x4 build/tasks.o
- .bss.xNumOfOverflows
                 0x0000000020001404        0x4 build/tasks.o
+ .bss.xNextTaskUnblockTime
+                0x0000000020001408        0x4 build/tasks.o
+ .bss.xNumOfOverflows
+                0x000000002000140c        0x4 build/tasks.o
  .bss.xPendingReadyList
-                0x0000000020001408       0x14 build/tasks.o
+                0x0000000020001410       0x14 build/tasks.o
  .bss.xSchedulerRunning
-                0x000000002000141c        0x4 build/tasks.o
+                0x0000000020001424        0x4 build/tasks.o
  .bss.xSuspendedTaskList
-                0x0000000020001420       0x14 build/tasks.o
+                0x0000000020001428       0x14 build/tasks.o
  .bss.xTasksWaitingTermination
-                0x0000000020001434       0x14 build/tasks.o
+                0x000000002000143c       0x14 build/tasks.o
  .bss.xTickCount
-                0x0000000020001448        0x4 build/tasks.o
+                0x0000000020001450        0x4 build/tasks.o
  .bss.xYieldPending
-                0x000000002000144c        0x4 build/tasks.o
+                0x0000000020001454        0x4 build/tasks.o
  .bss.__lock___atexit_recursive_mutex
-                0x0000000020001450        0x1 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
-                0x0000000020001450                __lock___atexit_recursive_mutex
- *fill*         0x0000000020001451        0x3 
- .bss.errno     0x0000000020001454        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o)
-                0x0000000020001454                errno
+                0x0000000020001458        0x1 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-lock.o)
+                0x0000000020001458                __lock___atexit_recursive_mutex
+ *fill*         0x0000000020001459        0x3 
+ .bss.errno     0x000000002000145c        0x4 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-reent.o)
+                0x000000002000145c                errno
  *(COMMON)
-                0x0000000020001458                . = ALIGN (0x4)
-                0x0000000020001458                _ebss = .
-                0x0000000020001458                __bss_end__ = _ebss
+                0x0000000020001460                . = ALIGN (0x4)
+                0x0000000020001460                _ebss = .
+                0x0000000020001460                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020001458      0x600 load address 0x0000000008003aa0
-                0x0000000020001458                . = ALIGN (0x8)
-                0x0000000020001458                PROVIDE (end = .)
+                0x0000000020001460      0x600 load address 0x0000000008003b04
+                0x0000000020001460                . = ALIGN (0x8)
+                0x0000000020001460                PROVIDE (end = .)
                 [!provide]                        PROVIDE (_end = .)
-                0x0000000020001658                . = (. + _Min_Heap_Size)
- *fill*         0x0000000020001458      0x200 
-                0x0000000020001a58                . = (. + _Min_Stack_Size)
- *fill*         0x0000000020001658      0x400 
-                0x0000000020001a58                . = ALIGN (0x8)
+                0x0000000020001660                . = (. + _Min_Heap_Size)
+ *fill*         0x0000000020001460      0x200 
+                0x0000000020001a60                . = (. + _Min_Stack_Size)
+ *fill*         0x0000000020001660      0x400 
+                0x0000000020001a60                . = ALIGN (0x8)
 
 /DISCARD/
  libc.a(*)
@@ -2553,198 +2564,198 @@ LOAD /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-de
  .comment       0x0000000000000043       0x44 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(getpid.o)
  .comment       0x0000000000000043       0x44 /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libnosys.a(kill.o)
 
-.debug_info     0x0000000000000000    0x12a03
+.debug_info     0x0000000000000000    0x12bee
  .debug_info    0x0000000000000000      0x2ab build/freertos.o
- .debug_info    0x00000000000002ab     0x1062 build/main.o
- .debug_info    0x000000000000130d      0x3b0 build/stm32f1xx_hal_msp.o
- .debug_info    0x00000000000016bd      0xac4 build/stm32f1xx_hal_timebase_tim.o
- .debug_info    0x0000000000002181      0x749 build/stm32f1xx_it.o
- .debug_info    0x00000000000028ca      0x26e build/system_stm32f1xx.o
- .debug_info    0x0000000000002b38      0x89a build/stm32f1xx_hal.o
- .debug_info    0x00000000000033d2      0xf95 build/stm32f1xx_hal_cortex.o
- .debug_info    0x0000000000004367      0x918 build/stm32f1xx_hal_gpio.o
- .debug_info    0x0000000000004c7f      0xd97 build/stm32f1xx_hal_rcc.o
- .debug_info    0x0000000000005a16     0x5414 build/stm32f1xx_hal_tim.o
- .debug_info    0x000000000000ae2a     0x2151 build/stm32f1xx_hal_tim_ex.o
- .debug_info    0x000000000000cf7b     0x23e5 build/cmsis_os.o
- .debug_info    0x000000000000f360      0x309 build/list.o
- .debug_info    0x000000000000f669      0x569 build/port.o
- .debug_info    0x000000000000fbd2      0x49b build/heap_4.o
- .debug_info    0x000000000001006d     0x2974 build/tasks.o
- .debug_info    0x00000000000129e1       0x22 build/startup_stm32f103xb.o
+ .debug_info    0x00000000000002ab     0x10f3 build/main.o
+ .debug_info    0x000000000000139e      0x3b0 build/stm32f1xx_hal_msp.o
+ .debug_info    0x000000000000174e      0xac4 build/stm32f1xx_hal_timebase_tim.o
+ .debug_info    0x0000000000002212      0x749 build/stm32f1xx_it.o
+ .debug_info    0x000000000000295b      0x26e build/system_stm32f1xx.o
+ .debug_info    0x0000000000002bc9      0x89a build/stm32f1xx_hal.o
+ .debug_info    0x0000000000003463      0xf95 build/stm32f1xx_hal_cortex.o
+ .debug_info    0x00000000000043f8      0x918 build/stm32f1xx_hal_gpio.o
+ .debug_info    0x0000000000004d10      0xd97 build/stm32f1xx_hal_rcc.o
+ .debug_info    0x0000000000005aa7     0x5414 build/stm32f1xx_hal_tim.o
+ .debug_info    0x000000000000aebb     0x2151 build/stm32f1xx_hal_tim_ex.o
+ .debug_info    0x000000000000d00c     0x2419 build/cmsis_os.o
+ .debug_info    0x000000000000f425      0x309 build/list.o
+ .debug_info    0x000000000000f72e      0x569 build/port.o
+ .debug_info    0x000000000000fc97      0x49b build/heap_4.o
+ .debug_info    0x0000000000010132     0x2a9a build/tasks.o
+ .debug_info    0x0000000000012bcc       0x22 build/startup_stm32f103xb.o
 
-.debug_abbrev   0x0000000000000000     0x25be
+.debug_abbrev   0x0000000000000000     0x2601
  .debug_abbrev  0x0000000000000000       0xcc build/freertos.o
- .debug_abbrev  0x00000000000000cc      0x2b3 build/main.o
- .debug_abbrev  0x000000000000037f      0x130 build/stm32f1xx_hal_msp.o
- .debug_abbrev  0x00000000000004af      0x1ef build/stm32f1xx_hal_timebase_tim.o
- .debug_abbrev  0x000000000000069e      0x17c build/stm32f1xx_it.o
- .debug_abbrev  0x000000000000081a      0x140 build/system_stm32f1xx.o
- .debug_abbrev  0x000000000000095a      0x1f7 build/stm32f1xx_hal.o
- .debug_abbrev  0x0000000000000b51      0x379 build/stm32f1xx_hal_cortex.o
- .debug_abbrev  0x0000000000000eca      0x241 build/stm32f1xx_hal_gpio.o
- .debug_abbrev  0x000000000000110b      0x27e build/stm32f1xx_hal_rcc.o
- .debug_abbrev  0x0000000000001389      0x296 build/stm32f1xx_hal_tim.o
- .debug_abbrev  0x000000000000161f      0x298 build/stm32f1xx_hal_tim_ex.o
- .debug_abbrev  0x00000000000018b7      0x374 build/cmsis_os.o
- .debug_abbrev  0x0000000000001c2b      0x124 build/list.o
- .debug_abbrev  0x0000000000001d4f      0x29d build/port.o
- .debug_abbrev  0x0000000000001fec      0x255 build/heap_4.o
- .debug_abbrev  0x0000000000002241      0x36b build/tasks.o
- .debug_abbrev  0x00000000000025ac       0x12 build/startup_stm32f103xb.o
+ .debug_abbrev  0x00000000000000cc      0x2f6 build/main.o
+ .debug_abbrev  0x00000000000003c2      0x130 build/stm32f1xx_hal_msp.o
+ .debug_abbrev  0x00000000000004f2      0x1ef build/stm32f1xx_hal_timebase_tim.o
+ .debug_abbrev  0x00000000000006e1      0x17c build/stm32f1xx_it.o
+ .debug_abbrev  0x000000000000085d      0x140 build/system_stm32f1xx.o
+ .debug_abbrev  0x000000000000099d      0x1f7 build/stm32f1xx_hal.o
+ .debug_abbrev  0x0000000000000b94      0x379 build/stm32f1xx_hal_cortex.o
+ .debug_abbrev  0x0000000000000f0d      0x241 build/stm32f1xx_hal_gpio.o
+ .debug_abbrev  0x000000000000114e      0x27e build/stm32f1xx_hal_rcc.o
+ .debug_abbrev  0x00000000000013cc      0x296 build/stm32f1xx_hal_tim.o
+ .debug_abbrev  0x0000000000001662      0x298 build/stm32f1xx_hal_tim_ex.o
+ .debug_abbrev  0x00000000000018fa      0x374 build/cmsis_os.o
+ .debug_abbrev  0x0000000000001c6e      0x124 build/list.o
+ .debug_abbrev  0x0000000000001d92      0x29d build/port.o
+ .debug_abbrev  0x000000000000202f      0x255 build/heap_4.o
+ .debug_abbrev  0x0000000000002284      0x36b build/tasks.o
+ .debug_abbrev  0x00000000000025ef       0x12 build/startup_stm32f103xb.o
 
-.debug_aranges  0x0000000000000000      0xd78
+.debug_aranges  0x0000000000000000      0xd88
  .debug_aranges
                 0x0000000000000000       0x20 build/freertos.o
  .debug_aranges
-                0x0000000000000020       0x50 build/main.o
+                0x0000000000000020       0x58 build/main.o
  .debug_aranges
-                0x0000000000000070       0x20 build/stm32f1xx_hal_msp.o
+                0x0000000000000078       0x20 build/stm32f1xx_hal_msp.o
  .debug_aranges
-                0x0000000000000090       0x30 build/stm32f1xx_hal_timebase_tim.o
+                0x0000000000000098       0x30 build/stm32f1xx_hal_timebase_tim.o
  .debug_aranges
-                0x00000000000000c0       0x50 build/stm32f1xx_it.o
+                0x00000000000000c8       0x50 build/stm32f1xx_it.o
  .debug_aranges
-                0x0000000000000110       0x28 build/system_stm32f1xx.o
+                0x0000000000000118       0x28 build/system_stm32f1xx.o
  .debug_aranges
-                0x0000000000000138       0xe0 build/stm32f1xx_hal.o
+                0x0000000000000140       0xe0 build/stm32f1xx_hal.o
  .debug_aranges
-                0x0000000000000218       0x90 build/stm32f1xx_hal_cortex.o
+                0x0000000000000220       0x90 build/stm32f1xx_hal_cortex.o
  .debug_aranges
-                0x00000000000002a8       0x58 build/stm32f1xx_hal_gpio.o
+                0x00000000000002b0       0x58 build/stm32f1xx_hal_gpio.o
  .debug_aranges
-                0x0000000000000300       0x90 build/stm32f1xx_hal_rcc.o
+                0x0000000000000308       0x90 build/stm32f1xx_hal_rcc.o
  .debug_aranges
-                0x0000000000000390      0x3d0 build/stm32f1xx_hal_tim.o
+                0x0000000000000398      0x3d0 build/stm32f1xx_hal_tim.o
  .debug_aranges
-                0x0000000000000760      0x168 build/stm32f1xx_hal_tim_ex.o
+                0x0000000000000768      0x168 build/stm32f1xx_hal_tim_ex.o
  .debug_aranges
-                0x00000000000008c8      0x1d8 build/cmsis_os.o
+                0x00000000000008d0      0x1d8 build/cmsis_os.o
  .debug_aranges
-                0x0000000000000aa0       0x40 build/list.o
+                0x0000000000000aa8       0x40 build/list.o
  .debug_aranges
-                0x0000000000000ae0       0x78 build/port.o
+                0x0000000000000ae8       0x78 build/port.o
  .debug_aranges
-                0x0000000000000b58       0x50 build/heap_4.o
+                0x0000000000000b60       0x50 build/heap_4.o
  .debug_aranges
-                0x0000000000000ba8      0x1a8 build/tasks.o
+                0x0000000000000bb0      0x1b0 build/tasks.o
  .debug_aranges
-                0x0000000000000d50       0x28 build/startup_stm32f103xb.o
+                0x0000000000000d60       0x28 build/startup_stm32f103xb.o
 
-.debug_ranges   0x0000000000000000      0xde0
+.debug_ranges   0x0000000000000000      0xe08
  .debug_ranges  0x0000000000000000       0x10 build/freertos.o
- .debug_ranges  0x0000000000000010       0x40 build/main.o
- .debug_ranges  0x0000000000000050       0x10 build/stm32f1xx_hal_msp.o
- .debug_ranges  0x0000000000000060       0x20 build/stm32f1xx_hal_timebase_tim.o
- .debug_ranges  0x0000000000000080       0x40 build/stm32f1xx_it.o
- .debug_ranges  0x00000000000000c0       0x18 build/system_stm32f1xx.o
- .debug_ranges  0x00000000000000d8       0xd0 build/stm32f1xx_hal.o
- .debug_ranges  0x00000000000001a8      0x110 build/stm32f1xx_hal_cortex.o
- .debug_ranges  0x00000000000002b8       0x48 build/stm32f1xx_hal_gpio.o
- .debug_ranges  0x0000000000000300       0xa0 build/stm32f1xx_hal_rcc.o
- .debug_ranges  0x00000000000003a0      0x3c0 build/stm32f1xx_hal_tim.o
- .debug_ranges  0x0000000000000760      0x158 build/stm32f1xx_hal_tim_ex.o
- .debug_ranges  0x00000000000008b8      0x1c8 build/cmsis_os.o
- .debug_ranges  0x0000000000000a80       0x30 build/list.o
- .debug_ranges  0x0000000000000ab0       0x68 build/port.o
- .debug_ranges  0x0000000000000b18       0x40 build/heap_4.o
- .debug_ranges  0x0000000000000b58      0x268 build/tasks.o
- .debug_ranges  0x0000000000000dc0       0x20 build/startup_stm32f103xb.o
+ .debug_ranges  0x0000000000000010       0x48 build/main.o
+ .debug_ranges  0x0000000000000058       0x10 build/stm32f1xx_hal_msp.o
+ .debug_ranges  0x0000000000000068       0x20 build/stm32f1xx_hal_timebase_tim.o
+ .debug_ranges  0x0000000000000088       0x40 build/stm32f1xx_it.o
+ .debug_ranges  0x00000000000000c8       0x18 build/system_stm32f1xx.o
+ .debug_ranges  0x00000000000000e0       0xd0 build/stm32f1xx_hal.o
+ .debug_ranges  0x00000000000001b0      0x110 build/stm32f1xx_hal_cortex.o
+ .debug_ranges  0x00000000000002c0       0x48 build/stm32f1xx_hal_gpio.o
+ .debug_ranges  0x0000000000000308       0xa0 build/stm32f1xx_hal_rcc.o
+ .debug_ranges  0x00000000000003a8      0x3c0 build/stm32f1xx_hal_tim.o
+ .debug_ranges  0x0000000000000768      0x158 build/stm32f1xx_hal_tim_ex.o
+ .debug_ranges  0x00000000000008c0      0x1c8 build/cmsis_os.o
+ .debug_ranges  0x0000000000000a88       0x30 build/list.o
+ .debug_ranges  0x0000000000000ab8       0x68 build/port.o
+ .debug_ranges  0x0000000000000b20       0x40 build/heap_4.o
+ .debug_ranges  0x0000000000000b60      0x288 build/tasks.o
+ .debug_ranges  0x0000000000000de8       0x20 build/startup_stm32f103xb.o
 
-.debug_line     0x0000000000000000     0xf458
+.debug_line     0x0000000000000000     0xf63b
  .debug_line    0x0000000000000000      0x238 build/freertos.o
- .debug_line    0x0000000000000238      0x561 build/main.o
- .debug_line    0x0000000000000799      0x22d build/stm32f1xx_hal_msp.o
- .debug_line    0x00000000000009c6      0x312 build/stm32f1xx_hal_timebase_tim.o
- .debug_line    0x0000000000000cd8      0x30d build/stm32f1xx_it.o
- .debug_line    0x0000000000000fe5      0x2ba build/system_stm32f1xx.o
- .debug_line    0x000000000000129f      0x5da build/stm32f1xx_hal.o
- .debug_line    0x0000000000001879      0x79a build/stm32f1xx_hal_cortex.o
- .debug_line    0x0000000000002013      0x796 build/stm32f1xx_hal_gpio.o
- .debug_line    0x00000000000027a9      0xe6b build/stm32f1xx_hal_rcc.o
- .debug_line    0x0000000000003614     0x56a0 build/stm32f1xx_hal_tim.o
- .debug_line    0x0000000000008cb4     0x1f61 build/stm32f1xx_hal_tim_ex.o
- .debug_line    0x000000000000ac15     0x1219 build/cmsis_os.o
- .debug_line    0x000000000000be2e      0x3e8 build/list.o
- .debug_line    0x000000000000c216      0x699 build/port.o
- .debug_line    0x000000000000c8af      0x72c build/heap_4.o
- .debug_line    0x000000000000cfdb     0x2408 build/tasks.o
- .debug_line    0x000000000000f3e3       0x75 build/startup_stm32f103xb.o
+ .debug_line    0x0000000000000238      0x5a7 build/main.o
+ .debug_line    0x00000000000007df      0x22d build/stm32f1xx_hal_msp.o
+ .debug_line    0x0000000000000a0c      0x312 build/stm32f1xx_hal_timebase_tim.o
+ .debug_line    0x0000000000000d1e      0x30d build/stm32f1xx_it.o
+ .debug_line    0x000000000000102b      0x2ba build/system_stm32f1xx.o
+ .debug_line    0x00000000000012e5      0x5da build/stm32f1xx_hal.o
+ .debug_line    0x00000000000018bf      0x79a build/stm32f1xx_hal_cortex.o
+ .debug_line    0x0000000000002059      0x796 build/stm32f1xx_hal_gpio.o
+ .debug_line    0x00000000000027ef      0xe6b build/stm32f1xx_hal_rcc.o
+ .debug_line    0x000000000000365a     0x56a0 build/stm32f1xx_hal_tim.o
+ .debug_line    0x0000000000008cfa     0x1f61 build/stm32f1xx_hal_tim_ex.o
+ .debug_line    0x000000000000ac5b     0x122a build/cmsis_os.o
+ .debug_line    0x000000000000be85      0x3e8 build/list.o
+ .debug_line    0x000000000000c26d      0x699 build/port.o
+ .debug_line    0x000000000000c906      0x72c build/heap_4.o
+ .debug_line    0x000000000000d032     0x2594 build/tasks.o
+ .debug_line    0x000000000000f5c6       0x75 build/startup_stm32f103xb.o
 
-.debug_str      0x0000000000000000     0x47ff
+.debug_str      0x0000000000000000     0x484d
  .debug_str     0x0000000000000000      0x285 build/freertos.o
                                         0x2f3 (size before relaxing)
- .debug_str     0x0000000000000285      0x8a2 build/main.o
-                                        0xb78 (size before relaxing)
- .debug_str     0x0000000000000b27      0x313 build/stm32f1xx_hal_msp.o
+ .debug_str     0x0000000000000285      0x8cd build/main.o
+                                        0xba3 (size before relaxing)
+ .debug_str     0x0000000000000b52      0x313 build/stm32f1xx_hal_msp.o
                                         0x4fa (size before relaxing)
- .debug_str     0x0000000000000e3a      0x10e build/stm32f1xx_hal_timebase_tim.o
+ .debug_str     0x0000000000000e65      0x10e build/stm32f1xx_hal_timebase_tim.o
                                         0xae1 (size before relaxing)
- .debug_str     0x0000000000000f48       0xa3 build/stm32f1xx_it.o
+ .debug_str     0x0000000000000f73       0xa3 build/stm32f1xx_it.o
                                         0x6d0 (size before relaxing)
- .debug_str     0x0000000000000feb       0x7b build/system_stm32f1xx.o
+ .debug_str     0x0000000000001016       0x7b build/system_stm32f1xx.o
                                         0x245 (size before relaxing)
- .debug_str     0x0000000000001066      0x2c0 build/stm32f1xx_hal.o
+ .debug_str     0x0000000000001091      0x2c0 build/stm32f1xx_hal.o
                                         0x835 (size before relaxing)
- .debug_str     0x0000000000001326      0x3a6 build/stm32f1xx_hal_cortex.o
+ .debug_str     0x0000000000001351      0x3a6 build/stm32f1xx_hal_cortex.o
                                         0x8d2 (size before relaxing)
- .debug_str     0x00000000000016cc      0x155 build/stm32f1xx_hal_gpio.o
+ .debug_str     0x00000000000016f7      0x155 build/stm32f1xx_hal_gpio.o
                                         0x411 (size before relaxing)
- .debug_str     0x0000000000001821      0x1bb build/stm32f1xx_hal_rcc.o
+ .debug_str     0x000000000000184c      0x1bb build/stm32f1xx_hal_rcc.o
                                         0x62a (size before relaxing)
- .debug_str     0x00000000000019dc      0xed1 build/stm32f1xx_hal_tim.o
+ .debug_str     0x0000000000001a07      0xed1 build/stm32f1xx_hal_tim.o
                                        0x1649 (size before relaxing)
- .debug_str     0x00000000000028ad      0x591 build/stm32f1xx_hal_tim_ex.o
+ .debug_str     0x00000000000028d8      0x591 build/stm32f1xx_hal_tim_ex.o
                                         0xe4a (size before relaxing)
- .debug_str     0x0000000000002e3e      0xb90 build/cmsis_os.o
-                                        0xfe7 (size before relaxing)
- .debug_str     0x00000000000039ce      0x136 build/list.o
+ .debug_str     0x0000000000002e69      0xb84 build/cmsis_os.o
+                                        0xff7 (size before relaxing)
+ .debug_str     0x00000000000039ed      0x136 build/list.o
                                         0x2e6 (size before relaxing)
- .debug_str     0x0000000000003b04      0x21a build/port.o
+ .debug_str     0x0000000000003b23      0x21a build/port.o
                                         0x452 (size before relaxing)
- .debug_str     0x0000000000003d1e      0x1e5 build/heap_4.o
+ .debug_str     0x0000000000003d3d      0x1e5 build/heap_4.o
                                         0x3cf (size before relaxing)
- .debug_str     0x0000000000003f03      0x8d8 build/tasks.o
-                                        0xfba (size before relaxing)
- .debug_str     0x00000000000047db       0x24 build/startup_stm32f103xb.o
+ .debug_str     0x0000000000003f22      0x907 build/tasks.o
+                                        0xff9 (size before relaxing)
+ .debug_str     0x0000000000004829       0x24 build/startup_stm32f103xb.o
                                          0x64 (size before relaxing)
 
-.debug_frame    0x0000000000000000     0x2514
+.debug_frame    0x0000000000000000     0x2550
  .debug_frame   0x0000000000000000       0x20 build/freertos.o
- .debug_frame   0x0000000000000020       0xb8 build/main.o
- .debug_frame   0x00000000000000d8       0x2c build/stm32f1xx_hal_msp.o
- .debug_frame   0x0000000000000104       0x50 build/stm32f1xx_hal_timebase_tim.o
- .debug_frame   0x0000000000000154       0x88 build/stm32f1xx_it.o
- .debug_frame   0x00000000000001dc       0x30 build/system_stm32f1xx.o
- .debug_frame   0x000000000000020c      0x1d0 build/stm32f1xx_hal.o
- .debug_frame   0x00000000000003dc      0x164 build/stm32f1xx_hal_cortex.o
- .debug_frame   0x0000000000000540       0xfc build/stm32f1xx_hal_gpio.o
- .debug_frame   0x000000000000063c      0x1a8 build/stm32f1xx_hal_rcc.o
- .debug_frame   0x00000000000007e4      0xbcc build/stm32f1xx_hal_tim.o
- .debug_frame   0x00000000000013b0      0x460 build/stm32f1xx_hal_tim_ex.o
- .debug_frame   0x0000000000001810      0x58c build/cmsis_os.o
- .debug_frame   0x0000000000001d9c       0x70 build/list.o
- .debug_frame   0x0000000000001e0c       0xf0 build/port.o
- .debug_frame   0x0000000000001efc       0xb0 build/heap_4.o
- .debug_frame   0x0000000000001fac      0x568 build/tasks.o
+ .debug_frame   0x0000000000000020       0xd0 build/main.o
+ .debug_frame   0x00000000000000f0       0x2c build/stm32f1xx_hal_msp.o
+ .debug_frame   0x000000000000011c       0x50 build/stm32f1xx_hal_timebase_tim.o
+ .debug_frame   0x000000000000016c       0x88 build/stm32f1xx_it.o
+ .debug_frame   0x00000000000001f4       0x30 build/system_stm32f1xx.o
+ .debug_frame   0x0000000000000224      0x1d0 build/stm32f1xx_hal.o
+ .debug_frame   0x00000000000003f4      0x164 build/stm32f1xx_hal_cortex.o
+ .debug_frame   0x0000000000000558       0xfc build/stm32f1xx_hal_gpio.o
+ .debug_frame   0x0000000000000654      0x1a8 build/stm32f1xx_hal_rcc.o
+ .debug_frame   0x00000000000007fc      0xbcc build/stm32f1xx_hal_tim.o
+ .debug_frame   0x00000000000013c8      0x460 build/stm32f1xx_hal_tim_ex.o
+ .debug_frame   0x0000000000001828      0x594 build/cmsis_os.o
+ .debug_frame   0x0000000000001dbc       0x70 build/list.o
+ .debug_frame   0x0000000000001e2c       0xf0 build/port.o
+ .debug_frame   0x0000000000001f1c       0xb0 build/heap_4.o
+ .debug_frame   0x0000000000001fcc      0x584 build/tasks.o
 
-.debug_loc      0x0000000000000000     0xbdec
- .debug_loc     0x0000000000000000      0x186 build/main.o
- .debug_loc     0x0000000000000186       0x4d build/stm32f1xx_hal_msp.o
- .debug_loc     0x00000000000001d3       0xcd build/stm32f1xx_hal_timebase_tim.o
- .debug_loc     0x00000000000002a0       0x20 build/stm32f1xx_it.o
- .debug_loc     0x00000000000002c0       0xff build/system_stm32f1xx.o
- .debug_loc     0x00000000000003bf      0x1d0 build/stm32f1xx_hal.o
- .debug_loc     0x000000000000058f      0xa2d build/stm32f1xx_hal_cortex.o
- .debug_loc     0x0000000000000fbc      0x6c5 build/stm32f1xx_hal_gpio.o
- .debug_loc     0x0000000000001681      0x918 build/stm32f1xx_hal_rcc.o
- .debug_loc     0x0000000000001f99     0x4128 build/stm32f1xx_hal_tim.o
- .debug_loc     0x00000000000060c1     0x198d build/stm32f1xx_hal_tim_ex.o
- .debug_loc     0x0000000000007a4e     0x1a22 build/cmsis_os.o
- .debug_loc     0x0000000000009470       0xe5 build/list.o
- .debug_loc     0x0000000000009555      0x16c build/port.o
- .debug_loc     0x00000000000096c1      0x3c1 build/heap_4.o
- .debug_loc     0x0000000000009a82     0x236a build/tasks.o
+.debug_loc      0x0000000000000000     0xbf9a
+ .debug_loc     0x0000000000000000      0x1cc build/main.o
+ .debug_loc     0x00000000000001cc       0x4d build/stm32f1xx_hal_msp.o
+ .debug_loc     0x0000000000000219       0xcd build/stm32f1xx_hal_timebase_tim.o
+ .debug_loc     0x00000000000002e6       0x20 build/stm32f1xx_it.o
+ .debug_loc     0x0000000000000306       0xff build/system_stm32f1xx.o
+ .debug_loc     0x0000000000000405      0x1d0 build/stm32f1xx_hal.o
+ .debug_loc     0x00000000000005d5      0xa2d build/stm32f1xx_hal_cortex.o
+ .debug_loc     0x0000000000001002      0x6c5 build/stm32f1xx_hal_gpio.o
+ .debug_loc     0x00000000000016c7      0x918 build/stm32f1xx_hal_rcc.o
+ .debug_loc     0x0000000000001fdf     0x4128 build/stm32f1xx_hal_tim.o
+ .debug_loc     0x0000000000006107     0x198d build/stm32f1xx_hal_tim_ex.o
+ .debug_loc     0x0000000000007a94     0x1a7c build/cmsis_os.o
+ .debug_loc     0x0000000000009510       0xe5 build/list.o
+ .debug_loc     0x00000000000095f5      0x16c build/port.o
+ .debug_loc     0x0000000000009761      0x3c1 build/heap_4.o
+ .debug_loc     0x0000000000009b22     0x2478 build/tasks.o
 
 Cross Reference Table
 
@@ -3122,6 +3133,7 @@ TIM_OC2_SetConfig                                 build/stm32f1xx_hal_tim.o
                                                   build/stm32f1xx_hal_tim_ex.o
 TIM_TI1_SetConfig                                 build/stm32f1xx_hal_tim.o
                                                   build/stm32f1xx_hal_tim_ex.o
+Task2Handler                                      build/main.o
 USART1_IRQHandler                                 build/startup_stm32f103xb.o
 USART2_IRQHandler                                 build/startup_stm32f103xb.o
 USART3_IRQHandler                                 build/startup_stm32f103xb.o
@@ -3363,6 +3375,7 @@ g_pfnVectors                                      build/startup_stm32f103xb.o
 hardware_init_hook                                /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
 htim1                                             build/stm32f1xx_hal_timebase_tim.o
                                                   build/stm32f1xx_it.o
+idx                                               build/main.o
 main                                              build/main.o
                                                   build/startup_stm32f103xb.o
                                                   /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
@@ -3452,6 +3465,7 @@ restore_core_regs                                 /home/joswan/.config/Code/User
                                                   /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/thumb/v7-m/nofp/libgcc.a(unwind-arm.o)
 signal                                            /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/libc.a(lib_a-signal.o)
 software_init_hook                                /home/joswan/.config/Code/User/globalStorage/bmd.stm32-for-vscode/@xpack-dev-tools/arm-none-eabi-gcc/10.3.1-2.2.1/.content/bin/../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
+task2Init                                         build/main.o
 ulTaskNotifyTake                                  build/tasks.o
 uwTick                                            build/stm32f1xx_hal.o
 uwTickFreq                                        build/stm32f1xx_hal.o
@@ -3518,6 +3532,8 @@ vQueueDelete                                      build/queue.o
 vQueueUnregisterQueue                             build/queue.o
 vStreamBufferDelete                               build/stream_buffer.o
 vTaskDelay                                        build/tasks.o
+                                                  build/cmsis_os.o
+vTaskDelayUntil                                   build/tasks.o
                                                   build/cmsis_os.o
 vTaskDelete                                       build/tasks.o
                                                   build/cmsis_os.o

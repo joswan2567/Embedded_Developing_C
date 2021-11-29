@@ -41,7 +41,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-osThreadId defaultTaskHandle;
+osThreadId defaultTaskHandle, Task2Handler;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -50,7 +50,8 @@ osThreadId defaultTaskHandle;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 void StartDefaultTask(void const * argument);
-
+void task2Init(void const *argument);
+int idx = 0;
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -67,7 +68,6 @@ void StartDefaultTask(void const * argument);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -112,6 +112,9 @@ int main(void)
   /* definition and creation of defaultTask */
   osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+
+  osThreadDef(Task2, task2Init, osPriorityNormal, 0, 128);
+  Task2Handler = osThreadCreate(osThread(Task2), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -239,6 +242,15 @@ void StartDefaultTask(void const * argument)
     osDelay(1);
   }
   /* USER CODE END 5 */
+}
+
+void task2Init(void const *argument){
+  
+  while(1){
+    //printf("teste = %d\n", idx++);
+    idx++;
+    osDelay(1000);
+  }
 }
 
 /**
