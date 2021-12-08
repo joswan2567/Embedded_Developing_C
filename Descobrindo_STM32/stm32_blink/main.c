@@ -26,7 +26,7 @@ int main(void)
         // toggle led (4)
         GPIO_WriteBit(GPIOC, GPIO_Pin_13, (ledval) ? Bit_SET : Bit_RESET);
         ledval = 1 - ledval;
-        Delay(250);
+        Delay(500);
     }
 }
 // Timer Code (5)
