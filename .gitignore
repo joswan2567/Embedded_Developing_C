@@ -1,4 +1,3 @@
-
-*.c
 */build/*
-*/.metadata/*
+*/.metadata/* 
+*/Software&Toolchain/*
