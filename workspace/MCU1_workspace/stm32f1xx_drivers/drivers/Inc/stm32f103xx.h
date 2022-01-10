@@ -8,6 +8,10 @@
 #ifndef INC_STM32F103XX_H_
 #define INC_STM32F103XX_H_
 
+#include <stdint.h>
+
+#define __vo volatile
+
 /*
  *  base addr of FLASH and SRAM  memories
  */
@@ -42,7 +46,6 @@
 #define DMA2_BASE_ADDR            0x40020400U
 
 #define SDIO_BASE_ADDR            AHB1_PERIPH_BASE_ADDR
-
 
 /*
  * Base addr of peripherals which are hanging on APB1 bus
@@ -114,5 +117,25 @@
 #define TIMER11_BASE_ADDR    (APB2_PERIPH_BASE_ADDR + 0x5400)
 
 #define USART1_BASE_ADDR     (APB2_PERIPH_BASE_ADDR + 0x3800)
+
+
+/******* Peripheral Register Definition Structures *********/
+
+/*
+ * Note : Registers of a peripheral are specific to MCU
+ */
+
+typedef struct{
+	__vo uint32_t CRL;                          /*!< Port configuration register low,    Addr offset: 0x00  */
+	__vo uint32_t CRH;                          /*!< Port configuration register high,   Addr offset: 0x04  */
+	__vo uint32_t IDR;                          /*!< Port input data register,           Addr offset: 0x08  */
+	__vo uint32_t ODR;                          /*!< Port output data register,          Addr offset: 0x0C  */
+	__vo uint32_t BSRR;                         /*!< Port bit set/reset register,        Addr offset: 0x10  */
+	__vo uint32_t BRR;                          /*!< Port bit reset register,            Addr offset: 0x14  */
+	__vo uint32_t LCKR;                         /*!< Port configuration lock register,   Addr offset: 0x18  */
+
+
+}GPIO_RegDef_t;
+
 
 #endif /* INC_STM32F103XX_H_ */
