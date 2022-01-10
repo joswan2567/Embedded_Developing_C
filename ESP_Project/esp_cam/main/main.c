@@ -28,17 +28,34 @@
  */
 
 // ================================ CODE ======================================
-
-#include <esp_log.h>
-#include <esp_system.h>
-#include <nvs_flash.h>
-#include <sys/param.h>
+/* Libs C */
 #include <string.h>
+#include <stdlib.h>
 
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+/* Libs Esp Sys*/
+#include <sys/unistd.h>
+#include <sys/param.h>
+#include <sys/stat.h>
+#include <esp_system.h>
+#include <esp_wifi.h>
+#include <esp_event.h>
+#include <esp_log.h>
+#include <esp_vfs.h>
+#include <esp_spiffs.h>
+#include <esp_sntp.h>
+#include <mdns.h>
+#include <nvs_flash.h>
+#include <lwip/dns.h>
+#include <driver/gpio.h>
 
 #include "esp_camera.h"
+#include "cmd.h"
+
+/* Libs RTOS */
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "freertos/event_groups.h"
 
 // #define BOARD_WROVER_KIT 1
 #define BOARD_ESP32CAM_AITHINKER
@@ -89,7 +106,23 @@
 
 #endif
 
-static const char *TAG = "example:take_picture";
+
+/* FreeRTOS event group to signal when we are connected*/
+static EventGroupHandle_t s_wifi_event_group;
+
+
+/* The event group allows multiple bits for each event, but we only care about one event
+ * - are we connected to the AP with an IP? */
+const int WIFI_CONNECTED_BIT = BIT0;
+
+static int s_retry_num = 0;
+
+QueueHandle_t xQueueCmd;
+QueueHandle_t xQueueSmtp;
+QueueHandle_t xQueueRequest;
+QueueHandle_t xQueueResponse;
+
+static const char *TAG = "esp_project:";
 
 static camera_config_t camera_config = {
     .pin_pwdn = CAM_PIN_PWDN,
@@ -123,9 +156,10 @@ static camera_config_t camera_config = {
     .grab_mode = CAMERA_GRAB_WHEN_EMPTY,
 };
 
-static esp_err_t init_camera()
+static esp_err_t init_camera(int framesize)
 {
     //initialize the camera
+    camera_config.frame_size = framesize
     esp_err_t err = esp_camera_init(&camera_config);
     if (err != ESP_OK)
     {
@@ -136,7 +170,52 @@ static esp_err_t init_camera()
     return ESP_OK;
 }
 
-void app_main()
+static esp_err_t camera_capture(char * FileName, size_t *pictureSize)
+{
+	//clear internal queue
+	//for(int i=0;i<2;i++) {
+	for(int i=0;i<1;i++) {
+		camera_fb_t * fb = esp_camera_fb_get();
+		ESP_LOGI(TAG, "fb->len=%d", fb->len);
+		esp_camera_fb_return(fb);
+	}
+
+	//acquire a frame
+	camera_fb_t * fb = esp_camera_fb_get();
+	if (!fb) {
+		ESP_LOGE(TAG, "Camera Capture Failed");
+		return ESP_FAIL;
+	}
+
+	//replace this with your own function
+	//process_image(fb->width, fb->height, fb->format, fb->buf, fb->len);
+	FILE* f = fopen(FileName, "wb");
+	if (f == NULL) {
+		ESP_LOGE(TAG, "Failed to open file for writing");
+		return ESP_FAIL;
+	}
+	fwrite(fb->buf, fb->len, 1, f);
+	ESP_LOGI(TAG, "fb->len=%d", fb->len);
+	*pictureSize = (size_t)fb->len;
+	fclose(f);
+
+	//return the frame buffer back to the driver for reuse
+	esp_camera_fb_return(fb);
+	return ESP_OK;
+}
+
+void app_main(){
+    init_camera();
+
+    while (1)
+    {
+        camera_capture();
+        vTaskDelay(5000 / portTICK_RATE_MS);
+    }
+    
+}
+
+/*void app_main()
 {
     if(ESP_OK != init_camera()) {
         return;
@@ -153,4 +232,4 @@ void app_main()
 
         vTaskDelay(5000 / portTICK_RATE_MS);
     }
-}
+}*/
