@@ -34,4 +34,36 @@ typedef struct{
 
 }GPIO_Handle_t;
 
+/*****************************************************************
+ *				APIs supported by this driver                    *
+ * For more info. about the APIs check the function definition   *
+ *****************************************************************/
+
+/*
+ * Peripheral Clock Setup
+ */
+void GPIO_PeriClockControl(void);
+
+/*
+ * Init and DeInit
+ */
+void GPIO_Init(void);
+void GPIO_DeInit(void);
+
+/*
+ * Data read and write
+ */
+void GPIO_ReadFromInputPin(void);
+void GPIO_ReadFromInputPort(void);
+void GPIO_WriteToOutputPin(void);
+void GPIO_WriteToOutputPort(void);
+void GPIO_ToggleOutputPin(void);
+
+/*
+ * IRQ configuration and ISR handling
+ */
+void GPIO_IRQCfg(void);
+void GPIO_IRQHandling(void);
+
+
 #endif /* INC_STM32F103XX_GPIO_DRIVER_H_ */
