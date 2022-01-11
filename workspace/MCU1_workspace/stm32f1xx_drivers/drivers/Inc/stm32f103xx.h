@@ -236,4 +236,16 @@ typedef struct{
 #define UART4_PCLK_DI()            ( RCC->APB1ENR &= ~( 1 << 19 ) )             /*!<  UART4 clock disabled */
 #define UART5_PCLK_DI()            ( RCC->APB1ENR &= ~( 1 << 20 ) )             /*!<  UART5 clock disabled */
 
+
+/*
+ * Generics Macros
+ */
+
+#define ENABLE    			1
+#define DISABLE   			0
+#define SET       			ENABLE
+#define RESET     			DISABLE
+#define GPIO_PIN_SET		SET
+#define GPIO_PIN_RESET  	RESET
+
 #endif /* INC_STM32F103XX_H_ */

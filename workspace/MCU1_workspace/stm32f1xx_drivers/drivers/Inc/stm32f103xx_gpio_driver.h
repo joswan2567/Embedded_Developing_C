@@ -42,28 +42,28 @@ typedef struct{
 /*
  * Peripheral Clock Setup
  */
-void GPIO_PeriClockControl(void);
+void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi);
 
 /*
  * Init and DeInit
  */
-void GPIO_Init(void);
-void GPIO_DeInit(void);
+void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
+void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
 
 /*
  * Data read and write
  */
-void GPIO_ReadFromInputPin(void);
-void GPIO_ReadFromInputPort(void);
-void GPIO_WriteToOutputPin(void);
-void GPIO_WriteToOutputPort(void);
-void GPIO_ToggleOutputPin(void);
+uint8_t GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
+uint16_t GPIO_ReadFromInputPort(GPIO_RegDef_t *pGPIOx);
+void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
+void GPIO_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t Value);
+void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 /*
  * IRQ configuration and ISR handling
  */
-void GPIO_IRQCfg(void);
-void GPIO_IRQHandling(void);
+void GPIO_IRQCfg(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnOrDi);
+void GPIO_IRQHandling(uint8_t PinNumber);
 
 
 #endif /* INC_STM32F103XX_GPIO_DRIVER_H_ */
