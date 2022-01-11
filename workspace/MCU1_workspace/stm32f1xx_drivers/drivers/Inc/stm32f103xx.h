@@ -215,4 +215,25 @@ typedef struct{
 #define SPI2_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 14 ) )            /*!<  SPI2 clock disabled */
 #define SPI3_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 15 ) )            /*!<  SPI3 clock disabled */
 
+/*
+ * Clock Enable Macros for USARTx peripherals
+ */
+
+#define USART1_PCLK_EN()           ( RCC->APB2ENR |= ( 1 << 14 ) )             /*!<  USART1 clock enabled */
+#define USART2_PCLK_EN()           ( RCC->APB1ENR |= ( 1 << 17 ) )             /*!<  USART2 clock enabled */
+#define USART3_PCLK_EN()           ( RCC->APB1ENR |= ( 1 << 18 ) )             /*!<  USART3 clock enabled */
+#define UART4_PCLK_EN()            ( RCC->APB1ENR |= ( 1 << 19 ) )             /*!<  UART4 clock enabled */
+#define UART5_PCLK_EN()            ( RCC->APB1ENR |= ( 1 << 20 ) )             /*!<  UART5 clock enabled */
+
+
+/*
+ * Clock Disable Macros for USARTx peripherals
+ */
+
+#define USART1_PCLK_DI()           ( RCC->APB2ENR &= ~( 1 << 14 ) )             /*!<  USART1 clock disabled */
+#define USART2_PCLK_DI()           ( RCC->APB1ENR &= ~( 1 << 17 ) )             /*!<  USART2 clock disabled */
+#define USART3_PCLK_DI()           ( RCC->APB1ENR &= ~( 1 << 18 ) )             /*!<  USART3 clock disabled */
+#define UART4_PCLK_DI()            ( RCC->APB1ENR &= ~( 1 << 19 ) )             /*!<  UART4 clock disabled */
+#define UART5_PCLK_DI()            ( RCC->APB1ENR &= ~( 1 << 20 ) )             /*!<  UART5 clock disabled */
+
 #endif /* INC_STM32F103XX_H_ */
