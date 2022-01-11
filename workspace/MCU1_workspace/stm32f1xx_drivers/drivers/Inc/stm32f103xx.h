@@ -17,7 +17,6 @@
  */
 #define FLASH_BASE_ADDR           0x08000000U     /*base address flash bluepill*/
 #define SRAM1_BASE_ADDR           0x20000000U     /*base address sram bluepill*/
-//#define SRAM2_BASE_ADDR         0x20000000U     /*base address sram bluepill*/
 #define ROM_BASE_ADDR             0x1FFFF000U     /*base address system memory bluepill*/
 #define SRAM                      SRAM1_BASE_ADDR
 
@@ -29,7 +28,6 @@
 #define APB1_PERIPH_BASE_ADDR     PERIPH_BASE
 #define APB2_PERIPH_BASE_ADDR     0x40010000U
 #define AHB1_PERIPH_BASE_ADDR     0x40018000U
-//#define AHB2_PERIPH_BASE
 
 /*
  * Base addr of peripherals which are hanging on AHB1 bus
@@ -126,16 +124,80 @@
  */
 
 typedef struct{
-	__vo uint32_t CRL;                          /*!< Port configuration register low,    Addr offset: 0x00  */
-	__vo uint32_t CRH;                          /*!< Port configuration register high,   Addr offset: 0x04  */
-	__vo uint32_t IDR;                          /*!< Port input data register,           Addr offset: 0x08  */
-	__vo uint32_t ODR;                          /*!< Port output data register,          Addr offset: 0x0C  */
-	__vo uint32_t BSRR;                         /*!< Port bit set/reset register,        Addr offset: 0x10  */
-	__vo uint32_t BRR;                          /*!< Port bit reset register,            Addr offset: 0x14  */
-	__vo uint32_t LCKR;                         /*!< Port configuration lock register,   Addr offset: 0x18  */
-
+	__vo uint32_t CRL;                          /*!< Port configuration register low,       Addr offset: 0x00  */
+	__vo uint32_t CRH;                          /*!< Port configuration register high,      Addr offset: 0x04  */
+	__vo uint32_t IDR;                          /*!< Port input data register,              Addr offset: 0x08  */
+	__vo uint32_t ODR;                          /*!< Port output data register,             Addr offset: 0x0C  */
+	__vo uint32_t BSRR;                         /*!< Port bit set/reset register,           Addr offset: 0x10  */
+	__vo uint32_t BRR;                          /*!< Port bit reset register,               Addr offset: 0x14  */
+	__vo uint32_t LCKR;                         /*!< Port configuration lock register,      Addr offset: 0x18  */
 
 }GPIO_RegDef_t;
 
+typedef struct{
+	__vo uint32_t CR;                           /*!< Clock control register,                Addr offset: 0x00  */
+	__vo uint32_t CFGR;                         /*!< Clock configuration register,          Addr offset: 0x04  */
+	__vo uint32_t CIR;                          /*!< Clock interrupt register,              Addr offset: 0x08  */
+	__vo uint32_t APB2RSTR;                     /*!< APB2 peripheral reset register,        Addr offset: 0x0C  */
+	__vo uint32_t APB1RSTR;                     /*!< APB1 peripheral reset register,        Addr offset: 0x10  */
+	__vo uint32_t AHBENR;                       /*!< AHB peripheral clock enable register,  Addr offset: 0x14  */
+	__vo uint32_t APB2ENR;                      /*!< APB2 peripheral clock enable register, Addr offset: 0x18  */
+	__vo uint32_t APB1ENR;                      /*!< APB1 peripheral clock enable register, Addr offset: 0x1C  */
+	__vo uint32_t BDCR;                         /*!< Backup domain control register,        Addr offset: 0x20  */
+	__vo uint32_t CSR;                          /*!< Control/status register,               Addr offset: 0x24  */
+
+}RCC_RegDef_t;
+
+/*
+ * Peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t )
+ */
+
+#define GPIOA              ((GPIO_RegDef_t*) GPIOA_BASE_ADDR)
+#define GPIOB              ((GPIO_RegDef_t*) GPIOB_BASE_ADDR)
+#define GPIOC              ((GPIO_RegDef_t*) GPIOC_BASE_ADDR)
+#define GPIOD              ((GPIO_RegDef_t*) GPIOD_BASE_ADDR)
+#define GPIOE              ((GPIO_RegDef_t*) GPIOE_BASE_ADDR)
+#define GPIOF              ((GPIO_RegDef_t*) GPIOF_BASE_ADDR)
+#define GPIOG              ((GPIO_RegDef_t*) GPIOG_BASE_ADDR)
+
+#define RCC                ((RCC_RegDef_t*) RCC_BASE_ADDR)
+
+/*
+ * Clock Enable Macros for GPIOx peripherals
+ */
+
+#define GPIOA_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 2 ) )             /*!<  GPIO port A clock enabled */
+#define GPIOB_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 3 ) )             /*!<  GPIO port B clock enabled */
+#define GPIOC_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 4 ) )             /*!<  GPIO port C clock enabled */
+#define GPIOD_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 5 ) )             /*!<  GPIO port D clock enabled */
+#define GPIOE_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 6 ) )             /*!<  GPIO port E clock enabled */
+#define GPIOF_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 7 ) )             /*!<  GPIO port F clock enabled */
+#define GPIOG_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 8 ) )             /*!<  GPIO port G clock enabled */
+
+/*
+ * Clock Disable Macros for GPIOx Peripherals
+ */
+
+#define GPIOA_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 2 ) )             /*!<  GPIO port A clock disabled */
+#define GPIOB_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 3 ) )             /*!<  GPIO port B clock disabled */
+#define GPIOC_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 4 ) )             /*!<  GPIO port C clock disabled */
+#define GPIOD_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 5 ) )             /*!<  GPIO port D clock disabled */
+#define GPIOE_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 6 ) )             /*!<  GPIO port E clock disabled */
+#define GPIOF_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 7 ) )             /*!<  GPIO port F clock disabled */
+#define GPIOG_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 8 ) )             /*!<  GPIO port G clock disabled */
+
+/*
+ * Clock Enable Macros for I2Cx peripherals
+ */
+
+#define I2C1_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 21 ) )             /*!<  I2C1 clock enabled */
+#define I2C2_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 22 ) )             /*!<  I2C2 clock enabled */
+
+/*
+ * Clock Enable Macros for SPIx peripherals
+ */
+
+#define SPI2_PCLK_DI()             ( RCC->APB1ENR |= ( 1 << 14 ) )             /*!<  SPI2 clock enabled */
+#define SPI3_PCLK_DI()             ( RCC->APB1ENR |= ( 1 << 15 ) )             /*!<  SPI3 clock enabled */
 
 #endif /* INC_STM32F103XX_H_ */
