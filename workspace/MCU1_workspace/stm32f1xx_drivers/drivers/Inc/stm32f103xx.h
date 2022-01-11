@@ -194,10 +194,11 @@ typedef struct{
 #define I2C2_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 22 ) )             /*!<  I2C2 clock enabled */
 
 /*
- * Clock Enable Macros for SPIx peripherals
+ * Clock Disable Macros for I2Cx peripherals
  */
 
-#define SPI2_PCLK_DI()             ( RCC->APB1ENR |= ( 1 << 14 ) )             /*!<  SPI2 clock enabled */
-#define SPI3_PCLK_DI()             ( RCC->APB1ENR |= ( 1 << 15 ) )             /*!<  SPI3 clock enabled */
+#define I2C1_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 21 ) )            /*!<  I2C1 clock disabled */
+#define I2C2_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 22 ) )            /*!<  I2C2 clock disabled */
+
 
 #endif /* INC_STM32F103XX_H_ */
