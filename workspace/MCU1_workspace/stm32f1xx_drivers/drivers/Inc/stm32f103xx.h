@@ -194,7 +194,7 @@ typedef struct{
 #define GPIOD_REG_RESET()               do{ (RCC->APB2RSTR |= (1 << 5)); (RCC->APB2RSTR &= ~(1 << 5)); }while(0)
 #define GPIOE_REG_RESET()               do{ (RCC->APB2RSTR |= (1 << 6)); (RCC->APB2RSTR &= ~(1 << 6)); }while(0)
 #define GPIOF_REG_RESET()               do{ (RCC->APB2RSTR |= (1 << 7)); (RCC->APB2RSTR &= ~(1 << 7)); }while(0)
-#define GPIOG_REG_RESET()               do{ (RCC->AHB2RSTR |= (1 << 8)); (RCC->APB2RSTR &= ~(1 << 8)); }while(0)
+#define GPIOG_REG_RESET()               do{ (RCC->APB2RSTR |= (1 << 8)); (RCC->APB2RSTR &= ~(1 << 8)); }while(0)
 
 /*
  * Clock Enable Macros for I2Cx peripherals
