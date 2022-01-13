@@ -52,7 +52,23 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi){
  * @Note              - none
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
-	/* 1 - cfg the cr of gpio pin
+	uint32_t temp = 0;
+
+	if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode <= GPIO_MODE_ANALOG){
+
+		temp = (pGPIOHandle->GPIO_PinCfg.GPIO_PinMode << (2 * pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber ) );
+		if(pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber <= 7) pGPIOHandle->pGPIOx->CRL |= temp;
+		else pGPIOHandle->pGPIOx->CRH |= temp;
+
+	}else{}
+
+	if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_OUT){
+		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinSpeed){
+			case GPIO_SPEED_LOW:
+
+				break;
+		}
+	}
 
 }
 void GPIO_DeInit(GPIO_RegDef_t *pGPIOx){
