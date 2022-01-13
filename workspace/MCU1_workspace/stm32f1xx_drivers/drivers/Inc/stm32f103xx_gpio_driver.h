@@ -78,9 +78,9 @@ typedef struct{
  * @GPIO_PIN_SPEED
  * GPIO pin possible output speeds
  */
-#define GPIO_SPEED_LOW			0
-#define GPIO_SPEED_MEDIUM		1
-#define GPIO_SPEED_FAST			2
+#define GPIO_SPEED_LOW			0 // Speed 10MHz
+#define GPIO_SPEED_MEDIUM		1 // Speed 2MHz
+#define GPIO_SPEED_FAST			2 // Speed 50MHz
 #define GPOI_SPEED_HIGH			3
 
 
