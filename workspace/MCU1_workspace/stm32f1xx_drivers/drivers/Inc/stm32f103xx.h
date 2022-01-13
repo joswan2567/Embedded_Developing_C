@@ -124,8 +124,7 @@
  */
 
 typedef struct{
-	__vo uint32_t CRL;                          /*!< Port configuration register low,       Addr offset: 0x00  */
-	__vo uint32_t CRH;                          /*!< Port configuration register high,      Addr offset: 0x04  */
+	__vo uint32_t CR[2];                          /*!< Port configuration register low [0] and high [1],       Addr offset: 0x00  */
 	__vo uint32_t IDR;                          /*!< Port input data register,              Addr offset: 0x08  */
 	__vo uint32_t ODR;                          /*!< Port output data register,             Addr offset: 0x0C  */
 	__vo uint32_t BSRR;                         /*!< Port bit set/reset register,           Addr offset: 0x10  */
