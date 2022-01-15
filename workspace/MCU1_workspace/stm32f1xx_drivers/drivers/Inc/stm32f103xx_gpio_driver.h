@@ -92,8 +92,8 @@ typedef struct{
 #define GPIO_PIN_PD				2
 
 /*****************************************************************
- *				APIs supported by this driver                    *
- * For more info. about the APIs check the function definition   *
+ *				 APIs supported by this driver                   *
+ *  For more info. about the APIs check the function definition  *
  *****************************************************************/
 
 /*
