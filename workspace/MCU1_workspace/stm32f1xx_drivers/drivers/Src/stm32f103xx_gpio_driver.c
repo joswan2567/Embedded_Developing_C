@@ -90,6 +90,23 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 				break;
 		}
 	}
+	else if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_IN){
+		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinPuPdControl){
+			case GPIO_PIN_PU:
+				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
+				break;
+			case GPIO_PIN_PD:
+				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
+				break;
+			case GPIO_NO_PUPD:
+				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x04 << (4 * aux2));
+				break;
+		}
+	}
+
 
 }
 /*********************************************************************

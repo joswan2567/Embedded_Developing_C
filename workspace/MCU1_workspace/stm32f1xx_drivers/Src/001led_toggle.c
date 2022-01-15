@@ -20,7 +20,7 @@ int main(void){
 	gpioLed.GPIO_PinCfg.GPIO_PinNumber = GPIO_PIN_NO_13;
 	gpioLed.GPIO_PinCfg.GPIO_PinMode = GPIO_MODE_OUT;
 	gpioLed.GPIO_PinCfg.GPIO_PinSpeed = GPIO_SPEED_FAST;
-	gpioLed.GPIO_PinCfg.GPIO_PinOPType = GPIO_OP_TYPE_PP;
+	gpioLed.GPIO_PinCfg.GPIO_PinOPType = GPIO_OP_TYPE_OD;
 	gpioLed.GPIO_PinCfg.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
 	GPIO_PeriClockControl(GPIOC, ENABLE);
