@@ -52,7 +52,9 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi){
  * @Note              - none
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
+
 	uint8_t aux1, aux2;
+
 	aux1 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber / 8;
 	aux2 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber % 8;
 
@@ -92,7 +94,11 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 	}
 	else if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_IN){
 		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinPuPdControl){
-			case GPIO_PIN_PU || GPIO_PIN_PD:
+			case GPIO_PIN_PD:
+				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
+				break;
+			case GPIO_PIN_PU:
 				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
 				pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
 				break;
@@ -102,7 +108,28 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 				break;
 		}
 	}
+	else if (pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_ANALOG){
+		pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+	}
+	else if (pGPIOHandle->GPIO_PinCfg.GPIO_PinMode > GPIO_MODE_ANALOG){
+		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode){
+			case GPIO_MODE_IT_FT:
+				EXTI->FTSR |=  (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				EXTI->RTSR &= ~(1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				break;
+			case GPIO_MODE_IT_RT:
+				EXTI->RTSR |=  (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				EXTI->FTSR &= ~(1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				break;
+			case GPIO_MODE_IT_RFT:
+				EXTI->RTSR |=  (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				EXTI->FTSR |=  (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				break;
+		}
+		EXTI->IMR |= (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
 
+
+	}
 
 }
 /*********************************************************************
