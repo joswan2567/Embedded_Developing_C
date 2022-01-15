@@ -52,62 +52,44 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi){
  * @Note              - none
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
-	uint32_t temp = 0;
-
 	uint8_t aux1, aux2;
 	aux1 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber / 8;
 	aux2 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber % 8;
 
-	if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode <= GPIO_MODE_ANALOG)
-		pGPIOHandle->pGPIOx->CR[pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber / 8] &= ~(0x03 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-	else{}
-
 	if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_OUT){
-		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinSpeed){
-			case GPIO_SPEED_LOW:
-				pGPIOHandle->pGPIOx->CR[aux1] &= (0xF << (4 * aux2 ));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x02 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				break;
-			case GPIO_SPEED_MEDIUM:
-				pGPIOHandle->pGPIOx->CR[aux1] &= (0xF << (4 * aux2 ));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x01 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				break;
-			case GPIO_SPEED_FAST:
-				pGPIOHandle->pGPIOx->CR[aux1] &= (0xF << (4 * aux2 ));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x03 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				break;
-		}
-		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinPuPdControl){
+		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinOPType){
 			case GPIO_OP_TYPE_PP:
-				if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_ALTFN)
-					pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_ALTFN){
+					pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+					pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
+				}
 				else
-					pGPIOHandle->pGPIOx->CR[aux1] |= (0x02 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+					pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2 ));
 				break;
 			case GPIO_OP_TYPE_OD:
-				if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_ALTFN)
-					pGPIOHandle->pGPIOx->CR[aux1] |= (0x0C << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				else
-					pGPIOHandle->pGPIOx->CR[aux1] |= (0x04 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
+				if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_ALTFN){
+					pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+					pGPIOHandle->pGPIOx->CR[aux1] |= (0x0C << (4 * aux2));
+				}
+				else{
+					pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
+					pGPIOHandle->pGPIOx->CR[aux1] |= (0x04 << (4 * aux2));
+				}
+				break;
+		}
+
+		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinSpeed){
+			case GPIO_SPEED_LOW:
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x02 << (4 * aux2));
+				break;
+			case GPIO_SPEED_MEDIUM:
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x01 << (4 * aux2));
+				break;
+			case GPIO_SPEED_FAST:
+				pGPIOHandle->pGPIOx->CR[aux1] |= (0x03 << (4 * aux2));
 				break;
 		}
 	}
-	/*else if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_IN){
-		switch(pGPIOHandle->GPIO_PinCfg.GPIO_Pin){
-			case GPIO_SPEED_LOW:
-				pGPIOHandle->pGPIOx->CR[aux1] &= (0xF << (4 * aux2 ));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x02 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				break;
-			case GPIO_SPEED_MEDIUM:
-				pGPIOHandle->pGPIOx->CR[aux1] &= (0xF << (4 * aux2 ));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x01 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				break;
-			case GPIO_SPEED_FAST:
-				pGPIOHandle->pGPIOx->CR[aux1] &= (0xF << (4 * aux2 ));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x03 << pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-				break;
-			}
-	}*/
 
 }
 /*********************************************************************
@@ -181,7 +163,6 @@ void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Val
 		pGPIOx->ODR |= (1 << PinNumber);
 	else
 		pGPIOx->ODR &= ~(1 << PinNumber);
-}
 }
 /*********************************************************************
  * @fn      		  - GPIO_WriteToOutputPort
