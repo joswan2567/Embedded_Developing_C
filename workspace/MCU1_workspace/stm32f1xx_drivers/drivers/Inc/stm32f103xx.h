@@ -123,6 +123,9 @@
  * Note : Registers of a peripheral are specific to MCU
  */
 
+/*
+ * peripheral register definition structure for GPIOx
+ */
 typedef struct{
 	__vo uint32_t CR[2];                          /*!< Port configuration register low [0] and high [1],       Addr offset: 0x00  */
 	__vo uint32_t IDR;                          /*!< Port input data register,              Addr offset: 0x08  */
@@ -133,6 +136,9 @@ typedef struct{
 
 }GPIO_RegDef_t;
 
+/*
+ * peripheral register definition structure for RCC
+ */
 typedef struct{
 	__vo uint32_t CR;                           /*!< Clock control register,                Addr offset: 0x00  */
 	__vo uint32_t CFGR;                         /*!< Clock configuration register,          Addr offset: 0x04  */
@@ -148,6 +154,30 @@ typedef struct{
 }RCC_RegDef_t;
 
 /*
+ * peripheral register definition structure for EXTI
+ */
+typedef struct{
+	__vo uint32_t IMR;                          /*!< Interrupt mask register,               Addr offset: 0x00  */
+	__vo uint32_t EMR;                          /*!< Event mask register,                   Addr offset: 0x04  */
+	__vo uint32_t RTSR;                         /*!< Rising trigger selection register,     Addr offset: 0x08  */
+	__vo uint32_t FTSR;                         /*!< Falling trigger selection register,    Addr offset: 0x0C  */
+	__vo uint32_t SWIER;                        /*!< Software interrupt event register,     Addr offset: 0x10  */
+	__vo uint32_t PR;                           /*!< Pending register,                      Addr offset: 0x14  */
+
+}EXTI_RegDef_t;
+
+/*
+ * peripheral register definition structure for AFIO
+ */
+typedef struct{
+	__vo uint32_t EVCR;                          /*!< Event control register ,               			 Addr offset: 0x00  */
+	__vo uint32_t MAPR;                          /*!< AF remap and debug I/O configuration register,     Addr offset: 0x04  */
+	__vo uint32_t EXTICR[4];                     /*!< External interrupt configuration register,		 Addr offset: 0x08  */
+	__vo uint32_t MAPR2;                         /*!< AF remap and debug I/O configuration register2,    Addr offset: 0x1C  */
+
+}AFIO_RegDef_t;
+
+/*
  * Peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t )
  */
 
@@ -160,6 +190,8 @@ typedef struct{
 #define GPIOG              ((GPIO_RegDef_t*) GPIOG_BASE_ADDR)
 
 #define RCC                ((RCC_RegDef_t*) RCC_BASE_ADDR)
+
+#define EXTI			   ((EXTI_RegDef_t*) EXTI_BASE_ADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -257,5 +289,7 @@ typedef struct{
 #define RESET     			DISABLE
 #define GPIO_PIN_SET		SET
 #define GPIO_PIN_RESET  	RESET
+
+#include "stm32f103xx_gpio_driver.h"
 
 #endif /* INC_STM32F103XX_H_ */
