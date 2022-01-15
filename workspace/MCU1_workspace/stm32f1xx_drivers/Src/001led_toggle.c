@@ -7,8 +7,9 @@
 
 #include "stm32f103xx.h"
 
-void delay(void){
-	for(uint32_t i = 0; i < 500000 ; i++);
+void delay(uint32_t time){
+	uint32_t vlr = time * 1000;
+	for(uint32_t i = 0; i < vlr ; i++);
 }
 
 int main(void){
@@ -23,15 +24,12 @@ int main(void){
 	gpioLed.GPIO_PinCfg.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
 	GPIO_PeriClockControl(GPIOC, ENABLE);
-	//GPIO_Init(&gpioLed);
-
-	gpioLed.pGPIOx->CR[1] &= ~(1 << 4*(gpioLed.GPIO_PinCfg.GPIO_PinNumber) );
-	gpioLed.pGPIOx->CR[1] |= (0x03 << (4 * gpioLed.GPIO_PinCfg.GPIO_PinNumber));
+	GPIO_Init(&gpioLed);
 
 	while(1){
 
 		GPIO_ToggleOutputPin(GPIOC, GPIO_PIN_NO_13);
-		delay();
+		delay(500);
 	}
 	return 0;
 }
