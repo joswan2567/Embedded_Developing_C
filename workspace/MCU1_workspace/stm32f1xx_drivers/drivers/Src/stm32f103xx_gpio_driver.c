@@ -94,11 +94,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 	}
 	else if(pGPIOHandle->GPIO_PinCfg.GPIO_PinMode == GPIO_MODE_IN){
 		switch(pGPIOHandle->GPIO_PinCfg.GPIO_PinPuPdControl){
-			case GPIO_PIN_PD:
-				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
-				pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
-				break;
-			case GPIO_PIN_PU:
+			case GPIO_PIN_PUPD:
 				pGPIOHandle->pGPIOx->CR[aux1] &= ~(0x0F << (4 * aux2));
 				pGPIOHandle->pGPIOx->CR[aux1] |= (0x08 << (4 * aux2));
 				break;
@@ -126,9 +122,15 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 				EXTI->FTSR |=  (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
 				break;
 		}
+		aux1 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber / 4;
+		aux2 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber % 4;
+		uint8_t portcode = GPIO_BASE_ADDR_TO_CODE(pGPIOHandle->pGPIOx);
+
+		AFIO_PCLK_EN();
+
+		AFIO->EXTICR[aux1] |= (portcode << (aux2 * 4));
+
 		EXTI->IMR |= (1<< pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber);
-
-
 	}
 
 }

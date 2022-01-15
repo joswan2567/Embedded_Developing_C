@@ -29,7 +29,7 @@ int main(void){
 	gpioBtn.pGPIOx = GPIOA;
 	gpioBtn.GPIO_PinCfg.GPIO_PinNumber = GPIO_PIN_NO_0;
 	gpioBtn.GPIO_PinCfg.GPIO_PinMode = GPIO_MODE_IN;
-	gpioBtn.GPIO_PinCfg.GPIO_PinPuPdControl = GPIO_PIN_PD;
+	gpioBtn.GPIO_PinCfg.GPIO_PinPuPdControl = GPIO_PIN_PUPD;
 
 
 	GPIO_PeriClockControl(GPIOC, ENABLE);

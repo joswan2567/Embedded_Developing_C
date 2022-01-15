@@ -193,6 +193,8 @@ typedef struct{
 
 #define EXTI			   ((EXTI_RegDef_t*) EXTI_BASE_ADDR)
 
+#define AFIO			   ((AFIO_RegDef_t*) AFIO_BASE_ADDR)
+
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
@@ -205,6 +207,17 @@ typedef struct{
 #define GPIOF_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 7 ) )             /*!<  GPIO port F clock enabled */
 #define GPIOG_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 8 ) )             /*!<  GPIO port G clock enabled */
 
+/*
+ * returns port code for given GPIOx base addr
+ */
+
+#define GPIO_BASE_ADDR_TO_CODE(x)       ((x == GPIOA) ? 0 :\
+										(x == GPIOB) ? 1 :\
+										(x == GPIOC) ? 2 :\
+										(x == GPIOD) ? 3 :\
+										(x == GPIOE) ? 4 :\
+										(x == GPIOF) ? 5 :\
+										(x == GPIOG) ? 6 : -1)
 /*
  * Clock Disable Macros for GPIOx Peripherals
  */
@@ -278,6 +291,11 @@ typedef struct{
 #define UART4_PCLK_DI()            ( RCC->APB1ENR &= ~( 1 << 19 ) )             /*!<  UART4 clock disabled */
 #define UART5_PCLK_DI()            ( RCC->APB1ENR &= ~( 1 << 20 ) )             /*!<  UART5 clock disabled */
 
+/*
+ * Clock Enable Macros for AFIO peripherals
+ */
+
+#define AFIO_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 0 ) )             /*!<  GPIO port A clock enabled */
 
 /*
  * Generics Macros
