@@ -237,11 +237,46 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber){
 	pGPIOx->ODR ^= (1 << PinNumber );
 }
 
-/*
- * IRQ configuration and ISR handling
+/*********************************************************************
+ * @fn      		  - GPIO_IRQCfg
+ *
+ * @brief             - This function toggle data for the given GPIO pin
+ *
+ * @param[in]         - IRQ's number
+ *
+ * @param[in]         - IRQ's priority
+ *
+ * @param[in]         - macro for enable/disable
+ *
+ * @return         	  - none
+ *
+ * @Note              - none
  */
 void GPIO_IRQCfg(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnOrDi){
+	if(EnOrDi){
+		if(IRQNumber <= 31){
+			*NVIC_ISER0 |= (1 << IRQNumber);
+		}
+		else if(IRQNumber > 31 && IRQNumber < 64){
+			*NVIC_ISER1 |= (1 << (IRQNumber % 32));
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96){
+			*NVIC_ISER2 |= (1 << (IRQNumber % 64));
+		}
 
+	}
+	else {
+		if(IRQNumber <= 31){
+			*NVIC_ICER0 |= (1 << IRQNumber);
+		}
+		else if(IRQNumber > 31 && IRQNumber < 64){
+			*NVIC_ICER1 |= (1 << (IRQNumber % 32));
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96){
+			*NVIC_ICER2 |= (1 << (IRQNumber % 64));
+		}
+
+	}
 }
 void GPIO_IRQHandling(uint8_t PinNumber){
 
