@@ -240,7 +240,7 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber){
 /*********************************************************************
  * @fn      		  - GPIO_IRQITCfg
  *
- * @brief             - This function toggle data for the given GPIO pin
+ * @brief             -
  *
  * @param[in]         - IRQ's number
  *
@@ -279,7 +279,7 @@ void GPIO_IRQITCfg(uint8_t IRQNumber, uint8_t EnOrDi){
 /*********************************************************************
  * @fn      		  - GPIO_IRQPriorityCfg
  *
- * @brief             - This function toggle data for the given GPIO pin
+ * @brief             -
  *
  * @param[in]         - IRQ's number
  *
@@ -298,7 +298,21 @@ void GPIO_IRQPriorityCfg(uint8_t IRQNumber, uint8_t IRQPriority){
 
 
 }
+/*********************************************************************
+ * @fn      		  - GPIO_IRQHandling
+ *
+ * @brief             -
+ *
+ * @param[in]         - pin's number
+ *
+ *
+ * @return         	  - none
+ *
+ * @Note              - none
+ */
 void GPIO_IRQHandling(uint8_t PinNumber){
-
+	if(EXTI->PR & (1 << PinNumber)){
+		EXTI->PR |= ~(1 << PinNumber);
+	}
 }
 
