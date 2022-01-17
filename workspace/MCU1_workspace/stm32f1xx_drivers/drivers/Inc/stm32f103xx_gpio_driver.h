@@ -118,7 +118,8 @@ void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
 /*
  * IRQ configuration and ISR handling
  */
-void GPIO_IRQCfg(uint8_t IRQNumber, uint8_t IRQPriority, uint8_t EnOrDi);
+void GPIO_IRQITCfg(uint8_t IRQNumber, uint8_t EnOrDi);
+void GPIO_IRQPriorityCfg(uint8_t IRQNumber, uint8_t IRQPriority);
 void GPIO_IRQHandling(uint8_t PinNumber);
 
 
