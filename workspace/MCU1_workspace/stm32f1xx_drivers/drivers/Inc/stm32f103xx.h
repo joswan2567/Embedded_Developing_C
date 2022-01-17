@@ -17,7 +17,6 @@
  *   ARM Cortex Mx Processor NVIC ISERx register addr	*
  *   													*
  ******************************************************/
-
 #define NVIC_ISER0               ((__vo uint32_t*)0xE000E100)
 #define NVIC_ISER1               ((__vo uint32_t*)0xE000E104)
 #define NVIC_ISER2               ((__vo uint32_t*)0xE000E108)
@@ -32,6 +31,16 @@
 #define NVIC_ICER3               ((__vo uint32_t*)0xE000E18C)
 
 /*
+ *   ARM Cortex Mx Processor Priority Register Addr Calculation
+ */
+#define NVIC_PR_BASE_ADDR        ((__vo uint32_t*)0xE000E400)
+
+/*
+ *   ARM Cortex Mx Processor Number of priority bits implemented in Priority Register
+ */
+#define NO_PR_BITS_IMPLEMENTED   4
+
+/*
  *  base addr of FLASH and SRAM  memories
  */
 #define FLASH_BASE_ADDR           0x08000000U     /*base address flash bluepill*/
@@ -42,7 +51,6 @@
 /*
  * AHBx and APBX Bus Peripheral base addr
  */
-
 #define PERIPH_BASE_ADDR          0x40000000U
 #define APB1_PERIPH_BASE_ADDR     PERIPH_BASE
 #define APB2_PERIPH_BASE_ADDR     0x40010000U
@@ -52,7 +60,6 @@
  * Base addr of peripherals which are hanging on AHB1 bus
  * TODO : Complete for all other peripherals
  */
-
 #define RCC_BASE_ADDR             0x40021000U
 
 #define USB_OTG_FS_BASE_ADDR      0x50000000U
@@ -68,7 +75,6 @@
  * Base addr of peripherals which are hanging on APB1 bus
  * TODO : Complete for all other peripherals
  */
-
 #define DAC_BASE_ADDR        (APB1_PERIPH_BASE_ADDR + 0x7400)
 
 #define BKP_BASE_ADDR        (APB1_PERIPH_BASE_ADDR + 0x6C00)
