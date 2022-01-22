@@ -203,9 +203,25 @@ typedef struct{
 }AFIO_RegDef_t;
 
 /*
+ * peripheral register definition structure for SPIx
+ */
+typedef struct{
+	__vo uint32_t CR[2];                         /*!< SPI control register ,               			     Addr offset: 0x00  */
+	//__vo uint32_t CR1;                           /*!< SPI control register ,               			     Addr offset: 0x00  */
+	//__vo uint32_t CR2;                           /*!< SPI control register ,               			     Addr offset: 0x04  */
+	__vo uint32_t SR;                            /*!< status register,                                   Addr offset: 0x08  */
+	__vo uint32_t DR;                     		 /*!< data register,									 Addr offset: 0x0C  */
+	__vo uint32_t CRCPR;                         /*!< polynomial register   							 Addr offset: 0x10  */
+	__vo uint32_t RXCRCR;						 /*!< CRC register			   							 Addr offset: 0x14  */
+	__vo uint32_t TXCRCR;						 /*!< CRC register			   							 Addr offset: 0x18  */
+	__vo uint32_t I2SCFGR;						 /*!< I2S configuration register			   			 Addr offset: 0x1C  */
+	__vo uint32_t I2SPR;						 /*!< I2S prescaler register			   			 	 Addr offset: 0x20  */
+
+}SPI_RegDef_t;
+
+/*
  * Peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t )
  */
-
 #define GPIOA              ((GPIO_RegDef_t*) GPIOA_BASE_ADDR)
 #define GPIOB              ((GPIO_RegDef_t*) GPIOB_BASE_ADDR)
 #define GPIOC              ((GPIO_RegDef_t*) GPIOC_BASE_ADDR)
@@ -223,7 +239,6 @@ typedef struct{
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
-
 #define GPIOA_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 2 ) )             /*!<  GPIO port A clock enabled */
 #define GPIOB_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 3 ) )             /*!<  GPIO port B clock enabled */
 #define GPIOC_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 4 ) )             /*!<  GPIO port C clock enabled */
@@ -235,7 +250,6 @@ typedef struct{
 /*
  * returns port code for given GPIOx base addr
  */
-
 #define GPIO_BASE_ADDR_TO_CODE(x)       ((x == GPIOA) ? 0 :\
 										(x == GPIOB) ? 1 :\
 										(x == GPIOC) ? 2 :\
@@ -246,7 +260,6 @@ typedef struct{
 /*
  * Clock Disable Macros for GPIOx Peripherals
  */
-
 #define GPIOA_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 2 ) )             /*!<  GPIO port A clock disabled */
 #define GPIOB_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 3 ) )             /*!<  GPIO port B clock disabled */
 #define GPIOC_PCLK_DI()            ( RCC->APB2ENR &= ~( 1 << 4 ) )             /*!<  GPIO port C clock disabled */
@@ -269,28 +282,25 @@ typedef struct{
 /*
  * Clock Enable Macros for I2Cx peripherals
  */
-
 #define I2C1_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 21 ) )             /*!<  I2C1 clock enabled */
 #define I2C2_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 22 ) )             /*!<  I2C2 clock enabled */
 
 /*
  * Clock Disable Macros for I2Cx peripherals
  */
-
 #define I2C1_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 21 ) )            /*!<  I2C1 clock disabled */
 #define I2C2_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 22 ) )            /*!<  I2C2 clock disabled */
 
 /*
  * Clock Enable Macros for SPIx peripherals
  */
-
 #define SPI1_PCLK_EN()             ( RCC->APB2ENR |= ( 1 << 12 ) )             /*!<  SPI1 clock enabled */
 #define SPI2_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 14 ) )             /*!<  SPI2 clock enabled */
 #define SPI3_PCLK_EN()             ( RCC->APB1ENR |= ( 1 << 15 ) )             /*!<  SPI3 clock enabled */
+
 /*
  * Clock Disable Macros for SPIx peripherals
  */
-
 #define SPI1_PCLK_DI()             ( RCC->APB2ENR &= ~( 1 << 12 ) )            /*!<  SPI1 clock disabled */
 #define SPI2_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 14 ) )            /*!<  SPI2 clock disabled */
 #define SPI3_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 15 ) )            /*!<  SPI3 clock disabled */
@@ -298,7 +308,6 @@ typedef struct{
 /*
  * Clock Enable Macros for USARTx peripherals
  */
-
 #define USART1_PCLK_EN()           ( RCC->APB2ENR |= ( 1 << 14 ) )             /*!<  USART1 clock enabled */
 #define USART2_PCLK_EN()           ( RCC->APB1ENR |= ( 1 << 17 ) )             /*!<  USART2 clock enabled */
 #define USART3_PCLK_EN()           ( RCC->APB1ENR |= ( 1 << 18 ) )             /*!<  USART3 clock enabled */
@@ -309,7 +318,6 @@ typedef struct{
 /*
  * Clock Disable Macros for USARTx peripherals
  */
-
 #define USART1_PCLK_DI()           ( RCC->APB2ENR &= ~( 1 << 14 ) )             /*!<  USART1 clock disabled */
 #define USART2_PCLK_DI()           ( RCC->APB1ENR &= ~( 1 << 17 ) )             /*!<  USART2 clock disabled */
 #define USART3_PCLK_DI()           ( RCC->APB1ENR &= ~( 1 << 18 ) )             /*!<  USART3 clock disabled */
@@ -319,7 +327,6 @@ typedef struct{
 /*
  * Clock Enable Macros for AFIO peripherals
  */
-
 #define AFIO_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 0 ) )             /*!<  GPIO port A clock enabled */
 
 
@@ -328,7 +335,6 @@ typedef struct{
  * NOTE: update these macros with valid values according to your MCU
  * TODO: You may complete this list for other peripherals
  */
-
 #define IRQ_NO_EXTI0 		6
 #define IRQ_NO_EXTI1 		7
 #define IRQ_NO_EXTI2 		8
@@ -340,7 +346,6 @@ typedef struct{
 /*
  * IRQ(Interrupt Request) Numbers of Priority possible
  */
-
 #define NVIC_IRQ_PRIO0		0
 #define NVIC_IRQ_PRIO1		1
 #define NVIC_IRQ_PRIO2		2
@@ -361,7 +366,6 @@ typedef struct{
 /*
  * Generics Macros
  */
-
 #define ENABLE    			1
 #define DISABLE   			0
 #define SET       			ENABLE
