@@ -18,8 +18,8 @@ typedef struct{
 	uint8_t SPI_BusCfg;               /*!<possible types for communication>*/
 	uint8_t SPI_SclkSpeed;			  /*!<possible speed clock>*/
 	uint8_t SPI_DFF;				  /*!<possible size data 8 or 16 bits >*/
-	uint8_t SPI_CPOL;
-	uint8_t SPI_CPHA;
+	uint8_t SPI_CPOL;				  /*!<TODO> */
+	uint8_t SPI_CPHA;				  /*!<TODO> */
 	uint8_t SPI_SSM;				  /*!<select slave for software or hardware >*/
 
 }SPI_Cfg_t;

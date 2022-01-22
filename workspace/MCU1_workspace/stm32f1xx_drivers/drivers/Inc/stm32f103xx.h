@@ -206,9 +206,8 @@ typedef struct{
  * peripheral register definition structure for SPIx
  */
 typedef struct{
-	__vo uint32_t CR[2];                         /*!< SPI control register ,               			     Addr offset: 0x00  */
-	//__vo uint32_t CR1;                           /*!< SPI control register ,               			     Addr offset: 0x00  */
-	//__vo uint32_t CR2;                           /*!< SPI control register ,               			     Addr offset: 0x04  */
+	__vo uint32_t CR1;                           /*!< SPI control register ,               			     Addr offset: 0x00  */
+	__vo uint32_t CR2;                           /*!< SPI control register ,               			     Addr offset: 0x04  */
 	__vo uint32_t SR;                            /*!< status register,                                   Addr offset: 0x08  */
 	__vo uint32_t DR;                     		 /*!< data register,									 Addr offset: 0x0C  */
 	__vo uint32_t CRCPR;                         /*!< polynomial register   							 Addr offset: 0x10  */
@@ -235,6 +234,10 @@ typedef struct{
 #define EXTI			   ((EXTI_RegDef_t*) EXTI_BASE_ADDR)
 
 #define AFIO			   ((AFIO_RegDef_t*) AFIO_BASE_ADDR)
+
+#define SPI1			   ((SPI_RegDef_t*) SPI1_BASE_ADDR)
+#define SPI2			   ((SPI_RegDef_t*) SPI2_BASE_ADDR)
+#define SPI3			   ((SPI_RegDef_t*) SPI3_BASE_ADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
