@@ -65,23 +65,25 @@ void SPI_Init(SPI_Handle_t *pSPIHandle){
 
 	// cfg speedclk
 	pSPIHandle->pSPIx->CR1 &= ~(0x07 << SPI_CR1_BR);
-	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_SclkSpeed << SPI_CR1_BR);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_SclkSpeed << SPI_CR1_BR);
 
 	// cfg dff
 	pSPIHandle->pSPIx->CR1 &= ~(0x03 << SPI_CR1_DFF);
-	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_DFF << SPI_CR1_DFF);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_DFF << SPI_CR1_DFF);
 
 	// cfg cpol
 	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_CPOL);
-	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_CPOL << SPI_CR1_CPOL);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_CPOL << SPI_CR1_CPOL);
 
 	// cfg cpha
 	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_CPHA);
-	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_CPHA);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_CPHA);
 
 	// cfg ssm
 	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_SSM);
-	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_SSM);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_SSM);
+
+	pSPIHandle->pSPIx->CR1 |= tempreg;
 
 }
  /*********************************************************************
