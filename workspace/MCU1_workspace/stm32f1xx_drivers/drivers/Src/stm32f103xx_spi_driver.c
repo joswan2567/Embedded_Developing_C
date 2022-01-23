@@ -6,7 +6,7 @@
  */
 #include "stm32f103xx_spi_driver.h"
 
- /*********************************************************************
+/*********************************************************************
  * @fn      		  - SPI_PeriClockControl
  *
  * @brief             - This function enables or disables peripheral clock for the given SPIx
@@ -32,10 +32,56 @@ void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 	else if (pSPIx == SPI3) SPI3_PCLK_DI();
 }
 
-/*
- * Init and DeInit
- */
+/*********************************************************************
+* @fn      		  	 - SPI_Init
+*
+* @brief             - This function init peripheral clock for the given SPIx
+*
+* @param[in]         - handle SPIx
+*
+* @return            - none
+*
+* @Note              - none
+*/
 void SPI_Init(SPI_Handle_t *pSPIHandle){
+
+	// cfg the SPI_CR1 register
+	uint32_t tempreg = 0;
+
+	// cfg the device mode
+	tempreg |= pSPIHandle->SPI_Cfg.SPI_DeviceMode << SPI_CR1_MSTR;
+
+	// cfg the bus cfg
+	if(pSPIHandle->SPI_Cfg.SPI_BusCfg == SPI_BUS_CFG_FD){
+		tempreg &= ~(1 << SPI_CR1_BIDIMODE); // bidi mode clear
+		pSPIHandle->pSPIx->CR1 |= tempreg;
+	}
+	else if (pSPIHandle->SPI_Cfg.SPI_BusCfg == SPI_BUS_CFG_HD)
+		tempreg |=  (1 << SPI_CR1_BIDIMODE); // bidi mode be set
+	else if (pSPIHandle->SPI_Cfg.SPI_BusCfg == SPI_BUS_CFG_SPLEX_RX_ONLY){
+		tempreg &= ~(1 << SPI_CR1_BIDIMODE); // bidi mode clear
+		tempreg |=  (1 << SPI_CR1_RXONLY); // rxonly bit be set
+	}
+
+	// cfg speedclk
+	pSPIHandle->pSPIx->CR1 &= ~(0x07 << SPI_CR1_BR);
+	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_SclkSpeed << SPI_CR1_BR);
+
+	// cfg dff
+	pSPIHandle->pSPIx->CR1 &= ~(0x03 << SPI_CR1_DFF);
+	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_DFF << SPI_CR1_DFF);
+
+	// cfg cpol
+	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_CPOL);
+	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_CPOL << SPI_CR1_CPOL);
+
+	// cfg cpha
+	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_CPHA);
+	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_CPHA);
+
+	// cfg ssm
+	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_SSM);
+	pSPIHandle->pSPIx->CR1 |= (pSPIHandle->SPI_Cfg.SPI_SSM);
 
 }
  /*********************************************************************
