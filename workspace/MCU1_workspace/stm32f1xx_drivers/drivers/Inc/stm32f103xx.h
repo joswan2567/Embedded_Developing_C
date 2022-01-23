@@ -52,7 +52,7 @@
  * AHBx and APBX Bus Peripheral base addr
  */
 #define PERIPH_BASE_ADDR          0x40000000U
-#define APB1_PERIPH_BASE_ADDR     PERIPH_BASE
+#define APB1_PERIPH_BASE_ADDR     PERIPH_BASE_ADDR
 #define APB2_PERIPH_BASE_ADDR     0x40010000U
 #define AHB1_PERIPH_BASE_ADDR     0x40018000U
 
@@ -309,6 +309,13 @@ typedef struct{
 #define SPI3_PCLK_DI()             ( RCC->APB1ENR &= ~( 1 << 15 ) )            /*!<  SPI3 clock disabled */
 
 /*
+ *  Macros to reset SPIx peripherals
+ */
+#define SPI1_REG_RESET()		   do{ (RCC->APB2RSTR |= (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12)); }while(0)
+#define SPI2_REG_RESET()           do{ (RCC->APB1RSTR |= (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14)); }while(0)
+#define SPI3_REG_RESET()           do{ (RCC->APB1RSTR |= (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15)); }while(0)
+
+/*
  * Clock Enable Macros for USARTx peripherals
  */
 #define USART1_PCLK_EN()           ( RCC->APB2ENR |= ( 1 << 14 ) )             /*!<  USART1 clock enabled */
@@ -377,5 +384,7 @@ typedef struct{
 #define GPIO_PIN_RESET  	RESET
 
 #include "stm32f103xx_gpio_driver.h"
+#include "stm32f103xx_spi_driver.h"
+
 
 #endif /* INC_STM32F103XX_H_ */
