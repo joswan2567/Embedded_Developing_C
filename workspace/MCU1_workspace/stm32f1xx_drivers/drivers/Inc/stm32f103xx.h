@@ -402,8 +402,15 @@ typedef struct{
 #define SPI_CR1_BIDIOE			14
 #define SPI_CR1_BIDIMODE		15
 
+#define SPI_CR2_RXDMAEN			0
+#define SPI_CR2_TXDMAEN			1
+#define SPI_CR2_SSOE			2
+#define SPI_CR2_ERRIE			3
+#define SPI_CR2_RXNEIE			6
+#define SPI_CR2_TXEIE			7
+
+
 #include "stm32f103xx_gpio_driver.h"
 #include "stm32f103xx_spi_driver.h"
-
 
 #endif /* INC_STM32F103XX_H_ */
