@@ -42,9 +42,8 @@ typedef struct{
 /*
  * @SPI_BusCfg
  */
-#define SPI_BUS_CFG_FD							0
-#define SPI_BUS_CFG_HD							1
-#define SPI_BUS_CFG_SPLEX_TX_ONLY				2
+#define SPI_BUS_CFG_FD							1
+#define SPI_BUS_CFG_HD							2
 #define SPI_BUS_CFG_SPLEX_RX_ONLY				3
 
 /*
@@ -80,8 +79,8 @@ typedef struct{
 /*
  * @SPI_SSM
  */
-#define SPI_SSM_HW								1
-#define SPI_SSM_SW								0
+#define SPI_SSM_EN								1
+#define SPI_SSM_DI								0
 
 /*****************************************************************
  *				 APIs supported by this driver                   *
