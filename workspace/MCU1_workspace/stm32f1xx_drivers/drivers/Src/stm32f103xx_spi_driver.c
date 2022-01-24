@@ -103,10 +103,40 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx){
 	else if (pSPIx == SPI3) SPI3_REG_RESET();
 }
 
-/*
- * Data send and receive
- */
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName){
+	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
+}
+/*********************************************************************
+* @fn      		  	 - SPI_Send
+*
+* @brief             - This function reset peripheral clock for the given SPIx
+*
+* @param[in]         - base address of the SPIx
+*
+* @param[in]         - base address of data
+*
+* @param[in]         - size of data
+*
+* @return            - none
+*
+* @Note              - This is blocking  call
+*/
 void SPI_Send(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Size){
+	uint8_t TX = 1;
+	while(Size){
+		while(SPI_GetFlagStatus(pSPIx, SPI_TXE_FLAG) == FLAG_RESET); //wait until TXE is set
+
+		// check the DFF bit in CR1
+		if( (pSPIx->CR1 & (1 << SPI_CR1_DFF))){ 		// 16 bit DFF
+			pSPIx->DR = *((uint16_t*) pTxBuffer); 		// load the data in to the DR
+			Len -= 2;
+			(uint16_t*)pTxBuffer++;
+		}else{											// 8 bit DFF
+			pSPIx->DR = *(pTxBuffer); 					// load the data in to the DR
+			Len--;
+			pTxBuffer++;
+		}
+	}
 
 }
 void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Size){
