@@ -384,6 +384,8 @@ typedef struct{
 #define GPIO_PIN_RESET  	RESET
 #define FLAG_RESET			RESET
 #define FLAG_SET			SET
+#define HIGH       			ENABLE
+#define LOW     			DISABLE
 
 /*
  * Bits position definitions of SPI peripheral
