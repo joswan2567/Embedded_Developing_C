@@ -53,6 +53,8 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnOrDi){
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle){
 
+	GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
+
 	uint8_t aux1, aux2;
 
 	aux1 = pGPIOHandle->GPIO_PinCfg.GPIO_PinNumber / 8;
