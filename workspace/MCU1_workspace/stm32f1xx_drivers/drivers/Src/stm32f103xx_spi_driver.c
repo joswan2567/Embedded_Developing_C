@@ -56,7 +56,6 @@ void SPI_Init(SPI_Handle_t *pSPIHandle){
 	// cfg the bus cfg
 	if(pSPIHandle->SPI_Cfg.SPI_BusCfg == SPI_BUS_CFG_FD){
 		tempreg &= ~(1 << SPI_CR1_BIDIMODE); // bidi mode clear
-		pSPIHandle->pSPIx->CR1 |= tempreg;
 	}
 	else if (pSPIHandle->SPI_Cfg.SPI_BusCfg == SPI_BUS_CFG_HD)
 		tempreg |=  (1 << SPI_CR1_BIDIMODE); // bidi mode be set
@@ -66,24 +65,19 @@ void SPI_Init(SPI_Handle_t *pSPIHandle){
 	}
 
 	// cfg speedclk
-	pSPIHandle->pSPIx->CR1 &= ~(0x07 << SPI_CR1_BR);
 	tempreg |= (pSPIHandle->SPI_Cfg.SPI_SclkSpeed << SPI_CR1_BR);
 
 	// cfg dff
-	pSPIHandle->pSPIx->CR1 &= ~(0x03 << SPI_CR1_DFF);
 	tempreg |= (pSPIHandle->SPI_Cfg.SPI_DFF << SPI_CR1_DFF);
 
 	// cfg cpol
-	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_CPOL);
 	tempreg |= (pSPIHandle->SPI_Cfg.SPI_CPOL << SPI_CR1_CPOL);
 
 	// cfg cpha
-	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_CPHA);
-	tempreg |= (pSPIHandle->SPI_Cfg.SPI_CPHA);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_CPHA << SPI_CR1_CPHA);
 
 	// cfg ssm
-	pSPIHandle->pSPIx->CR1 &= ~(0x01 << SPI_CR1_SSM);
-	tempreg |= (pSPIHandle->SPI_Cfg.SPI_SSM);
+	tempreg |= (pSPIHandle->SPI_Cfg.SPI_SSM << SPI_CR1_SSM);
 
 	pSPIHandle->pSPIx->CR1 |= tempreg;
 
@@ -180,6 +174,27 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 	else
 		pSPIx->CR1 &= ~(1 << SPI_CR1_SPE);
 }
+
+/*********************************************************************
+* @fn      		  	 - SPI_SSICfg
+*
+* @brief             - This function enORdi register SSI for SPIx
+*
+* @param[in]         - base address of the SPIx
+*
+* @param[in]         - base address of data
+*
+* @return            - none
+*
+* @Note              - This is blocking  call
+*/
+void SPI_SSICfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
+	if(EnOrDi)
+		pSPIx->CR1 |= (1 << SPI_CR1_SSI);
+	else
+		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI);
+}
+
 /*
  * IRQ configuration and ISR handling
  */
