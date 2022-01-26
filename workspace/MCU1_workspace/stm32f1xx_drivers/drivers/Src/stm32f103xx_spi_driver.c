@@ -151,6 +151,20 @@ void SPI_Send(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Size){
 * @Note              - This is blocking  call
 */
 void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Size){
+	while(Size){
+		while(SPI_GetFlagStatus(pSPIx, SPI_RXNE_FLAG) == FLAG_RESET); //wait until RXE is set
+
+		// check the DFF bit in CR1
+		if( (pSPIx->CR1 & (1 << SPI_CR1_DFF))){ 		// 16 bit DFF
+			*((uint16_t*) pRxBuffer) = pSPIx->DR; 		// load the data from DR to Rxbuffer addr
+			Size -= 2;
+			(uint16_t*)pRxBuffer++;
+		}else{											// 8 bit DFF
+			*(pRxBuffer) = pSPIx->DR; 					// load the data from DR to Rxbuffer addr
+			Size--;
+			pRxBuffer++;
+		}
+	}
 
 }
 /*********************************************************************
