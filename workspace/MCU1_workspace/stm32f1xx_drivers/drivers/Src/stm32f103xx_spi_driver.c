@@ -195,6 +195,25 @@ void SPI_SSICfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 		pSPIx->CR1 &= ~(1 << SPI_CR1_SSI);
 }
 
+/*********************************************************************
+* @fn      		  	 - SPI_SSOECfg
+*
+* @brief             - This function enORdi register SSOE for SPIx
+*
+* @param[in]         - base address of the SPIx
+*
+* @param[in]         - base address of data
+*
+* @return            - none
+*
+* @Note              - This is blocking  call
+*/
+void SPI_SSOECfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
+	if(EnOrDi)
+		pSPIx->CR2 |= (1 << SPI_CR2_SSOE);
+	else
+		pSPIx->CR2 &= ~(1 << SPI_CR2_SSOE);
+}
 /*
  * IRQ configuration and ISR handling
  */
