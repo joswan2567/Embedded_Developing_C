@@ -30,6 +30,10 @@ int main(void){
 
 	SPI_Send(SPI2, (uint8_t*)data, strlen(data));  // to send data
 
+	while(SPI_GetFlagStatus(SPI2, SPI_BUSY_FLAG));
+
+	SPI_PeripheralControl(SPI2, DISABLE);
+
 	while(1);
 	return 0;
 }
