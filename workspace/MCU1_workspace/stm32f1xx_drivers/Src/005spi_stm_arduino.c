@@ -2,7 +2,7 @@
  * 005spi_stm_arduino.c
  *
  *  Created on: Jan 25, 2022
- *      Author: joswan
+ *      Author: José Wanderson
  */
 #include "stm32f103xx.h"
 #include <string.h>
