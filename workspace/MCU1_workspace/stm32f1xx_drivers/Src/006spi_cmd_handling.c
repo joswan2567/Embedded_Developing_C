@@ -41,6 +41,7 @@ void delay(uint32_t time);
 void SPI1_GPIOInit(void);
 void SPI1_Init(void);
 void GPIOButton_Init(void);
+uint8_t SPI_VerifyResponse(uint8_t ackByte);
 
 int main(void){
 
@@ -50,9 +51,8 @@ int main(void){
 
 	SPI_SSOECfg(SPI1, ENABLE);
 
-	char txt[] = "What this is man";
-
-	uint8_t dummy_bt = 0xFF;
+	uint8_t dummy_write = 0xFF;
+	uint8_t dummy_read;
 
 	while(1)
 		if(!GPIO_ReadFromInputPin(GPIOA, GPIO_PIN_NO_0)){
@@ -60,8 +60,23 @@ int main(void){
 
 			SPI_PeripheralControl(SPI1, ENABLE);
 
-			SPI_Send(SPI1, (uint8_t*)strlen(txt),1);
-			SPI_Send(SPI1, (uint8_t*)txt, strlen(txt));
+			uint8_t cmdcode = CMD_LED_CTRL;
+			uint8_t ackByte;
+			SPI_Send(SPI1, &cmdcode, 1);
+
+			SPI_Receive(SPI1, &dummy_read, 1); // rx dummy data for clear off RXNE
+
+			SPI_Send(SPI1, &dummy_write, 1); //send dummy data
+
+			SPI_Receive(SPI1, &ackByte, 1);
+
+			if( SPI_VerifyResponse(ackByte) ){
+				uint8_t args[2];
+				args[0] = 9; //LED_PIN
+				args[1] = LED_ON;
+
+				SPI_Send(SPI1, args, 2);
+			}
 
 			while(SPI_GetFlagStatus(SPI1, SPI_BUSY_FLAG));
 
@@ -73,6 +88,10 @@ int main(void){
 void delay(uint32_t time){
 	uint32_t vlr = time * 500;
 	for(uint32_t i = 0; i < vlr ; i++);
+}
+
+uint8_t SPI_VerifyResponse(uint8_t ackByte){
+	return ackByte == 0xF5 ? 1 : 0;
 }
 void SPI1_GPIOInit(void){
 	GPIO_Handle_t SPI_gpio;
