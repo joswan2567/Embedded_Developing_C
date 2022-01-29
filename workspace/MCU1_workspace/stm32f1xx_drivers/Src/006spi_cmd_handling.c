@@ -70,7 +70,7 @@ int main(void){
 
 			SPI_Receive(SPI1, &ackByte, 1);
 
-			if( SPI_VerifyResponse(&ackByte) ){
+			if( SPI_VerifyResponse(ackByte) ){
 				uint8_t args[2];
 				args[0] = 9; //LED_PIN
 				args[1] = LED_ON;
