@@ -344,6 +344,7 @@ typedef struct{
  * IRQ(Interrupt Request) Numbers of STM32F103x MCU
  * NOTE: update these macros with valid values according to your MCU
  * TODO: You may complete this list for other peripherals
+ * OBS: Find in RM0008 Table 6.1 Vector Table - Position
  */
 #define IRQ_NO_EXTI0 		6
 #define IRQ_NO_EXTI1 		7
@@ -352,6 +353,9 @@ typedef struct{
 #define IRQ_NO_EXTI4 		10
 #define IRQ_NO_EXTI9_5		23
 #define IRQ_NO_EXTI15_10 	40
+#define IRQ_NO_SPI1		 	35
+#define IRQ_NO_SPI2		 	36
+#define IRQ_NO_SPI3		 	51
 
 /*
  * IRQ(Interrupt Request) Numbers of Priority possible
