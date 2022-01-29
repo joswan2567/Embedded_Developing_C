@@ -180,7 +180,7 @@ void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Size){
 *
 * @return            - none
 *
-* @Note              - This is blocking  call
+* @Note              - none
 */
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 	if(EnOrDi)
@@ -196,11 +196,11 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 *
 * @param[in]         - base address of the SPIx
 *
-* @param[in]         - base address of data
+* @param[in]         - enORdi
 *
 * @return            - none
 *
-* @Note              - This is blocking  call
+* @Note              - none
 */
 void SPI_SSICfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 	if(EnOrDi)
@@ -216,11 +216,11 @@ void SPI_SSICfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 *
 * @param[in]         - base address of the SPIx
 *
-* @param[in]         - base address of data
+* @param[in]         - enORdi
 *
 * @return            - none
 *
-* @Note              - This is blocking  call
+* @Note              - none
 */
 void SPI_SSOECfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 	if(EnOrDi)
@@ -228,15 +228,116 @@ void SPI_SSOECfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi){
 	else
 		pSPIx->CR2 &= ~(1 << SPI_CR2_SSOE);
 }
-/*
- * IRQ configuration and ISR handling
- */
+
+/*********************************************************************
+* @fn      		  	 - SPI_IRQITCfg
+*
+* @brief             - This function enORdi interruption for SPIx
+*
+* @param[in]         - number of IRQ
+*
+* @param[in]         - enORdi
+*
+* @return            - none
+*
+* @Note              - none
+*/
 void SPI_IRQITCfg(uint8_t IRQNumber, uint8_t EnOrDi){
+	if(EnOrDi){
+		if(IRQNumber <= 31){
+			*NVIC_ISER0 |= (1 << IRQNumber);
+		}
+		else if(IRQNumber > 31 && IRQNumber < 64){
+			*NVIC_ISER1 |= (1 << (IRQNumber % 32));
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96){
+			*NVIC_ISER2 |= (1 << (IRQNumber % 64));
+		}
+
+	}
+	else {
+		if(IRQNumber <= 31){
+			*NVIC_ICER0 |= (1 << IRQNumber);
+		}
+		else if(IRQNumber > 31 && IRQNumber < 64){
+			*NVIC_ICER1 |= (1 << (IRQNumber % 32));
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96){
+			*NVIC_ICER2 |= (1 << (IRQNumber % 64));
+		}
+
+	}
 
 }
+
+/*********************************************************************
+* @fn      		  	 - SPI_IRQPriorityCfg
+*
+* @brief             - This function set priority for IRQ SPIx
+*
+* @param[in]         - number of IRQ
+*
+* @param[in]         - IRQ priority
+*
+* @return            - none
+*
+* @Note              - none
+*/
 void SPI_IRQPriorityCfg(uint8_t IRQNumber, uint8_t IRQPriority){
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprx_section = IRQNumber % 4;
 
+	uint8_t shift_amount = (8 * iprx_section) + (8 - NO_PR_BITS_IMPLEMENTED);
+	*(NVIC_PR_BASE_ADDR + (iprx * 4)) |= (IRQPriority << shift_amount);
 }
+
+/*********************************************************************
+* @fn      		  	 - SPI_IRQHandling
+*
+* @brief             - This function set priority for IRQ SPIx
+*
+* @param[in]         - number of IRQ
+*
+* @param[in]         - IRQ priority
+*
+* @return            - none
+*
+* @Note              - none
+*/
 void SPI_IRQHandling(SPI_Handle_t *pHandle){
 
+}
+
+/*********************************************************************
+* @fn      		  	 - SPI_SendIT
+*
+* @brief             - This function send data with it
+*
+* @param[in]         - handle SPIx
+*
+* @param[in]         - pointer data
+*
+* @param[in]         - size data
+*
+* @return            - none
+*
+* @Note              - none
+*/
+uint8_t SPI_SendIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Size){
+
+	if(!pSPIHandle->TXState){
+		// 1. Save the TX buf addr and size info.
+		pSPIHandle->pTXBuf = pTxBuffer;
+		pSPIHandle->TXLen = Size;
+
+		// 2. Mark the SPI state as busy
+		pSPIHandle->TXState = SPI_BSY_TX;
+
+		// 3. Enable the TXEIE ctrl bit to get it whenever TXE flag is set is ISR
+		pSPIHandle->pSPIx->CR2 = (1 << SPI_CR2_TXEIE);
+
+		// 4. Data transmission will be handled by the ISR code (will implement later)
+	}
+
+	return pSPIHandle->TXState;
 }
