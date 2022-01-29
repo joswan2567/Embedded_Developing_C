@@ -30,6 +30,12 @@ typedef struct{
 typedef struct{
 	SPI_RegDef_t *pSPIx;              /*!< This holds the base addr of the SPIx port to which the pin belongs */
 	SPI_Cfg_t     SPI_Cfg;			  /*!< This holds SPIx configuration settings */
+	uint8_t		 *pTXBuf;			  /*!< To store the app. TX buf addr > */
+	uint8_t		 *pRXBuf;			  /*!< To store the app. RX buf addr > */
+	uint8_t		 TXLen;				  /*!< To store TX len > */
+	uint8_t		 RXLen;				  /*!< To store RX len > */
+	uint8_t		 TXState;			  /*!< To store TX state > */
+	uint8_t		 RXState;			  /*!< To store RX state > */
 
 }SPI_Handle_t;
 
@@ -89,6 +95,12 @@ typedef struct{
 #define SPI_RXNE_FLAG							(1 << SPI_SR_RXNE)
 #define SPI_BUSY_FLAG							(1 << SPI_SR_BSY)
 
+/*
+ * SPI App. States
+ */
+#define SPI_READY								0
+#define SPI_BSY_RX								1
+#define SPI_BSY_TX								2
 
 /*****************************************************************
  *				 APIs supported by this driver                   *
@@ -111,6 +123,9 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx);
  */
 void SPI_Send(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Size);
 void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Size);
+
+uint8_t SPI_SendIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Size);
+uint8_t SPI_ReceiveIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Size);
 
 /*
  * IRQ configuration and ISR handling
