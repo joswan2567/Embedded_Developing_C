@@ -102,6 +102,15 @@ typedef struct{
 #define SPI_BSY_RX								1
 #define SPI_BSY_TX								2
 
+/*
+ * Possible SPI App Events
+ */
+#define SPI_EVENT_TX_DONE						1
+#define SPI_EVENT_RX_DONE						2
+#define SPI_EVENT_OVR_ERR						3
+#define SPI_EVENT_CRC_ERR						4
+
+
 /*****************************************************************
  *				 APIs supported by this driver                   *
  *  For more info. about the APIs check the function definition  *
@@ -141,6 +150,13 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName);
 void SPI_SSICfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
 void SPI_SSOECfg(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_ClearOVRFlag(SPI_RegDef_t *pSPIx);
+void SPI_CloseTX(SPI_Handle_t *pSPIHandle);
+void SPI_CloseRX(SPI_Handle_t *pSPIHandle);
 
+/*
+ * Application Callback
+ */
+void SPI_AppEventCallback(SPI_Handle_t *pSPIHandle, uint8_t AppEv);
 
 #endif /* INC_STM32F103XX_SPI_DRIVER_H_ */

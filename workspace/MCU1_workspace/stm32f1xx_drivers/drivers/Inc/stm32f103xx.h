@@ -10,7 +10,8 @@
 
 #include <stdint.h>
 
-#define __vo volatile
+#define __vo 			volatile
+#define __weak 			__attribute__((weak))
 
 /******** Start Processor Specific Details **************
  *   													*
@@ -390,7 +391,7 @@ typedef struct{
 #define FLAG_SET			SET
 #define HIGH       			ENABLE
 #define LOW     			DISABLE
-
+#define NULL				((void *)0) // maybe include <stddef.h>
 /*
  * Bits position definitions of SPI peripheral
  */
