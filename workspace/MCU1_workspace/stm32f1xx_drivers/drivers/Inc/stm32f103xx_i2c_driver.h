@@ -20,4 +20,13 @@ typedef struct{
 
 }I2C_Cfg_t;
 
+/*
+ * This is a Handle Structure for a I2Cx peripheral
+ */
+typedef struct{
+	I2C_RegDef_t *pI2Cx;
+	I2C_Cfg_t	 I2C_Cfg;
+
+}I2C_Handle_t;
+
 #endif /* INC_STM32F103XX_I2C_DRIVER_H_ */
