@@ -10,6 +10,9 @@ static void spi_txe_interrupt_handle(SPI_Handle_t *pSPIHandle);
 static void spi_rxne_interrupt_handle(SPI_Handle_t *pSPIHandle);
 static void spi_ovr_err_interrupt_handle(SPI_Handle_t *pSPIHandle);
 
+// This is a weak implementation, the application may override this function.
+__weak void SPI_AppEventCallback(SPI_Handle_t *pSPIHandle, uint8_t AppEv){}
+
 /*********************************************************************
  * @fn      		  - SPI_PeriClockControl
  *
@@ -472,9 +475,6 @@ static void spi_txe_interrupt_handle(SPI_Handle_t *pSPIHandle){
 		SPI_AppEventCallback(pSPIHandle, SPI_EVENT_TX_DONE);
 	}
 }
-
-// This is a weak implementation, the application may override this function.
-__weak void SPI_AppEventCallback(SPI_Handle_t *pSPIHandle, uint8_t AppEv){}
 
 static void spi_rxne_interrupt_handle(SPI_Handle_t *pSPIHandle){
 	// 16 bit DFF
