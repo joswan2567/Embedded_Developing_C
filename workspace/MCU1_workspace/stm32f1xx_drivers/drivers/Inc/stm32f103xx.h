@@ -443,6 +443,39 @@ typedef struct{
 #define SPI_SR_OVR				6
 #define SPI_SR_BSY				7
 
+/*
+ * Bits position definitions of I2C peripheral
+ */
+#define I2C_CR1_PE				0
+#define I2C_CR1_SMBUS			1
+#define I2C_CR1_SMBTYPE			3
+#define I2C_CR1_ENARP			4
+#define I2C_CR1_ENPEC			5
+#define I2C_CR1_ENGC			6
+#define I2C_CR1_NOSTRETCH		7
+#define I2C_CR1_START			8
+#define I2C_CR1_STOP			9
+#define I2C_CR1_ACK				10
+#define I2C_CR1_POS				11
+#define I2C_CR1_PEC				12
+#define I2C_CR1_ALERT			13
+#define I2C_CR1_SWRST			15
+
+#define I2C_CR2_FREQ			0
+#define I2C_CR2_ITERREN			8
+#define I2C_CR2_ITEVTEN			9
+#define I2C_CR2_ITBUFEN			10
+#define I2C_CR2_DMAEN			11
+#define I2C_CR2_LAST			12
+
+#define I2C_OAR1_ADD			0
+#define I2C_OAR1_ADD71 			1
+#define I2C_OAR1_ADD98  		8
+#define I2C_OAR1_ADDMODE   		15
+
+#define I2C_OAR2_ENDUAL   		0
+#define I2C_OAR2_ADD71   		1
+
 #include "stm32f103xx_gpio_driver.h"
 #include "stm32f103xx_spi_driver.h"
 #include "stm32f103xx_i2c_driver.h"
