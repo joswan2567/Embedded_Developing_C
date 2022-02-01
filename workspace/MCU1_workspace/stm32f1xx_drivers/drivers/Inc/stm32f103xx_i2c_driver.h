@@ -7,7 +7,17 @@
 
 #ifndef INC_STM32F103XX_I2C_DRIVER_H_
 #define INC_STM32F103XX_I2C_DRIVER_H_
+#include "stm32f103xx.h"
 
+/*
+ * This is a Configuration Structure for a I2Cx peripheral
+ */
+typedef struct{
+	uint8_t I2C_SCLSpeed;             /*!<possible speed for SCL > */
+	uint8_t SPI_DeviceAddr;           /*!<(if device mode slave) device addr >*/
+	uint8_t SPI_ACKControl;			  /*!<Control ACK>*/
+	uint8_t SPI_FMDutyCycle;		  /*!<TODO: >*/
 
+}I2C_Cfg_t;
 
 #endif /* INC_STM32F103XX_I2C_DRIVER_H_ */
