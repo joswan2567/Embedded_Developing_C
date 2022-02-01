@@ -181,9 +181,7 @@ void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Size){
 *
 * @param[in]         - base address of the SPIx
 *
-* @param[in]         - base address of data
-*
-* @param[in]         - size of data
+* @param[in]         - enORdi
 *
 * @return            - none
 *
