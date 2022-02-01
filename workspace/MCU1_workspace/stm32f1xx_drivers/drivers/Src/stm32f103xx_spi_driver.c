@@ -130,7 +130,6 @@ void SPI_Send(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Size){
 			pSPIx->DR = *((uint16_t*) pTxBuffer); 		// load the data in to the DR
 			Size -= 2;
 			(uint16_t*)pTxBuffer++;
-			(uint16_t*)pTxBuffer++;
 		}else{											// 8 bit DFF
 			pSPIx->DR = *(pTxBuffer); 					// load the data in to the DR
 			Size--;
@@ -163,7 +162,6 @@ void SPI_Receive(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Size){
 		if( (pSPIx->CR1 & (1 << SPI_CR1_DFF))){ 		// 16 bit DFF
 			*((uint16_t*) pRxBuffer) = pSPIx->DR; 		// load the data from DR to Rxbuffer addr
 			Size -= 2;
-			(uint16_t*)pRxBuffer++;
 			(uint16_t*)pRxBuffer++;
 		}else{											// 8 bit DFF
 			*(pRxBuffer) = pSPIx->DR; 					// load the data from DR to Rxbuffer addr
