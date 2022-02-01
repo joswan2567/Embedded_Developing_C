@@ -7,7 +7,7 @@
 
 #include "stm32f103xx_i2c_driver.h"
 
-uint16_t AHB_PreScaler[8] = {2, 4, 8, 16, 32, 64, 128, 256, 512};
+uint16_t AHB_PreScaler[9]  = {2, 4, 8, 16, 32, 64, 128, 256, 512};
 uint16_t APB1_PreScaler[4] = {2, 4, 8, 16};
 
 
@@ -180,9 +180,6 @@ void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi){
 		pI2Cx->CR1 &= ~(1 << I2C_CR1_PE);
 }
 uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName){
+	return 0;
 }
 
-/*
- * Application Callback
- */
-void I2C_AppEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv){}
