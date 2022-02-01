@@ -220,6 +220,22 @@ typedef struct{
 }SPI_RegDef_t;
 
 /*
+ * peripheral register definition structure for I2Cx
+ */
+typedef struct{
+	__vo uint32_t CR1;                           /*!< Control register 1,               			     Addr offset: 0x00  */
+	__vo uint32_t CR2;                           /*!< Control register 2,               			     Addr offset: 0x04  */
+	__vo uint32_t OAR1;                          /*!< Own address register 1,                            Addr offset: 0x08  */
+	__vo uint32_t OAR2;                          /*!< Own address register 2,                            Addr offset: 0x0C  */
+	__vo uint32_t DR;                     		 /*!< Data register,									 Addr offset: 0x10  */
+	__vo uint32_t SR1;                         	 /*!< Status register 1,	   							 Addr offset: 0x14  */
+	__vo uint32_t SR2;                         	 /*!< Status register 2,	   							 Addr offset: 0x18  */
+	__vo uint32_t CCR;						 	 /*!< Clock control register    						 Addr offset: 0x1C  */
+	__vo uint32_t TRISE;						 /*!< TRISE register			   						 Addr offset: 0x20  */
+
+}I2C_RegDef_t;
+
+/*
  * Peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t )
  */
 #define GPIOA              ((GPIO_RegDef_t*) GPIOA_BASE_ADDR)
@@ -254,7 +270,7 @@ typedef struct{
 /*
  * returns port code for given GPIOx base addr
  */
-#define GPIO_BASE_ADDR_TO_CODE(x)       ((x == GPIOA) ? 0 :\
+#define GPIO_BASE_ADDR_TO_CODE(x)      ((x == GPIOA) ? 0 :\
 										(x == GPIOB) ? 1 :\
 										(x == GPIOC) ? 2 :\
 										(x == GPIOD) ? 3 :\
@@ -392,6 +408,7 @@ typedef struct{
 #define HIGH       			ENABLE
 #define LOW     			DISABLE
 #define NULL				((void *)0) // maybe include <stddef.h>
+
 /*
  * Bits position definitions of SPI peripheral
  */
@@ -428,5 +445,6 @@ typedef struct{
 
 #include "stm32f103xx_gpio_driver.h"
 #include "stm32f103xx_spi_driver.h"
+#include "stm32f103xx_i2c_driver.h"
 
 #endif /* INC_STM32F103XX_H_ */
