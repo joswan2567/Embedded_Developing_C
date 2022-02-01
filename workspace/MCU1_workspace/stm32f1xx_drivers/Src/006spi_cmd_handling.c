@@ -35,7 +35,7 @@
 #define ANALOG_PIN4				4
 #define ANALOG_PIN5				5
 
-#define BTN_PRESSED			LOW
+#define BTN_PRESSED				LOW
 
 void delay(uint32_t time);
 void SPI1_GPIOInit(void);
