@@ -52,9 +52,9 @@ typedef struct{
 /*
  * I2C related status flags definitions
  */
-#define I2C_TXE_FLAG		(1 << I2C_SR1_TXE)
-#define I2C_RXNE_FLAG		(1 << I2C_SR1_RXNE)
-#define I2C_SB_FLAG			(1 << I2C_SR1_SB)
+#define I2C_FLAG_TXE		(1 << I2C_SR1_TXE)
+#define I2C_FLAG_RXNE		(1 << I2C_SR1_RXNE)
+#define I2C_FLAG_SB			(1 << I2C_SR1_SB)
 #define I2C_FLAG_OVR  		( 1 << I2C_SR1_OVR)
 #define I2C_FLAG_AF   		( 1 << I2C_SR1_AF)
 #define I2C_FLAG_ARLO 		( 1 << I2C_SR1_ARLO)
