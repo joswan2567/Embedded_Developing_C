@@ -107,7 +107,8 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx){
 }
 
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName){
-	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET;
+	return (pSPIx->SR & FlagName) ? FLAG_SET : FLAG_RESET; // if ternary necessary? 	return (pSPIx->SR & FlagName); option
+
 }
 /*********************************************************************
 * @fn      		  	 - SPI_Send
