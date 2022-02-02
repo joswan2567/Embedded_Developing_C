@@ -7,12 +7,17 @@
 
 #include "stm32f103xx_i2c_driver.h"
 
-uint16_t AHB_PreScaler[9]  = {2, 4, 8, 16, 32, 64, 128, 256, 512};
-uint16_t APB1_PreScaler[4] = {2, 4, 8, 16};
-
+static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
+static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx);
+static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
+static void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx);
 
 // This is a weak implementation, the application may override this function.
 __weak void I2C_AppEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv){}
+
+uint16_t AHB_PreScaler[9]  = {2, 4, 8, 16, 32, 64, 128, 256, 512};
+uint16_t APB1_PreScaler[4] = {2, 4, 8, 16};
+
 
 /*********************************************************************
  * @fn      		  - I2C_PeriClockControl
@@ -149,11 +154,81 @@ void I2C_DeInit(I2C_RegDef_t *pI2Cx){
 	else if (pI2Cx == I2C2) I2C2_REG_RESET();
 }
 
-/*
- * Data send and receive
- */
+/*********************************************************************
+* @fn	      		 - I2C_MasterSendData
+*
+* @brief             - This function send data for I2Cx
+*
+* @param[in]         - handle of the I2Cx
+*
+* @param[in]         - base address of data
+*
+* @param[in]         - size of data
+*
+* @param[in]         - address of slave device
+*
+* @return            - none
+*
+* @Note              - none
+*/
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Size, uint8_t SlaveAddr){
+	// Generate Start condition
+	I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
 
+	// confirm that start generation is completed by checking the SB flag in the SR1
+	// Note: Until SB is cleared SCL will be stretched (pulled to LOW)
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB));
 
+	// Send the addr of the slave with r/w bit set to w(0) (total 8 bits)
+	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr);
+
+	// Confirm that addr phase is done by checking the ADDR flag in the SR1
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_ADDR));
+
+	// clear the ADDR flag according to its software sequence
+	// Note: Until ADDR is cleared SCL will be stretched (pulled to LOW)
+	I2C_ClearADDRFlag(pI2CHandle->pI2Cx);
+
+	// send the data until Size becomes 0
+	while(Size){
+		while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_TXE)) ; //wait until TXE is set										// 8 bit DFF
+		pI2CHandle->pI2Cx->DR = *pTxBuffer;
+		pTxBuffer++;
+		Size--;
+	}
+
+	// when size becomes zero wait for TXE=1 and BTF=1 before generating the STOP condition
+	// Note: TXE=1, BTF=1, means that both SR and DR are empty and next transmission should begin
+	// when BTF=1 SCL will be stretched (pulled to LOW)
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_TXE));
+
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_BTF));
+
+	// Generate STOP condition and master need not to wait for the completion of stop condition.
+	// Note: generating STOP, automatically clears the BTF
+	I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+}
+
+static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx){
+	pI2Cx->CR1 |= (1 << I2C_CR1_START);
+}
+
+static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx){
+	pI2Cx->CR1 |= (1 << I2C_CR1_STOP);
+}
+
+static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr){
+	SlaveAddr = SlaveAddr << 1; 	// open for a bit r/w;
+	SlaveAddr &= ~(1); 				//SlaveAddr is SlaveAddr + r/w bit
+	pI2Cx->DR = SlaveAddr;
+}
+
+static void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx){
+	uint32_t dummyRead;
+	dummyRead = pI2Cx->SR1;
+	dummyRead = pI2Cx->SR2;
+	(void)dummyRead;
+}
 /*
  * IRQ configuration and ISR handling
  */
@@ -180,6 +255,6 @@ void I2C_PeripheralControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi){
 		pI2Cx->CR1 &= ~(1 << I2C_CR1_PE);
 }
 uint8_t I2C_GetFlagStatus(I2C_RegDef_t *pI2Cx, uint32_t FlagName){
-	return 0;
+	return (pI2Cx->SR1 & FlagName); // test : option = 	return (pI2Cx->SR1 & FlagName) ? FLAG_SET : FLAG_RESET;
 }
 
