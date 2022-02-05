@@ -27,6 +27,7 @@ void GPIOButton_Init(void);
 int main(void){
 	I2C1_GPIOInits(); 						// i2c pin inits
 	I2C1_Init(); 							// i2c peripheral cfg
+	GPIOButton_Init();						// init button interrupt
 	I2C_PeripheralControl(I2C1, ENABLE);	// enable the i2c peripheral
 
 	while(1)
