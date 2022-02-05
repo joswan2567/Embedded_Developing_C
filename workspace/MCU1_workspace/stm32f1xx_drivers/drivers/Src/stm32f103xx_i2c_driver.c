@@ -287,19 +287,18 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 		// Disable ACK
 		I2C_ACKControl(pI2CHandle->pI2Cx, I2C_ACK_DI);
 
-		// generate STOP condition
-		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
-
 		// clear the ADDR flag
 		I2C_ClearADDRFlag(pI2CHandle->pI2Cx);
 
 		// wait until rxne becomes
 		while(! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_RXNE));
 
+		// generate STOP condition
+		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+
 		// read data in to buffer
 		*pRxBuffer = pI2CHandle->pI2Cx->DR;
 
-		return;
 	}
 
 	// procedure to read data from slave when Size > 1
