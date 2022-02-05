@@ -11,6 +11,7 @@ static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
 static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx);
 static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
 static void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx);
+static void I2C_ACKControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi);
 
 // This is a weak implementation, the application may override this function.
 __weak void I2C_AppEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv){}
@@ -102,7 +103,7 @@ void I2C_Init(I2C_Handle_t *pI2CHandle){
 	uint32_t tempreg = 0;
 
 	//enable the clock for the I2C peripheral
-	I2C_PeriClockControl(pI2CHandle, ENABLE);
+	I2C_PeriClockControl(pI2CHandle->pI2Cx, ENABLE);
 
 	// ack control
 	tempreg |= pI2CHandle->I2C_Cfg.I2C_ACKControl << 10;
@@ -245,6 +246,93 @@ static void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx){
 	dummyRead = pI2Cx->SR2;
 	(void)dummyRead;
 }
+
+/*********************************************************************
+* @fn	      		 - I2C_MasterReadData
+*
+* @brief             - This function read data for I2Cx
+*
+* @param[in]         - handle of the I2Cx
+*
+* @param[in]         - base address of data
+*
+* @param[in]         - size of data
+*
+* @param[in]         - address of slave device
+*
+* @return            - none
+*
+* @Note              - none
+*/
+void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Size, uint8_t SlaveAddr){
+	// Generate Start condition
+	I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
+
+	// confirm that start generation is completed by checking the SB flag in the SR1
+	// Note: Until SB is cleared SCL will be stretched (pulled to LOW)
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB)); // EV5
+
+	// Send the addr of the slave with r/w bit set to r(1) (total 8 bits)
+	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr);
+
+	//wait until address phase is completed by checking the ADDR flag in the SR1
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_ADDR)); // EV6
+
+	// procedure to read only 1 byte from slave
+	if (Size == 1){
+		// Disable ACK
+		I2C_ACKControl(pI2CHandle->pI2Cx, DISABLE);
+
+		// clear the ADDR flag
+		I2C_ClearADDRFlag(pI2CHandle->pI2Cx);
+
+		// wait until rxne becomes
+		while(! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_RXNE));
+
+		// generate STOP condition
+		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+
+		// read data in to buffer
+		pI2CHandle->pI2Cx->DR = *pRxBuffer;
+		pRxBuffer++;
+		Size--;
+
+		return;
+	}
+
+	// procedure to read data from slave when Size > 1
+	if(Size > 1){
+		// clear the ADDR flag
+
+		I2C_ClearADDRFlag(pI2CHandle->pI2Cx);
+
+		// read the data until Size becomes zero
+		for(uint32_t i = Size ; i > 0; i--){
+			// wait until RXNE becomes 1
+			while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_RXNE));
+
+			if( i == 2){ // if last 2 bytes are remaining
+				// clear the ACK bit
+				I2C_ACKControl(pI2CHandle->pI2Cx, DISABLE);
+
+				// generate STOP condition
+				I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+			}
+			// read the data from data register in to buffer
+			pI2CHandle->pI2Cx->DR = *pRxBuffer;
+			pRxBuffer++;
+			Size--;
+		}
+	}
+	// re-enable ACK
+	I2C_ACKControl(pI2CHandle->pI2Cx, ENABLE);
+}
+
+static void I2C_ACKControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi){
+	if(EnOrDi) pI2Cx->CR1 |= (I2C_ACK_EN << I2C_CR1_ACK);
+	else pI2Cx->CR1 &= ~(I2C_ACK_EN << I2C_CR1_ACK);
+}
+
 /*
  * IRQ configuration and ISR handling
  */
