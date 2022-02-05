@@ -193,13 +193,13 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Si
 
 	// confirm that start generation is completed by checking the SB flag in the SR1
 	// Note: Until SB is cleared SCL will be stretched (pulled to LOW)
-	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB));
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB)); // EV5
 
 	// Send the addr of the slave with r/w bit set to w(0) (total 8 bits)
 	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr);
 
 	// Confirm that addr phase is done by checking the ADDR flag in the SR1
-	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_ADDR));
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_ADDR)); // EV6
 
 	// clear the ADDR flag according to its software sequence
 	// Note: Until ADDR is cleared SCL will be stretched (pulled to LOW)
@@ -207,7 +207,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Si
 
 	// send the data until Size becomes 0
 	while(Size){
-		while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_TXE)) ; //wait until TXE is set										// 8 bit DFF
+		while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_TXE)) ; //wait until TXE is set // EV8										// 8 bit DFF
 		pI2CHandle->pI2Cx->DR = *pTxBuffer;
 		pTxBuffer++;
 		Size--;
@@ -216,9 +216,9 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Si
 	// when size becomes zero wait for TXE=1 and BTF=1 before generating the STOP condition
 	// Note: TXE=1, BTF=1, means that both SR and DR are empty and next transmission should begin
 	// when BTF=1 SCL will be stretched (pulled to LOW)
-	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_TXE));
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_TXE)); // EV8_2
 
-	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_BTF));
+	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_BTF)); // EV8_2
 
 	// Generate STOP condition and master need not to wait for the completion of stop condition.
 	// Note: generating STOP, automatically clears the BTF
