@@ -101,6 +101,9 @@ uint32_t RCC_GetPCLK1Value(void){
 void I2C_Init(I2C_Handle_t *pI2CHandle){
 	uint32_t tempreg = 0;
 
+	//enable the clock for the I2C peripheral
+	I2C_PeriClockControl(pI2CHandle, ENABLE);
+
 	// ack control
 	tempreg |= pI2CHandle->I2C_Cfg.I2C_ACKControl << 10;
 	pI2CHandle->pI2Cx->CR1 = tempreg;
