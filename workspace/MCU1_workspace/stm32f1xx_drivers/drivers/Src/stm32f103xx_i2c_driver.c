@@ -7,9 +7,12 @@
 
 #include "stm32f103xx_i2c_driver.h"
 
+#define I2C_PHASE_READ			1
+#define I2C_PHASE_WRITE			0
+
 static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
 static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx);
-static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
+static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr, uint8_t R_W);
 static void I2C_ClearADDRFlag(I2C_RegDef_t *pI2Cx);
 static void I2C_ACKControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi);
 
@@ -197,7 +200,7 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Si
 	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB)); // EV5
 
 	// Send the addr of the slave with r/w bit set to w(0) (total 8 bits)
-	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr);
+	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr, I2C_PHASE_WRITE);
 
 	// Confirm that addr phase is done by checking the ADDR flag in the SR1
 	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_ADDR)); // EV6
@@ -234,9 +237,10 @@ static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx){
 	pI2Cx->CR1 |= (1 << I2C_CR1_STOP);
 }
 
-static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr){
+static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr, uint8_t R_W){
 	SlaveAddr = SlaveAddr << 1; 	// open for a bit r/w;
-	SlaveAddr &= ~(1); 				//SlaveAddr is SlaveAddr + r/w bit
+	if     (!R_W) SlaveAddr &= ~(0x01); 	// SlaveAddr is SlaveAddr + w bit
+	else if( R_W) SlaveAddr |=  (0x01); 	// SlaveAddr is SlaveAddr + r bit
 	pI2Cx->DR = SlaveAddr;
 }
 
@@ -273,7 +277,7 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_SB)); // EV5
 
 	// Send the addr of the slave with r/w bit set to r(1) (total 8 bits)
-	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr);
+	I2C_ExecAddrPhase(pI2CHandle->pI2Cx, SlaveAddr, I2C_PHASE_READ);
 
 	//wait until address phase is completed by checking the ADDR flag in the SR1
 	while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_ADDR)); // EV6
@@ -281,7 +285,10 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 	// procedure to read only 1 byte from slave
 	if (Size == 1){
 		// Disable ACK
-		I2C_ACKControl(pI2CHandle->pI2Cx, DISABLE);
+		I2C_ACKControl(pI2CHandle->pI2Cx, I2C_ACK_DI);
+
+		// generate STOP condition
+		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
 
 		// clear the ADDR flag
 		I2C_ClearADDRFlag(pI2CHandle->pI2Cx);
@@ -289,13 +296,8 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 		// wait until rxne becomes
 		while(! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_RXNE));
 
-		// generate STOP condition
-		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
-
 		// read data in to buffer
-		pI2CHandle->pI2Cx->DR = *pRxBuffer;
-		pRxBuffer++;
-		Size--;
+		*pRxBuffer = pI2CHandle->pI2Cx->DR;
 
 		return;
 	}
@@ -303,7 +305,6 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 	// procedure to read data from slave when Size > 1
 	if(Size > 1){
 		// clear the ADDR flag
-
 		I2C_ClearADDRFlag(pI2CHandle->pI2Cx);
 
 		// read the data until Size becomes zero
@@ -311,26 +312,26 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 			// wait until RXNE becomes 1
 			while( ! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_RXNE));
 
-			if( i == 2){ // if last 2 bytes are remaining
+			if( i == 2){	// if last 2 bytes are remaining
 				// clear the ACK bit
-				I2C_ACKControl(pI2CHandle->pI2Cx, DISABLE);
+				I2C_ACKControl(pI2CHandle->pI2Cx, I2C_ACK_DI);
 
 				// generate STOP condition
 				I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
 			}
 			// read the data from data register in to buffer
-			pI2CHandle->pI2Cx->DR = *pRxBuffer;
+			*pRxBuffer = pI2CHandle->pI2Cx->DR;
 			pRxBuffer++;
-			Size--;
 		}
 	}
 	// re-enable ACK
-	I2C_ACKControl(pI2CHandle->pI2Cx, ENABLE);
+	if(pI2CHandle->I2C_Cfg.I2C_ACKControl == I2C_ACK_EN)
+		I2C_ACKControl(pI2CHandle->pI2Cx, I2C_ACK_EN);
 }
 
 static void I2C_ACKControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi){
-	if(EnOrDi) pI2Cx->CR1 |= (I2C_ACK_EN << I2C_CR1_ACK);
-	else pI2Cx->CR1 &= ~(I2C_ACK_EN << I2C_CR1_ACK);
+	if(EnOrDi) pI2Cx->CR1 |=  (I2C_ACK_EN << I2C_CR1_ACK);
+	else       pI2Cx->CR1 &= ~(I2C_ACK_EN << I2C_CR1_ACK);
 }
 
 /*
