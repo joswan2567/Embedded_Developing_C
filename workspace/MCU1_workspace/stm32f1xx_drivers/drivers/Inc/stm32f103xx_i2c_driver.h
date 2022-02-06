@@ -126,6 +126,8 @@ uint8_t I2C_MasterReadDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8
  */
 void I2C_IRQITCfg(uint8_t IRQNumber, uint8_t EnOrDi);
 void I2C_IRQPriorityCfg(uint8_t IRQNumber, uint8_t IRQPriority);
+void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle);
+void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle);
 
 /*
  * Other Peripheral Control API's
