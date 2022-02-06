@@ -333,11 +333,126 @@ static void I2C_ACKControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi){
 	else       pI2Cx->CR1 &= ~(I2C_ACK_EN << I2C_CR1_ACK);
 }
 
-/*
- * IRQ configuration and ISR handling
+/*********************************************************************
+ * @fn      		  - I2C_MasterSendDataIT
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -  Complete the below code . Also include the function prototype in header file [/] check
+
  */
-void I2C_IRQITCfg(uint8_t IRQNumber, uint8_t EnOrDi){}
-void I2C_IRQPriorityCfg(uint8_t IRQNumber, uint8_t IRQPriority){}
+uint8_t I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle,uint8_t *pTxBuffer, uint32_t Size, uint8_t SlaveAddr,uint8_t Sr)
+{
+
+	uint8_t busystate = pI2CHandle->TXRXState;
+
+	if( (busystate != I2C_BSY_IN_TX) && (busystate != I2C_BSY_IN_RX))
+	{
+		pI2CHandle->pTXBuf = pTxBuffer;
+		pI2CHandle->TXLen = Size;
+		pI2CHandle->TXRXState = I2C_BSY_IN_TX;
+		pI2CHandle->DevAddr = SlaveAddr;
+		pI2CHandle->Sr = Sr;
+
+		//Implement code to Generate START Condition
+		I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
+
+		//Implement the code to enable ITBUFEN Control Bit
+		pI2CHandle->pI2Cx->CR2 |= ( 1 << I2C_CR2_ITBUFEN);
+
+		//Implement the code to enable ITEVTEN Control Bit
+		pI2CHandle->pI2Cx->CR2 |= ( 1 << I2C_CR2_ITEVTEN);
+
+		//Implement the code to enable ITERREN Control Bit
+		pI2CHandle->pI2Cx->CR2 |= ( 1 << I2C_CR2_ITERREN);
+	}
+
+	return busystate;
+
+}
+
+uint8_t I2C_MasterReadDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Size, uint8_t SlaveAddr){
+
+	return 0;
+}
+
+/*********************************************************************
+ * @fn      		  - I2C_IRQITCfg
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+ */
+void I2C_IRQITCfg(uint8_t IRQNumber, uint8_t EnOrDi){
+	if(EnOrDi == ENABLE){
+		if(IRQNumber <= 31)
+		{
+			//program ISER0 register
+			*NVIC_ISER0 |= ( 1 << IRQNumber );
+
+		}else if(IRQNumber > 31 && IRQNumber < 64 ) //32 to 63
+		{
+			//program ISER1 register
+			*NVIC_ISER1 |= ( 1 << (IRQNumber % 32) );
+		}
+		else if(IRQNumber >= 64 && IRQNumber < 96 )
+		{
+			//program ISER2 register //64 to 95
+			*NVIC_ISER3 |= ( 1 << (IRQNumber % 64) );
+		}
+	}else
+	{
+		if(IRQNumber <= 31)
+		{
+			//program ICER0 register
+			*NVIC_ICER0 |= ( 1 << IRQNumber );
+		}else if(IRQNumber > 31 && IRQNumber < 64 )
+		{
+			//program ICER1 register
+			*NVIC_ICER1 |= ( 1 << (IRQNumber % 32) );
+		}
+		else if(IRQNumber >= 6 && IRQNumber < 96 )
+		{
+			//program ICER2 register
+			*NVIC_ICER3 |= ( 1 << (IRQNumber % 64) );
+		}
+	}
+}
+
+/*********************************************************************
+ * @fn      		  - I2C_IRQPriorityCfg
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+ */
+void I2C_IRQPriorityCfg(uint8_t IRQNumber, uint8_t IRQPriority){
+	//1. first lets find out the ipr register
+	uint8_t iprx = IRQNumber / 4;
+	uint8_t iprx_section  = IRQNumber %4 ;
+
+	uint8_t shift_amount = ( 8 * iprx_section) + ( 8 - NO_PR_BITS_IMPLEMENTED) ;
+
+	*(  NVIC_PR_BASE_ADDR + iprx ) |=  ( IRQPriority << shift_amount );
+}
 
 /*********************************************************************
 * @fn      		  	 - I2C_PeripheralControl
