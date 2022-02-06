@@ -319,6 +319,7 @@ typedef struct{
  */
 #define I2C1_REG_RESET()			do{ (RCC->APB1RSTR |= (1 << 21)); (RCC->APB1RSTR &= ~(1 << 21)); }while(0)
 #define I2C2_REG_RESET()            do{ (RCC->APB1RSTR |= (1 << 22)); (RCC->APB1RSTR &= ~(1 << 22)); }while(0)
+
 /*
  * Clock Enable Macros for SPIx peripherals
  */
@@ -349,7 +350,6 @@ typedef struct{
 #define UART4_PCLK_EN()            ( RCC->APB1ENR |= ( 1 << 19 ) )             /*!<  UART4 clock enabled */
 #define UART5_PCLK_EN()            ( RCC->APB1ENR |= ( 1 << 20 ) )             /*!<  UART5 clock enabled */
 
-
 /*
  * Clock Disable Macros for USARTx peripherals
  */
@@ -363,7 +363,6 @@ typedef struct{
  * Clock Enable Macros for AFIO peripherals
  */
 #define AFIO_PCLK_EN()            ( RCC->APB2ENR |= ( 1 << 0 ) )             /*!<  GPIO port A clock enabled */
-
 
 /*
  * IRQ(Interrupt Request) Numbers of STM32F103x MCU
@@ -381,6 +380,10 @@ typedef struct{
 #define IRQ_NO_SPI1		 	35
 #define IRQ_NO_SPI2		 	36
 #define IRQ_NO_SPI3		 	51
+#define IRQ_NO_I2C1_EV     	31
+#define IRQ_NO_I2C1_ER     	32
+#define IRQ_NO_I2C2_EV     	33
+#define IRQ_NO_I2C2_ER     	34
 
 /*
  * IRQ(Interrupt Request) Numbers of Priority possible
