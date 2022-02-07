@@ -639,7 +639,6 @@ static void I2C_MasterHandleRXNEInterrupt(I2C_Handle_t *pI2CHandle){
 
 void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle)
 {
-
 	uint32_t temp1,temp2;
 
     //Know the status of  ITERREN control bit in the CR2
