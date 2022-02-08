@@ -11,7 +11,6 @@
 #define I2C_PHASE_WRITE			0
 
 static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx);
-static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx);
 static void I2C_ExecAddrPhase(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr, uint8_t R_W);
 static void I2C_ClearADDRFlag(I2C_Handle_t *pI2CHandle);
 static void I2C_ACKControl(I2C_RegDef_t *pI2Cx, uint8_t EnOrDi);
@@ -236,7 +235,7 @@ static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx){
 	pI2Cx->CR1 |= (1 << I2C_CR1_START);
 }
 
-static void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx){
+void I2C_GenerateStopCondition(I2C_RegDef_t *pI2Cx){
 	pI2Cx->CR1 |= (1 << I2C_CR1_STOP);
 }
 
@@ -657,7 +656,7 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle){
 		pI2CHandle->pI2Cx->SR1 &= ~( 1 << I2C_SR1_BERR);
 
 		//Implement the code to notify the application about the error
-		I2C_ApplicationEventCallback(pI2CHandle,I2C_ERROR_BERR);
+		I2C_AppEventCallback(pI2CHandle,I2C_ERROR_BERR);
 	}
 
 	/***********************Check for arbitration lost error************************************/
@@ -671,7 +670,7 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle){
 
 
 		//Implement the code to notify the application about the error
-		I2C_ApplicationEventCallback(pI2CHandle,I2C_ERROR_ARLO);
+		I2C_AppEventCallback(pI2CHandle,I2C_ERROR_ARLO);
 
 	}
 
@@ -686,7 +685,7 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle){
 		pI2CHandle->pI2Cx->SR1 &= ~( 1 << I2C_SR1_AF);
 
 		//Implement the code to notify the application about the error
-		I2C_ApplicationEventCallback(pI2CHandle,I2C_ERROR_AF);
+		I2C_AppEventCallback(pI2CHandle,I2C_ERROR_AF);
 
 	}
 
@@ -700,7 +699,7 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle){
 		pI2CHandle->pI2Cx->SR1 &= ~( 1 << I2C_SR1_OVR);
 
 		//Implement the code to notify the application about the error
-		I2C_ApplicationEventCallback(pI2CHandle,I2C_ERROR_OVR);
+		I2C_AppEventCallback(pI2CHandle,I2C_ERROR_OVR);
 	}
 
 	/***********************Check for Time out error************************************/
@@ -713,7 +712,7 @@ void I2C_ER_IRQHandling(I2C_Handle_t *pI2CHandle){
 		pI2CHandle->pI2Cx->SR1 &= ~( 1 << I2C_SR1_TIMEOUT);
 
 		//Implement the code to notify the application about the error
-		I2C_ApplicationEventCallback(pI2CHandle,I2C_ERROR_TIMEOUT);
+		I2C_AppEventCallback(pI2CHandle,I2C_ERROR_TIMEOUT);
 	}
 
 }
