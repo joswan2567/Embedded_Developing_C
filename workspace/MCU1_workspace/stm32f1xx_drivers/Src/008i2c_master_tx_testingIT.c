@@ -7,6 +7,9 @@
 
 #include "stm32f103xx.h"
 #include <string.h>
+extern void initialise_monitor_handles();
+
+uint8_t rxComplt = RESET;
 
 /*
  * PB6 < - > SCL
@@ -28,6 +31,11 @@ void GPIOButton_Init(void);
 int main(void){
 	I2C1_GPIOInits(); 						// i2c pin inits
 	I2C1_Init(); 							// i2c peripheral cfg
+
+	//I2C IRQ cfg
+	I2C_IRQITCfg(IRQ_NO_I2C1_EV, ENABLE);
+	I2C_IRQITCfg(IRQ_NO_I2C1_ER, ENABLE);
+
 	GPIOButton_Init();						// init button interrupt
 	I2C_PeripheralControl(I2C1, ENABLE);	// enable the i2c peripheral
 
@@ -45,6 +53,8 @@ int main(void){
 		while(I2C_MasterReadDataIT(&I2C1Handle, rcv_buf, len, SLAVE_ADDR, I2C_ENABLE_SR) != I2C_READY);
 
 		rcv_buf[len + 1] = '\0';
+
+		printf("Data : %s", rcv_buf);
 	}
 
 	return 0;
@@ -95,4 +105,34 @@ void GPIOButton_Init(void){
 	pButton.GPIO_PinCfg.GPIO_PinNumber = GPIO_PIN_NO_0;
 
 	GPIO_Init(&pButton);
+}
+
+void I2C1_EV_IRQHandler(void){
+	I2C_EV_IRQHandling(&I2C1Handle);
+}
+void I2C1_ER_IRQHandler(void){
+	I2C_ER_IRQHandling(&I2C1Handle);
+}
+
+void I2C_AppEventCallback(I2C_Handle_t *pI2CHandle, uint8_t AppEv){
+	if(AppEv == I2C_EV_TX_CMPLT)
+	 {
+		 printf("Tx is completed\n");
+	 }else if (AppEv == I2C_EV_RX_CMPLT)
+	 {
+		 printf("Rx is completed\n");
+		 rxComplt = SET;
+	 }else if (AppEv == I2C_ERROR_AF)
+	 {
+		 printf("Error : Ack failure\n");
+		 //in master ack failure happens when slave fails to send ack for the byte
+		 //sent from the master.
+		 I2C_CloseTX(pI2CHandle);
+
+		 //generate the stop condition to release the bus
+		 I2C_GenerateStopCondition(I2C1);
+
+		 //Hang in infinite loop
+		 while(1);
+	 }
 }
