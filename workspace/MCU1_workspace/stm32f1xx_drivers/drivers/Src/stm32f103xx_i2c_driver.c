@@ -756,7 +756,6 @@ void I2C_CloseRX(I2C_Handle_t *pI2CHandle){
 
 	// Implement the code to disable ITEVFEN control bit
 	pI2CHandle->pI2Cx->CR2 &= ~(1 << I2C_CR2_ITEVTEN);
-
 	pI2CHandle->TXRXState = I2C_READY;
 	pI2CHandle->pRXBuf = NULL;
 	pI2CHandle->RXLen = 0;
