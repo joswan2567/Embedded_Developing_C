@@ -298,7 +298,7 @@ static void I2C_ClearADDRFlag(I2C_Handle_t *pI2CHandle){
  *
  * @Note              - none
  */
-void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Size, uint8_t SlaveAddr){
+void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Size, uint8_t SlaveAddr, uint8_t Sr){
 	// Generate Start condition
 	I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
 
@@ -324,7 +324,8 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 		while(! I2C_GetFlagStatus(pI2CHandle->pI2Cx, I2C_FLAG_RXNE));
 
 		// generate STOP condition
-		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+		if(Sr == I2C_DISABLE_SR )
+			I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
 
 		// read data in to buffer
 		*pRxBuffer = pI2CHandle->pI2Cx->DR;
@@ -346,7 +347,8 @@ void I2C_MasterReadData(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8_t Si
 				I2C_ACKControl(pI2CHandle->pI2Cx, I2C_ACK_DI);
 
 				// generate STOP condition
-				I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+				if(Sr == I2C_DISABLE_SR )
+					I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
 			}
 			// read the data from data register in to buffer
 			*pRxBuffer = pI2CHandle->pI2Cx->DR;
