@@ -193,7 +193,7 @@ void I2C_DeInit(I2C_RegDef_t *pI2Cx){
  *
  * @Note              - none
  */
-void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Size, uint8_t SlaveAddr){
+void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Size, uint8_t SlaveAddr, uint8_t Sr){
 	// Generate Start condition
 	I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
 
@@ -228,7 +228,8 @@ void I2C_MasterSendData(I2C_Handle_t *pI2CHandle, uint8_t *pTxBuffer, uint8_t Si
 
 	// Generate STOP condition and master need not to wait for the completion of stop condition.
 	// Note: generating STOP, automatically clears the BTF
-	I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
+	if(Sr == I2C_DISABLE_SR )
+		I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
 }
 
 static void I2C_GenerateStartCondition(I2C_RegDef_t *pI2Cx){
