@@ -124,6 +124,9 @@ uint8_t I2C_MasterReadDataIT(I2C_Handle_t *pI2CHandle, uint8_t *pRxBuffer, uint8
 void I2C_CloseRX(I2C_Handle_t *pI2CHandle);
 void I2C_CloseTX(I2C_Handle_t *pI2CHandle);
 
+void I2C_SlaveSendData(I2C_RegDef_t *pI2Cx, uint8_t data);
+uint8_t I2C_SlaveReadData(I2C_RegDef_t *pI2Cx);
+
 /*
  * IRQ configuration and ISR handling
  */

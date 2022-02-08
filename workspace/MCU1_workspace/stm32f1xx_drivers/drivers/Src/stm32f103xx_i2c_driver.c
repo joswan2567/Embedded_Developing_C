@@ -765,3 +765,11 @@ void I2C_CloseRX(I2C_Handle_t *pI2CHandle){
 		I2C_ACKControl(pI2CHandle->pI2Cx, ENABLE);
 }
 
+void I2C_SlaveSendData(I2C_RegDef_t *pI2Cx, uint8_t data){
+	pI2Cx->DR = data;
+
+}
+uint8_t I2C_SlaveReadData(I2C_RegDef_t *pI2Cx){
+	return (uint8_t) pI2Cx->DR;
+}
+
