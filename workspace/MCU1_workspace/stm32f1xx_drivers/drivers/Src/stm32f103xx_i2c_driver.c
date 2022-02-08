@@ -558,12 +558,17 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle){
 
 	if(temp1 && temp2 && temp3){
 		// check foe device mode
-		if(pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_MSL)){
+		if(pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_MSL)){ // master mode
 			// TXE flag is set
 			// we have to the data transmission
 			if(pI2CHandle->TXRXState == I2C_BSY_IN_TX){
 				I2C_MasterHandleTXEInterrupt(pI2CHandle);
 			}
+		}
+		else{ // slave mode
+			// make sure that slave is really in transmitter mode
+			if(pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_TRA))
+				I2C_AppEventCallback(pI2CHandle, I2C_EV_DATA_REQ);
 		}
 	}
 
@@ -572,7 +577,7 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle){
 
 	if(temp1 && temp2 && temp3){
 		//check device mode
-		if(pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_MSL)){
+		if(pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_MSL)){ // master mode
 			// the device is master
 
 			// RXNE flag is set
@@ -580,6 +585,11 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle){
 
 				I2C_MasterHandleRXNEInterrupt(pI2CHandle);
 			}
+		}
+		else{ // slave mode
+			// make sure that the slave is really in receiver mode
+			if(! (pI2CHandle->pI2Cx->SR2 & (1 << I2C_SR2_TRA)))
+				I2C_AppEventCallback(pI2CHandle, I2C_EV_DATA_RCV);
 		}
 	}
 }
