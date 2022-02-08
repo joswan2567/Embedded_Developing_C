@@ -57,6 +57,8 @@ int main(void){
 		rcv_buf[len + 1] = '\0';
 
 		printf("Data : %s", rcv_buf);
+
+		rxComplt = RESET;
 	}
 
 	return 0;
