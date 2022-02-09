@@ -5,26 +5,14 @@
  *      Author: José Wanderson
  */
 
+#include "stm32f103xx_usart_driver.h"
 
-/*
- * This is a Configuration Structure for a USARTx peripheral
- */
-typedef struct{
-	uint8_t  USART_Mode;               /*!<possible modes for device> */
-	uint32_t USART_Baud;               /*!<possible baud rate for communication>*/
-	uint8_t  USART_NoOfStopBits;	   /*!<possible speed clock>*/
-	uint8_t  USART_WordLength;		   /*!<possible size data 8 or 9 bits >*/
-	uint8_t  USART_ParityControl;	   /*!<TODO> */
-	uint8_t  USART_HWFlowControl;	   /*!<TODO> */
+void USART_PeriClockControl(USART_RegDef_t *pUSARTx, uint8_t EnOrDi){ }
 
-}USART_Cfg_t;
+void USART_PeripheralControl(USART_RegDef_t *pUSARTx, uint8_t EnOrDi){ }
 
-/*
- * This is a Handle structure for a USARTx peripheral
- */
-typedef struct{
-	USART_RegDef_t *pUSARTx;              /*!< This holds the base addr of the SPIx port to which the pin belongs */
-	USART_Cfg_t     USART_Cfg;			  /*!< This holds SPIx configuration settings */
+uint8_t USART_GetFlagStatus(USART_RegDef_t *pUSARTx, uint8_t StatusFlagName){ }
+void USART_ClearFlag(USART_RegDef_t *pUSARTx, uint8_t StatusFlagName){ }
 
-}USART_Handle_t;
-
+uint8_t USART_IRQInterruptCfg(uint8_t IRQNumber, uint8_t EnOrDi){ }
+uint8_t USART_IRQPriorityCfg(uint8_t IRQNumber, uint32_t IRQPriority){ }
