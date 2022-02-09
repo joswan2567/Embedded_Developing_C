@@ -236,6 +236,20 @@ typedef struct{
 }I2C_RegDef_t;
 
 /*
+ * peripheral register definition structure for USARTx
+ */
+typedef struct{
+	__vo uint32_t SR;                           /*!< Status register,               			     Addr offset: 0x00  */
+	__vo uint32_t DR;                           /*!< Data register,               			     	 Addr offset: 0x04  */
+	__vo uint32_t BRR;                          /*!< Baud rate register,                             Addr offset: 0x08  */
+	__vo uint32_t CR1;                          /*!< Control register 1,                             Addr offset: 0x0C  */
+	__vo uint32_t CR2;                     		/*!< Control register 2,							 Addr offset: 0x10  */
+	__vo uint32_t CR3;                         	/*!< Control register 3,	   						 Addr offset: 0x14  */
+	__vo uint32_t GTPR;                         /*!< Guard time and prescaler register,	   		     Addr offset: 0x18  */
+
+}USART_RegDef_t;
+
+/*
  * Peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t )
  */
 #define GPIOA              ((GPIO_RegDef_t*) GPIOA_BASE_ADDR)
@@ -258,6 +272,12 @@ typedef struct{
 
 #define I2C1			   ((I2C_RegDef_t*) I2C1_BASE_ADDR)
 #define I2C2			   ((I2C_RegDef_t*) I2C2_BASE_ADDR)
+
+#define USART1			   ((USART_RegDef_t*) USART1_BASE_ADDR)
+#define USART2			   ((USART_RegDef_t*) USART2_BASE_ADDR)
+#define USART3			   ((USART_RegDef_t*) USART3_BASE_ADDR)
+#define UART4			   ((USART_RegDef_t*) UART4_BASE_ADDR)
+#define UART5			   ((USART_RegDef_t*) UART5_BASE_ADDR)
 
 /*
  * Clock Enable Macros for GPIOx peripherals
@@ -383,7 +403,11 @@ typedef struct{
 #define IRQ_NO_I2C1_EV     	31
 #define IRQ_NO_I2C1_ER     	32
 #define IRQ_NO_I2C2_EV     	33
-#define IRQ_NO_I2C2_ER     	34
+#define IRQ_NO_USART1     	37
+#define IRQ_NO_USART2     	38
+#define IRQ_NO_USART3     	39
+#define IRQ_NO_UART4     	52
+#define IRQ_NO_UART5     	60
 
 /*
  * IRQ(Interrupt Request) Numbers of Priority possible
