@@ -100,9 +100,9 @@ int main(void)
 
 	configASSERT(status == pdPASS);
 
-	status = xTaskCreate(task2_handler, "Task2", 200, "Task2 : Qual foi", 2, &task2_handle);
+	//status = xTaskCreate(task2_handler, "Task2", 200, "Task2 : Qual foi", 2, &task2_handle);
 
-	configASSERT(status == pdPASS);
+	//configASSERT(status == pdPASS);
 
 	//(void)status;
 	//NVIC_SetPriorityGrouping( NVICPriorityGroup_4 );
