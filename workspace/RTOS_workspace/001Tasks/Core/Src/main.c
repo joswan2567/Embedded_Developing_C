@@ -80,7 +80,7 @@ int main(void)
 	TaskHandle_t task1_handle, task2_handle;
 	BaseType_t status;
 
-	initialise_monitor_handles();
+	//initialise_monitor_handles();
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -110,11 +110,11 @@ int main(void)
 
 	SEGGER_SYSVIEW_Start();
 
-	status = xTaskCreate(task1_handler, "Task1", configMINIMAL_STACK_SIZE, "Task1 : Coe man ", 2, &task1_handle);
+	status = xTaskCreate(task1_handler, "Task1", 200, "Task1 : Coe man ", 2, &task1_handle);
 
 	configASSERT(status == pdPASS);
 
-	status = xTaskCreate(task2_handler, "Task2", configMINIMAL_STACK_SIZE, "Task2 : Qual foi", 2, &task2_handle);
+	status = xTaskCreate(task2_handler, "Task2", 200, "Task2 : Qual foi", 2, &task2_handle);
 
 	configASSERT(status == pdPASS);
 
@@ -189,15 +189,23 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 void task1_handler(void* parameters){
+
+	char msg[100];
+
 	while(1){
-		printf("%s\n", (char*)parameters);
+		snprintf(msg, 100, "%s\n", (char*)parameters);
+		SEGGER_SYSVIEW_PrintfTarget(msg);
 		taskYIELD();
 	}
 }
 
 void task2_handler(void* parameters){
+
+	char msg[100];
+
 	while(1){
-		printf("%s\n", (char*)parameters);
+		snprintf(msg, 100, "%s\n", (char*)parameters);
+		SEGGER_SYSVIEW_PrintfTarget(msg);
 		taskYIELD();
 	}
 }
