@@ -80,7 +80,7 @@ int main(void)
 	TaskHandle_t task1_handle, task2_handle;
 	BaseType_t status;
 
-	//initialise_monitor_handles();
+	initialise_monitor_handles();
 	/* USER CODE END 1 */
 
 	/* MCU Configuration--------------------------------------------------------*/
@@ -190,15 +190,15 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void task1_handler(void* parameters){
 	while(1){
-		//printf("%s\n", (char*)parameters);
-		//taskYIELD();
+		printf("%s\n", (char*)parameters);
+		taskYIELD();
 	}
 }
 
 void task2_handler(void* parameters){
 	while(1){
-		//printf("%s\n", (char*)parameters);
-		//taskYIELD();
+		printf("%s\n", (char*)parameters);
+		taskYIELD();
 	}
 }
 
