@@ -28,11 +28,15 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
-#include "FreeRTOS.h"
-#include "task.h"
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "SEGGER_SYSVIEW.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -42,7 +46,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+#define DWT_CTRL		(*(volatile uint32_t*)0xE0001000)
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -58,6 +62,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED_Green_Pin GPIO_PIN_12
+#define LED_Green_GPIO_Port GPIOB
+#define LED_Red_Pin GPIO_PIN_13
+#define LED_Red_GPIO_Port GPIOB
+#define LED_Yellow_Pin GPIO_PIN_14
+#define LED_Yellow_GPIO_Port GPIOB
+#define LED_White_Pin GPIO_PIN_15
+#define LED_White_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -48,11 +48,12 @@ BaseType_t status;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-
-void ledGreen_handler(void *pvParameters);
-void ledYellow_handler(void *pvParameters);
-void ledRed_handler(void *pvParameters);
+static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
+void ledRed_handler(void *pvParameters);
+void ledWhite_handler(void *pvParameters);
+void ledYellow_handler(void *pvParameters);
+void ledGreen_handler(void *pvParameters);
 
 /* USER CODE END PFP */
 
@@ -88,20 +89,21 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
+  MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
   DWT_CTRL |= (1 << 0);
 
   status = xTaskCreate(ledGreen_handler, "LED_Green_Task", 200, NULL, 2, &task1_handle);
 
-  configASSERT(status == pdPass);
+  configASSERT(status == pdPASS);
 
   status = xTaskCreate(ledYellow_handler, "LED_Yellow_Task", 200, NULL, 2, &task2_handle);
 
-  configASSERT(status == pdPass);
+  configASSERT(status == pdPASS);
 
   status = xTaskCreate(ledRed_handler, "LED_Yellow_Task", 200, NULL, 2, &task2_handle);
 
-  configASSERT(status == pdPass);
+  configASSERT(status == pdPASS);
 
   vTaskStartScheduler();
   /* USER CODE END 2 */
@@ -132,7 +134,9 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL16;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -141,15 +145,40 @@ void SystemClock_Config(void)
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief GPIO Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_GPIO_Init(void)
+{
+  GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin|LED_White_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : LED_Green_Pin LED_Red_Pin LED_Yellow_Pin LED_White_Pin */
+  GPIO_InitStruct.Pin = LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin|LED_White_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 }
 
 /* USER CODE BEGIN 4 */
@@ -157,6 +186,8 @@ void ledGreen_handler(void *pvParameters){
 
 	while(1){
 
+		HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
+		HAL_Delay(1000);
 	}
 
 }
@@ -164,15 +195,47 @@ void ledYellow_handler(void *pvParameters){
 
 	while(1){
 
+		HAL_GPIO_TogglePin(LED_Yellow_GPIO_Port, LED_Yellow_Pin);
+		HAL_Delay(800);
 	}
 }
 void ledRed_handler(void *pvParameters){
 
 	while(1){
 		//SEGGER_SYSVIEW_PrintfTarget("teste");
+
+		HAL_GPIO_TogglePin(LED_Red_GPIO_Port, LED_Red_Pin);
+		HAL_Delay(400);
+	}
+}
+void ledWhite_handler(void *pvParameters){
+
+	while(1){
+		//SEGGER_SYSVIEW_PrintfTarget("teste");
 	}
 }
 /* USER CODE END 4 */
+
+/**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM4 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM4) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
 
 /**
   * @brief  This function is executed in case of error occurrence.
