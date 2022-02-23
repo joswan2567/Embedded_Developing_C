@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="s,S">
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/SEGGER/Config</includepath>
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/SEGGER/SEGGER</includepath>
+
+</language>
+<language name="C Source File">
+<includepath>Core/Inc</includepath>
+<includepath>Drivers/STM32F1xx_HAL_Driver/Inc</includepath>
+<includepath>Drivers/STM32F1xx_HAL_Driver/Inc/Legacy</includepath>
+<includepath>Drivers/CMSIS/Device/ST/STM32F1xx/Include</includepath>
+<includepath>Drivers/CMSIS/Include</includepath>
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/FreeRTOS/include</includepath>
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/FreeRTOS/portable/GCC/ARM_CM3</includepath>
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/SEGGER/Config</includepath>
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/SEGGER/OS</includepath>
+<includepath>/home/joswan/Desenvolvimento-C/workspace/RTOS_workspace/common/ThirdPaty/SEGGER/SEGGER</includepath>
+
+</language>
+<language name="Object File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="s,S">
+<macro>
+<name>DEBUG</name><value/>
+</macro>
+
+</language>
+<language name="C Source File">
+<macro>
+<name>DEBUG</name><value/>
+</macro>
+<macro>
+<name>USE_HAL_DRIVER</name><value/>
+</macro>
+<macro>
+<name>STM32F103xB</name><value/>
+</macro>
+
+</language>
+<language name="Object File">
+
+</language>
+</section>
+</cdtprojectproperties>
