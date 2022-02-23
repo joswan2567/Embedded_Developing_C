@@ -42,10 +42,16 @@
 
 /* USER CODE BEGIN PV */
 
+TaskHandle_t task1_handle, task2_handle, task3_handle;
+BaseType_t status;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+
+void ledGreen_handler(void *pvParameters);
+void ledYellow_handler(void *pvParameters);
+void ledRed_handler(void *pvParameters);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -83,7 +89,21 @@ int main(void)
 
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
+  DWT_CTRL |= (1 << 0);
 
+  status = xTaskCreate(ledGreen_handler, "LED_Green_Task", 200, NULL, 2, &task1_handle);
+
+  configASSERT(status == pdPass);
+
+  status = xTaskCreate(ledYellow_handler, "LED_Yellow_Task", 200, NULL, 2, &task2_handle);
+
+  configASSERT(status == pdPass);
+
+  status = xTaskCreate(ledRed_handler, "LED_Yellow_Task", 200, NULL, 2, &task2_handle);
+
+  configASSERT(status == pdPass);
+
+  vTaskStartScheduler();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -133,7 +153,25 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void ledGreen_handler(void *pvParameters){
 
+	while(1){
+
+	}
+
+}
+void ledYellow_handler(void *pvParameters){
+
+	while(1){
+
+	}
+}
+void ledRed_handler(void *pvParameters){
+
+	while(1){
+		//SEGGER_SYSVIEW_PrintfTarget("teste");
+	}
+}
 /* USER CODE END 4 */
 
 /**
