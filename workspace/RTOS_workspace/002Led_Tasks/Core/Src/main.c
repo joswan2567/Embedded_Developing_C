@@ -184,28 +184,35 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void ledGreen_handler(void *pvParameters){
 
+	TickType_t delay = pdMS_TO_TICKS(1000);
 	while(1){
 
 		HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
-		HAL_Delay(1000);
+		//HAL_Delay(1000);
+		vTaskDelay(delay);
 	}
 
 }
 void ledYellow_handler(void *pvParameters){
 
+	TickType_t delay = pdMS_TO_TICKS(800);
 	while(1){
 
 		HAL_GPIO_TogglePin(LED_Yellow_GPIO_Port, LED_Yellow_Pin);
-		HAL_Delay(800);
+		//HAL_Delay(800);
+		vTaskDelay(delay);
 	}
 }
 void ledRed_handler(void *pvParameters){
+
+	TickType_t delay = pdMS_TO_TICKS(400);
 
 	while(1){
 		//SEGGER_SYSVIEW_PrintfTarget("teste");
 
 		HAL_GPIO_TogglePin(LED_Red_GPIO_Port, LED_Red_Pin);
-		HAL_Delay(400);
+		//HAL_Delay(400);
+		vTaskDelay(delay);
 	}
 }
 void ledWhite_handler(void *pvParameters){
