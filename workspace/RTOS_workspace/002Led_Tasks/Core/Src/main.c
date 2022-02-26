@@ -51,7 +51,6 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 void ledRed_handler(void *pvParameters);
-void ledWhite_handler(void *pvParameters);
 void ledYellow_handler(void *pvParameters);
 void ledGreen_handler(void *pvParameters);
 
@@ -93,15 +92,15 @@ int main(void)
   /* USER CODE BEGIN 2 */
   DWT_CTRL |= (1 << 0);
 
-  status = xTaskCreate(ledGreen_handler, "LED_Green_Task", 200, NULL, 2, &task1_handle);
+  status = xTaskCreate(ledGreen_handler, "LED_Green_Task", 100, NULL, 2, &task1_handle);
 
   configASSERT(status == pdPASS);
 
-  status = xTaskCreate(ledYellow_handler, "LED_Yellow_Task", 200, NULL, 2, &task2_handle);
+  status = xTaskCreate(ledYellow_handler, "LED_Yellow_Task", 100, NULL, 2, &task2_handle);
 
   configASSERT(status == pdPASS);
 
-  status = xTaskCreate(ledRed_handler, "LED_Yellow_Task", 200, NULL, 2, &task2_handle);
+  status = xTaskCreate(ledRed_handler, "LED_Yellow_Task", 100, NULL, 2, &task2_handle);
 
   configASSERT(status == pdPASS);
 
@@ -170,10 +169,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin|LED_White_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_Green_Pin LED_Red_Pin LED_Yellow_Pin LED_White_Pin */
-  GPIO_InitStruct.Pin = LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin|LED_White_Pin;
+  /*Configure GPIO pins : LED_Green_Pin LED_Red_Pin LED_Yellow_Pin */
+  GPIO_InitStruct.Pin = LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -218,17 +217,12 @@ void ledRed_handler(void *pvParameters){
 		vTaskDelayUntil(&initTask, delay);
 	}
 }
-void ledWhite_handler(void *pvParameters){
 
-	while(1){
-		//SEGGER_SYSVIEW_PrintfTarget("teste");
-	}
-}
 /* USER CODE END 4 */
 
 /**
   * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM4 interrupt took place, inside
+  * @note   This function is called  when TIM1 interrupt took place, inside
   * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim : TIM handle
@@ -239,7 +233,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   /* USER CODE BEGIN Callback 0 */
 
   /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM4) {
+  if (htim->Instance == TIM1) {
     HAL_IncTick();
   }
   /* USER CODE BEGIN Callback 1 */
