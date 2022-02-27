@@ -42,7 +42,7 @@
 
 /* USER CODE BEGIN PV */
 
-TaskHandle_t task1_handle, task2_handle, task3_handle;
+TaskHandle_t task1_handle, task2_handle, task3_handle, task4_handle;
 BaseType_t status;
 /* USER CODE END PV */
 
@@ -51,6 +51,7 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 /* USER CODE BEGIN PFP */
 void ledRed_handler(void *pvParameters);
+void ledWhite_handler(void *pvParameters);
 void ledYellow_handler(void *pvParameters);
 void ledGreen_handler(void *pvParameters);
 
@@ -100,7 +101,11 @@ int main(void)
 
   configASSERT(status == pdPASS);
 
-  status = xTaskCreate(ledRed_handler, "LED_Yellow_Task", 100, NULL, 2, &task2_handle);
+  status = xTaskCreate(ledRed_handler, "LED_Yellow_Task", 100, NULL, 2, &task3_handle);
+
+  configASSERT(status == pdPASS);
+
+  status = xTaskCreate(ledWhite_handler, "LED_White_Task", 100, NULL, 2, &task4_handle);
 
   configASSERT(status == pdPASS);
 
@@ -169,10 +174,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin|LED_White_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED_Green_Pin LED_Red_Pin LED_Yellow_Pin */
-  GPIO_InitStruct.Pin = LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin;
+  /*Configure GPIO pins : LED_Green_Pin LED_Red_Pin LED_Yellow_Pin LED_White_Pin */
+  GPIO_InitStruct.Pin = LED_Green_Pin|LED_Red_Pin|LED_Yellow_Pin|LED_White_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -183,7 +188,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void ledGreen_handler(void *pvParameters){
 
-	TickType_t delay = pdMS_TO_TICKS(1000), initTask = xTaskGetTickCount();
+	TickType_t delay = pdMS_TO_TICKS(1200), initTask = xTaskGetTickCount();
 	while(1){
 
 		HAL_GPIO_TogglePin(LED_Green_GPIO_Port, LED_Green_Pin);
@@ -195,7 +200,7 @@ void ledGreen_handler(void *pvParameters){
 }
 void ledYellow_handler(void *pvParameters){
 
-	TickType_t delay = pdMS_TO_TICKS(800), initTask = xTaskGetTickCount();
+	TickType_t delay = pdMS_TO_TICKS(900), initTask = xTaskGetTickCount();
 	while(1){
 
 		HAL_GPIO_TogglePin(LED_Yellow_GPIO_Port, LED_Yellow_Pin);
@@ -206,7 +211,7 @@ void ledYellow_handler(void *pvParameters){
 }
 void ledRed_handler(void *pvParameters){
 
-	TickType_t delay = pdMS_TO_TICKS(400), initTask = xTaskGetTickCount();
+	TickType_t delay = pdMS_TO_TICKS(600), initTask = xTaskGetTickCount();
 
 	while(1){
 		//SEGGER_SYSVIEW_PrintfTarget("teste");
@@ -217,7 +222,18 @@ void ledRed_handler(void *pvParameters){
 		vTaskDelayUntil(&initTask, delay);
 	}
 }
+void ledWhite_handler(void *pvParameters){
 
+	TickType_t delay = pdMS_TO_TICKS(300), initTask = xTaskGetTickCount();
+
+	while(1){
+		//SEGGER_SYSVIEW_PrintfTarget("teste");
+		HAL_GPIO_TogglePin(LED_White_GPIO_Port, LED_White_Pin);
+		//HAL_Delay(400);
+		//vTaskDelay(delay);
+		vTaskDelayUntil(&initTask, delay);
+	}
+}
 /* USER CODE END 4 */
 
 /**
