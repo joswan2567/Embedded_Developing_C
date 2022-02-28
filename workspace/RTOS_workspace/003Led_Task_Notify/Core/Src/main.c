@@ -290,7 +290,7 @@ void button_handler(void *pvParameters){
 
 		btn_read = HAL_GPIO_ReadPin(Button_GPIO_Port, Button_Pin);
 
-		if( ! btn_read){
+		if(btn_read){
 			if( ! prev_read)
 				xTaskNotify(nxt_task_handle, 0, eNoAction);
 		}
