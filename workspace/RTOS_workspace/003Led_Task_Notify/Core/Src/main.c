@@ -285,7 +285,7 @@ void ledBlue_handler(void *pvParameters){
 void button_handler(void *pvParameters){
 
 	uint8_t btn_read = 0;
-	uint8_t prev_read = 0;
+	uint8_t prev_read = 1;
 	while(1){
 
 		btn_read = HAL_GPIO_ReadPin(Button_GPIO_Port, Button_Pin);
