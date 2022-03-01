@@ -42,7 +42,7 @@
 
 /* USER CODE BEGIN PV */
 
-TaskHandle_t task1_handle, task2_handle, task3_handle, task4_handle, task5_handle;
+TaskHandle_t ledG_handle, ledR_handle, ledY_handle, ledB_handle, btn_handle;
 TaskHandle_t volatile nxt_task_handle = NULL;
 BaseType_t status;
 /* USER CODE END PV */
@@ -96,25 +96,25 @@ int main(void)
 	/* USER CODE BEGIN 2 */
 	DWT_CTRL |= (1 << 0);
 
-	status = xTaskCreate(ledGreen_handler, "LED_Green_Task", 50, NULL, 2, &task1_handle);
+	status = xTaskCreate(ledGreen_handler, "LED_Green_Task", 50, NULL, 4, &ledG_handle);
 
 	configASSERT(status == pdPASS);
 
-	nxt_task_handle = task1_handle;
+	nxt_task_handle = ledG_handle;
 
-	status = xTaskCreate(ledYellow_handler, "LED_Yellow_Task", 50, NULL, 2, &task2_handle);
-
-	configASSERT(status == pdPASS);
-
-	status = xTaskCreate(ledRed_handler, "LED_Red_Task", 50, NULL, 2, &task3_handle);
+	status = xTaskCreate(ledYellow_handler, "LED_Yellow_Task", 50, NULL, 3, &ledY_handle);
 
 	configASSERT(status == pdPASS);
 
-	status = xTaskCreate(ledBlue_handler, "LED_Blue_Task", 50, NULL, 2, &task4_handle);
+	status = xTaskCreate(ledRed_handler, "LED_Red_Task", 50, NULL, 2, &ledR_handle);
 
 	configASSERT(status == pdPASS);
 
-	status = xTaskCreate(button_handler, "Button_Task", 50, NULL, 3, &task5_handle);
+	status = xTaskCreate(ledBlue_handler, "LED_Blue_Task", 50, NULL, 1, &ledB_handle);
+
+	configASSERT(status == pdPASS);
+
+	status = xTaskCreate(button_handler, "Button_Task", 50, NULL, 5, &btn_handle);
 
 	configASSERT(status == pdPASS);
 
@@ -212,7 +212,7 @@ void ledGreen_handler(void *pvParameters){
 		status = xTaskNotifyWait(0, 0, NULL, pdMS_TO_TICKS(1200));
 		if(status == pdTRUE){
 			vTaskSuspendAll();
-			nxt_task_handle = task1_handle;
+			nxt_task_handle = ledR_handle;
 			xTaskResumeAll();
 			HAL_GPIO_WritePin(LED_Green_GPIO_Port, LED_Green_Pin, GPIO_PIN_SET);
 			vTaskDelete(NULL);
@@ -233,7 +233,7 @@ void ledYellow_handler(void *pvParameters){
 		status = xTaskNotifyWait(0, 0, NULL, pdMS_TO_TICKS(900));
 		if(status == pdTRUE){
 			vTaskSuspendAll();
-			nxt_task_handle = task2_handle;
+			nxt_task_handle = ledB_handle;
 			xTaskResumeAll();
 			HAL_GPIO_WritePin(LED_Yellow_GPIO_Port, LED_Yellow_Pin, GPIO_PIN_SET);
 			vTaskDelete(NULL);
@@ -254,10 +254,9 @@ void ledRed_handler(void *pvParameters){
 		status = xTaskNotifyWait(0, 0, NULL, pdMS_TO_TICKS(600));
 		if(status == pdTRUE){
 			vTaskSuspendAll();
-			nxt_task_handle = NULL;
+			nxt_task_handle = ledY_handle;
 			xTaskResumeAll();
 			HAL_GPIO_WritePin(LED_Red_GPIO_Port, LED_Red_Pin, GPIO_PIN_SET);
-			vTaskDelete(task5_handle);
 			vTaskDelete(NULL);
 		}
 	}
@@ -275,9 +274,10 @@ void ledBlue_handler(void *pvParameters){
 		status = xTaskNotifyWait(0, 0, NULL, pdMS_TO_TICKS(300));
 		if(status == pdTRUE){
 			vTaskSuspendAll();
-			nxt_task_handle = task4_handle;
+			nxt_task_handle = NULL;
 			xTaskResumeAll();
 			HAL_GPIO_WritePin(LED_Blue_GPIO_Port, LED_Blue_Pin, GPIO_PIN_SET);
+			vTaskDelete(btn_handle);
 			vTaskDelete(NULL);
 		}
 	}
