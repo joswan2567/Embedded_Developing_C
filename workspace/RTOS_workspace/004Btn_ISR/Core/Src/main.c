@@ -193,9 +193,16 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void btn_it_handler(void){
 
+	BaseType_t xHigherPriorityTaskWoken;
+	xHigherPriorityTaskWoken = pdFALSE;
+
 	traceISR_ENTER();
-	xTaskNotifyFromISR(nxt_task_handle, 0, eNoAction, NULL);
+	xTaskNotifyFromISR(nxt_task_handle, 0, eNoAction, &xHigherPriorityTaskWoken);
+
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+
 	traceISR_EXIT();
+
 }
 void ledGreen_handler(void *pvParameters){
 
