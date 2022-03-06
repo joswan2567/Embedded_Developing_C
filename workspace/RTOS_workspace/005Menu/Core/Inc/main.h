@@ -31,7 +31,12 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -57,6 +62,14 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED_Green_Pin GPIO_PIN_12
+#define LED_Green_GPIO_Port GPIOB
+#define LED_Red_Pin GPIO_PIN_13
+#define LED_Red_GPIO_Port GPIOB
+#define LED_Yellow_Pin GPIO_PIN_14
+#define LED_Yellow_GPIO_Port GPIOB
+#define LED_Blue_Pin GPIO_PIN_15
+#define LED_Blue_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
