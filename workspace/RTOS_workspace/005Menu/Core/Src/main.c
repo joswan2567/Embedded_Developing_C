@@ -51,6 +51,8 @@ QueueHandle_t InputData_Queue, Print_Queue;
 BaseType_t status;
 
 volatile uint8_t user_data;
+
+state_t curr_state = sMainMenu;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -59,6 +61,8 @@ static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
+void process_cmd(cmd_t *cmd);
+int extract_cmd(cmd_t *cmd);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -294,6 +298,53 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	HAL_UART_Receive_IT(&huart1, (void*)&user_data, 1);
 
+}
+
+void process_cmd(cmd_t *cmd){
+
+	extract_cmd(cmd);
+
+	switch(curr_state){
+
+		case sMainMenu:
+			/*TODO: */
+			xTaskNotify(menu_handler, (uint32_t)cmd, eSetValueWithOverwrite);
+			break;
+		case sLedEffect:
+			/*TODO: */
+			xTaskNotify(led_handler, (uint32_t)cmd, eSetValueWithOverwrite);
+			break;
+		case sRtcMenu:
+			/*TODO: */
+		case sRtcTimeConfig:
+			/*TODO: */
+		case sRtcDateConfig:
+			/*TODO: */
+		case sRtcReport:
+			/*TODO: */
+			xTaskNotify(rtc_handler, (uint32_t)cmd, eSetValueWithOverwrite);
+			break;
+	}
+}
+
+int extract_cmd(cmd_t *cmd){
+
+	uint8_t item;
+	BaseType_t status;
+
+	status = uxQueueMessagesWaiting(InputData_Queue); // api que retorna o numero de elementos na fila
+	if( ! status) return -1;
+	uint8_t i = 0;
+
+	do{
+		status = xQueueReceive(InputData_Queue, &item, 0);
+		if(status == pdTRUE) cmd->payLoad[i++] = item;
+	}while(item != '\n');
+
+	cmd->payLoad[i-1] = '\0';
+	cmd->len = i-1;
+
+	return 0;
 }
 /* USER CODE END 4 */
 
