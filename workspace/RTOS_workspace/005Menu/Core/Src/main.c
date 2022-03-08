@@ -44,10 +44,6 @@ RTC_HandleTypeDef hrtc;
 UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
-TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
-
-QueueHandle_t InputData_Queue, Print_Queue;
-
 BaseType_t status;
 
 volatile uint8_t user_data;
@@ -61,8 +57,7 @@ static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
-void process_cmd(cmd_t *cmd);
-int extract_cmd(cmd_t *cmd);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/

@@ -42,7 +42,9 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
 
+QueueHandle_t InputData_Queue, Print_Queue;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -71,7 +73,8 @@ typedef enum{
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void process_cmd(cmd_t *cmd);
+int extract_cmd(cmd_t *cmd);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
