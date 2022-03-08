@@ -28,7 +28,15 @@ void print_task(void *pvParameters){
 	}
 }
 void cmd_task(void *pvParameters){
+
+	BaseType_t ret;
+	cmd_t cmd;
 	while(1){
 
+		ret = xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+
+		if(ret == pdTRUE){
+			process_cmd(&cmd);
+		}
 	}
 }
