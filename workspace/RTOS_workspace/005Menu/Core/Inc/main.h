@@ -52,7 +52,19 @@ extern "C" {
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
+typedef struct {
+	uint8_t payLoad[10];
+	uint8_t len;
+}cmd_t;
 
+typedef enum{
+	sMainMenu = 0,
+	sLedEffect,
+	sRtcMenu,
+	sRtcTimeConfig,
+	sRtcDateConfig,
+	sRtcReport,
+}state_t;
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
