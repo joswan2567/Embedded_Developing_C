@@ -42,9 +42,7 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
 
-QueueHandle_t InputData_Queue, Print_Queue;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
@@ -67,6 +65,17 @@ typedef enum{
 	sRtcDateConfig,
 	sRtcReport,
 }state_t;
+
+extern TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
+
+extern QueueHandle_t InputData_Queue, Print_Queue;
+
+extern state_t curr_state;
+
+extern RTC_HandleTypeDef hrtc;
+
+extern UART_HandleTypeDef huart1;
+
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
