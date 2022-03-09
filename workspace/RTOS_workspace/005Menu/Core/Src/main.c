@@ -39,6 +39,12 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
+
+QueueHandle_t InputData_Queue, Print_Queue;
+
+state_t curr_state = sMainMenu;
+
 RTC_HandleTypeDef hrtc;
 
 UART_HandleTypeDef huart1;
@@ -48,7 +54,6 @@ BaseType_t status;
 
 volatile uint8_t user_data;
 
-state_t curr_state = sMainMenu;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
