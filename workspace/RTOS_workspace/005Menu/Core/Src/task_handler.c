@@ -5,7 +5,7 @@
  *      Author: José Wanderson
  */
 
-#include "task_handler.h"
+#include "main.h"
 
 const char *msg_inv = "\n*** Invalid Option! ***\n";
 
@@ -59,8 +59,37 @@ void menu_task(void *pvParameters){
 	}
 }
 void led_task(void *pvParameters){
+
+	uint32_t cmd_addr;
+	cmd_t *cmd;
+	const char* msg_led = "========================\n"
+						  "|      LED Effect     |\n"
+						  "========================\n"
+						  "(none,e1,e2,e3,e4)\n"
+						  "Enter your choice here : ";
 	while(1){
 
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+
+		xQueueSend(Print_Queue, (void*)&msg_led, portMAX_DELAY);
+
+		xTaskNotifyWait(0, 0, &cmd_addr, portMAX_DELAY);
+
+		cmd = (cmd_t*) cmd_addr;
+
+		if(cmd->len <= 4){
+			if		( ! strcmp((char*)cmd->payLoad, "none")) led_effect_stop();
+			else if ( ! strcmp((char*)cmd->payLoad, "e1")) led_effect(1);
+			else if ( ! strcmp((char*)cmd->payLoad, "e2")) led_effect(2);
+			else if ( ! strcmp((char*)cmd->payLoad, "e3")) led_effect(3);
+			else if ( ! strcmp((char*)cmd->payLoad, "e4")) led_effect(4);
+			else xQueueSend(Print_Queue, (void*)&msg_inv, portMAX_DELAY);
+		}
+		else
+			xQueueSend(Print_Queue, (void*)&msg_inv, portMAX_DELAY);
+		curr_state = sMainMenu;
+
+		xTaskNotify(menu_handler, 0, eNoAction);
 	}
 }
 void rtc_task(void *pvParameters){
