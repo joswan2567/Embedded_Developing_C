@@ -5,5 +5,11 @@
  *      Author: José Wanderson
  */
 
-#include "led_effect.h"
+#include "main.h"
 
+void led_effect_stop(void){
+
+}
+void led_effect(int opc){
+
+}
