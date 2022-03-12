@@ -37,7 +37,6 @@ extern "C" {
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
-#include "task_handler.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -82,8 +81,18 @@ extern UART_HandleTypeDef huart1;
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+
+void menu_task(void *pvParameters);
+void led_task(void *pvParameters);
+void rtc_task(void *pvParameters);
+void print_task(void *pvParameters);
+void cmd_task(void *pvParameters);
+
 void process_cmd(cmd_t *cmd);
 int extract_cmd(cmd_t *cmd);
+
+void led_effect_stop(void);
+void led_effect(uint8_t opc);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
