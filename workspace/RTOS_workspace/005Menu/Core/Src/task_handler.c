@@ -7,6 +7,9 @@
 
 #include "main.h"
 
+void process_cmd(cmd_t *cmd);
+int extract_cmd(cmd_t *cmd);
+
 const char *msg_inv = "\n*** Invalid Option! ***\n";
 
 void menu_task(void *pvParameters){
@@ -17,13 +20,13 @@ void menu_task(void *pvParameters){
 
 	int option;
 
-	const char* msg_menu = "========================\n"
-						   "|      	   Menu        |\n"
-						   "========================\n"
-							 "LED Effect    ----> 0\n"
-							 "Date and time ----> 1\n"
-							 "Exit			----> 2\n\n"
-							 "Enter your choice here : ";
+	const char* msg_menu = "\n========================\n"
+			"|         Menu         |\n"
+			"========================\n"
+			"LED effect    ----> 0\n"
+			"Date and time ----> 1\n"
+			"Exit          ----> 2\n"
+			"Enter your choice here : ";
 
 	while(1){
 		xQueueSend(Print_Queue, &msg_menu, portMAX_DELAY);
@@ -37,7 +40,7 @@ void menu_task(void *pvParameters){
 			switch(option){
 			case 0:
 				curr_state = sLedEffect;
-				xTaskNotify(led_handler, 0, eNoAction);
+				xTaskNotify(l_handler, 0, eNoAction);
 				break;
 			case 1:
 				curr_state = sRtcMenu;
@@ -46,12 +49,12 @@ void menu_task(void *pvParameters){
 			case 2:
 				break;
 			default:
-				xQueueSend(InputData_Queue, &msg_inv, portMAX_DELAY);
+				xQueueSend(Print_Queue, &msg_inv, portMAX_DELAY);
 				continue;
 			}
 		}
 		else{
-			xQueueSend(InputData_Queue, &msg_inv, portMAX_DELAY);
+			xQueueSend(Print_Queue, &msg_inv, portMAX_DELAY);
 			continue;
 
 		}
@@ -62,17 +65,14 @@ void led_task(void *pvParameters){
 
 	uint32_t cmd_addr;
 	cmd_t *cmd;
-	const char* msg_led = "========================\n"
-						  "|      LED Effect     |\n"
-						  "========================\n"
-						  "(none,e1,e2,e3,e4)\n"
-						  "Enter your choice here : ";
+	const char* msg_led = "\n========================\n"
+			"|      LED Effect     |\n"
+			"========================\n"
+			"(none,e1,e2,e3,e4)\n"
+			"Enter your choice here : ";
 	while(1){
-
 		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
-
-		xQueueSend(Print_Queue, (void*)&msg_led, portMAX_DELAY);
-
+		xQueueSend(Print_Queue, &msg_led, portMAX_DELAY);
 		xTaskNotifyWait(0, 0, &cmd_addr, portMAX_DELAY);
 
 		cmd = (cmd_t*) cmd_addr;
@@ -93,13 +93,23 @@ void led_task(void *pvParameters){
 	}
 }
 void rtc_task(void *pvParameters){
+
+	const char *t = "coe man";
 	while(1){
+		xTaskNotifyWait(0,0,NULL, portMAX_DELAY);
+		xQueueSend(Print_Queue, &t, portMAX_DELAY);
+		curr_state = sMainMenu;
+
+		xTaskNotify(menu_handler, 0, eNoAction);
 
 	}
 }
 void print_task(void *pvParameters){
-	while(1){
 
+	uint32_t *msg;
+	while(1){
+		xQueueReceive(Print_Queue, &msg, portMAX_DELAY);
+		HAL_UART_Transmit(&huart1, (uint8_t*)msg, strlen((char*)msg), HAL_MAX_DELAY);
 	}
 }
 void cmd_task(void *pvParameters){
@@ -114,4 +124,51 @@ void cmd_task(void *pvParameters){
 			process_cmd(&cmd);
 		}
 	}
+}
+
+void process_cmd(cmd_t *cmd){
+
+	extract_cmd(cmd);
+
+	switch(curr_state){
+
+	case sMainMenu:
+		/*TODO: */
+		xTaskNotify(menu_handler, (uint32_t)cmd, eSetValueWithOverwrite);
+		break;
+	case sLedEffect:
+		/*TODO: */
+		xTaskNotify(l_handler, (uint32_t)cmd, eSetValueWithOverwrite);
+		break;
+	case sRtcMenu:
+		/*TODO: */
+	case sRtcTimeConfig:
+		/*TODO: */
+	case sRtcDateConfig:
+		/*TODO: */
+	case sRtcReport:
+		/*TODO: */
+		xTaskNotify(rtc_handler, (uint32_t)cmd, eSetValueWithOverwrite);
+		break;
+	}
+}
+
+int extract_cmd(cmd_t *cmd){
+
+	uint8_t item;
+	BaseType_t status;
+
+	status = uxQueueMessagesWaiting(InputData_Queue); // api que retorna o numero de elementos na fila
+	if( ! status) return -1;
+	uint8_t i = 0;
+
+	do{
+		status = xQueueReceive(InputData_Queue, &item, 0);
+		if(status == pdTRUE) cmd->payLoad[i++] = item;
+	}while(item != '\n');
+
+	cmd->payLoad[i-1] = '\0';
+	cmd->len = i-1;
+
+	return 0;
 }
