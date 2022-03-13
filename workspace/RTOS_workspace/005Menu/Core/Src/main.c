@@ -39,9 +39,18 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
 
-QueueHandle_t InputData_Queue, Print_Queue;
+
+/* USER CODE BEGIN PV */
+TaskHandle_t menu_handler;
+TaskHandle_t rtc_handler;
+TaskHandle_t print_handler;
+TaskHandle_t cmd_handler;
+TaskHandle_t led_handler;
+TaskHandle_t l_handler;
+
+QueueHandle_t InputData_Queue;
+QueueHandle_t Print_Queue;
 
 state_t curr_state = sMainMenu;
 
@@ -49,10 +58,11 @@ RTC_HandleTypeDef hrtc;
 
 UART_HandleTypeDef huart1;
 
-/* USER CODE BEGIN PV */
 BaseType_t status;
 
 volatile uint8_t user_data;
+
+TimerHandle_t h_led_timer[4];
 
 /* USER CODE END PV */
 
@@ -61,7 +71,9 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_RTC_Init(void);
 static void MX_USART1_UART_Init(void);
+
 /* USER CODE BEGIN PFP */
+void led_effect_callback(TimerHandle_t xTimer);
 
 /* USER CODE END PFP */
 
@@ -112,7 +124,7 @@ int main(void)
 
 	configASSERT(status == pdPASS);
 
-	status = xTaskCreate(led_task, "Led Task", 250, NULL, 2, &led_handler);
+	status = xTaskCreate(led_task, "Led Task", 250, NULL, 2, &l_handler);
 
 	configASSERT(status == pdPASS);
 
@@ -122,11 +134,17 @@ int main(void)
 
 	InputData_Queue = xQueueCreate(10, sizeof(char));
 
-	if( ! InputData_Queue) Error_Handler(); //configASSERT(InputData_Queue != NULL);
+	//if( ! InputData_Queue) Error_Handler();
+	configASSERT(InputData_Queue != NULL);
 
 	Print_Queue = xQueueCreate(10, sizeof(size_t));
 
-	if( ! Print_Queue) Error_Handler(); //configASSERT(Print_Queue != NULL);
+	//if( ! Print_Queue) Error_Handler();
+	configASSERT(Print_Queue != NULL);
+
+
+	for(int i = -1; i++ < 4;)
+		h_led_timer[i] = xTimerCreate("led_timer", pdMS_TO_TICKS(500), pdTRUE, (void*)(i+1), led_effect_callback);
 
 	HAL_UART_Receive_IT(&huart1, (void*)&user_data, 1);
 
@@ -277,6 +295,29 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void led_effect_callback(TimerHandle_t xTimer){
+
+	int id;
+	id = (uint32_t)pvTimerGetTimerID(xTimer);
+
+	switch(id){
+		case 1:
+			LED_effect1();
+			break;
+		case 2:
+			LED_effect2();
+			break;
+		case 3:
+			LED_effect3();
+			break;
+		case 4:
+			LED_effect4();
+			break;
+	}
+
+}
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	if( ! xQueueIsQueueFullFromISR(InputData_Queue)){
@@ -298,53 +339,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	HAL_UART_Receive_IT(&huart1, (void*)&user_data, 1);
 
-}
-
-void process_cmd(cmd_t *cmd){
-
-	extract_cmd(cmd);
-
-	switch(curr_state){
-
-		case sMainMenu:
-			/*TODO: */
-			xTaskNotify(menu_handler, (uint32_t)cmd, eSetValueWithOverwrite);
-			break;
-		case sLedEffect:
-			/*TODO: */
-			xTaskNotify(led_handler, (uint32_t)cmd, eSetValueWithOverwrite);
-			break;
-		case sRtcMenu:
-			/*TODO: */
-		case sRtcTimeConfig:
-			/*TODO: */
-		case sRtcDateConfig:
-			/*TODO: */
-		case sRtcReport:
-			/*TODO: */
-			xTaskNotify(rtc_handler, (uint32_t)cmd, eSetValueWithOverwrite);
-			break;
-	}
-}
-
-int extract_cmd(cmd_t *cmd){
-
-	uint8_t item;
-	BaseType_t status;
-
-	status = uxQueueMessagesWaiting(InputData_Queue); // api que retorna o numero de elementos na fila
-	if( ! status) return -1;
-	uint8_t i = 0;
-
-	do{
-		status = xQueueReceive(InputData_Queue, &item, 0);
-		if(status == pdTRUE) cmd->payLoad[i++] = item;
-	}while(item != '\n');
-
-	cmd->payLoad[i-1] = '\0';
-	cmd->len = i-1;
-
-	return 0;
 }
 /* USER CODE END 4 */
 
