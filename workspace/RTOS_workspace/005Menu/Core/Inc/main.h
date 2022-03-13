@@ -37,23 +37,14 @@ extern "C" {
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
+#include "timers.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
-/* USER CODE END ET */
-
-/* Exported constants --------------------------------------------------------*/
-/* USER CODE BEGIN EC */
-
-/* USER CODE END EC */
-
-/* Exported macro ------------------------------------------------------------*/
-/* USER CODE BEGIN EM */
 typedef struct {
 	uint8_t payLoad[10];
-	uint8_t len;
+	uint32_t len;
 }cmd_t;
 
 typedef enum{
@@ -65,15 +56,34 @@ typedef enum{
 	sRtcReport,
 }state_t;
 
-extern TaskHandle_t menu_handler, led_handler, rtc_handler, print_handler, cmd_handler;
+extern TaskHandle_t led_handler;
+extern TaskHandle_t menu_handler;
+extern TaskHandle_t rtc_handler;
 
-extern QueueHandle_t InputData_Queue, Print_Queue;
+extern TaskHandle_t print_handler;
+extern TaskHandle_t cmd_handler;
+extern TaskHandle_t l_handler;
 
-extern state_t curr_state;
+extern QueueHandle_t InputData_Queue;
+extern QueueHandle_t Print_Queue;
 
 extern RTC_HandleTypeDef hrtc;
 
 extern UART_HandleTypeDef huart1;
+
+extern state_t curr_state;
+
+extern TimerHandle_t h_led_timer[4];
+/* USER CODE END ET */
+
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
+
+/* USER CODE END EC */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
+
 
 /* USER CODE END EM */
 
@@ -91,8 +101,14 @@ void cmd_task(void *pvParameters);
 void process_cmd(cmd_t *cmd);
 int extract_cmd(cmd_t *cmd);
 
+
 void led_effect_stop(void);
-void led_effect(uint8_t opc);
+void led_effect(int opc);
+
+void LED_effect1(void);
+void LED_effect2(void);
+void LED_effect3(void);
+void LED_effect4(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
