@@ -92,17 +92,176 @@ void led_task(void *pvParameters){
 		xTaskNotify(menu_handler, 0, eNoAction);
 	}
 }
+
+uint8_t getnumber(uint8_t *p , int len)
+{
+
+	int value ;
+
+	if(len > 1)
+	   value =  ( ((p[0]-48) * 10) + (p[1] - 48) );
+	else
+		value = p[0] - 48;
+
+	return value;
+
+}
+
 void rtc_task(void *pvParameters){
 
-	const char *t = "coe man";
-	while(1){
-		xTaskNotifyWait(0,0,NULL, portMAX_DELAY);
-		xQueueSend(Print_Queue, &t, portMAX_DELAY);
-		curr_state = sMainMenu;
+	const char* msg_rtc1 = "\n========================\n"
+			"|         RTC          |\n"
+			"========================\n";
 
+	const char* msg_rtc2 = "\nConfigure Time            ----> 0\n"
+			"Configure Date            ----> 1\n"
+			"Enable reporting          ----> 2\n"
+			"Exit                      ----> 4\n"
+			"Enter your choice here : ";
+
+
+	const char *msg_rtc_hh = "\nEnter hour(1-12):";
+	const char *msg_rtc_mm = "\nEnter minutes(0-59):";
+	const char *msg_rtc_ss = "\nEnter seconds(0-59):";
+
+	const char *msg_rtc_dd  = "\nEnter date(1-31):";
+	const char *msg_rtc_mo  ="\nEnter month(1-12):";
+	const char *msg_rtc_dow  = "\nEnter day(1-7 sun:1):";
+	const char *msg_rtc_yr  = "\nEnter year(0-99):";
+
+	const char *msg_conf = "\n*** Configuration successful! ***\n";
+	const char *msg_rtc_report = "\nEnable time&date reporting(y/n)?: ";
+
+
+	uint32_t cmd_addr;
+	cmd_t *cmd;
+
+
+	static int rtc_state = 0;
+	int menu_code;
+
+	RTC_TimeTypeDef time;
+	RTC_DateTypeDef date;
+
+#define HH_CONFIG 		0
+#define MM_CONFIG 		1
+#define SS_CONFIG 		2
+
+#define DATE_CONFIG 	0
+#define MONTH_CONFIG 	1
+#define YEAR_CONFIG 	2
+#define DAY_CONFIG 		3
+
+
+	while(1){
+		/*TODO: Notify wait (wait till someone notifies)		 */
+		xTaskNotifyWait(0, 0, NULL, portMAX_DELAY);
+		/*TODO : Print the menu and show current date and time information */
+		xQueueSend(Print_Queue, &msg_rtc1, portMAX_DELAY);
+		show_time_date();
+		xQueueSend(Print_Queue, &msg_rtc2, portMAX_DELAY);
+		//xTaskNotifyWait(0, 0, &cmd_addr, portMAX_DELAY);
+
+		while(curr_state != sMainMenu){
+
+			/*TODO: Wait for command notification (Notify wait) */
+			xTaskNotifyWait(0, 0, &cmd_addr, portMAX_DELAY);
+			cmd = (cmd_t*) cmd_addr;
+
+			switch(curr_state)
+			{
+			case sRtcMenu:{
+
+				/*TODO: process RTC menu commands */
+				if(cmd->len == 1)
+				{
+					menu_code = cmd->payLoad[0] - 48;
+					switch(menu_code)
+					{
+					case 0:
+						curr_state = sRtcTimeConfig;
+						xQueueSend(Print_Queue,&msg_rtc_hh,portMAX_DELAY);
+						break;
+					case 1:
+						curr_state = sRtcDateConfig;
+						xQueueSend(Print_Queue,&msg_rtc_dd,portMAX_DELAY);
+						break;
+					case 2 :
+						curr_state = sRtcReport;
+						xQueueSend(Print_Queue,&msg_rtc_report,portMAX_DELAY);
+						break;
+					case 3 :
+						curr_state = sMainMenu;
+						break;
+					default:
+						curr_state = sMainMenu;
+						xQueueSend(Print_Queue,&msg_inv,portMAX_DELAY);
+					}
+				}
+				else{
+					curr_state = sMainMenu;
+					xQueueSend(Print_Queue, &msg_inv, portMAX_DELAY);
+				}
+
+				break;}
+
+			case sRtcTimeConfig:{
+				/*TODO : get hh, mm, ss infor and configure RTC */
+				switch(rtc_state)
+				{
+				case HH_CONFIG:{
+					uint8_t hour = getnumber(cmd->payLoad , cmd->len);
+					time.Hours = hour;
+					rtc_state = MM_CONFIG;
+					xQueueSend(Print_Queue,&msg_rtc_mm,portMAX_DELAY);
+					break;}
+				case MM_CONFIG:{
+					uint8_t min = getnumber(cmd->payLoad , cmd->len);
+					time.Minutes = min;
+					rtc_state = SS_CONFIG;
+					xQueueSend(Print_Queue,&msg_rtc_ss,portMAX_DELAY);
+					break;}
+				case SS_CONFIG:{
+					uint8_t sec = getnumber(cmd->payLoad , cmd->len);
+					time.Seconds = sec;
+					if(!validate_rtc_information(&time,NULL))
+					{
+						rtc_configure_time(&time);
+						xQueueSend(Print_Queue,&msg_conf,portMAX_DELAY);
+						show_time_date();
+					}else
+						xQueueSend(Print_Queue,&msg_inv,portMAX_DELAY);
+
+					curr_state = sMainMenu;
+					rtc_state = 0;
+					break;}
+				}
+
+				/*TODO: take care of invalid entries */
+				break;}
+
+			case sRtcDateConfig:{
+
+				/*TODO : get date, month, day , year info and configure RTC */
+
+				/*TODO: take care of invalid entries */
+
+				break;}
+
+			case sRtcReport:{
+				/*TODO: enable or disable RTC current time reporting over ITM printf */
+				break;}
+
+			}// switch end
+
+		} //while end
+
+		/*TODO : Notify menu task */
+		curr_state = sMainMenu;
 		xTaskNotify(menu_handler, 0, eNoAction);
 
-	}
+
+	}//while super loop end
 }
 void print_task(void *pvParameters){
 
