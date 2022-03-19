@@ -63,6 +63,7 @@ BaseType_t status;
 volatile uint8_t user_data;
 
 TimerHandle_t h_led_timer[4];
+TimerHandle_t rtc_timer;
 
 /* USER CODE END PV */
 
@@ -74,6 +75,8 @@ static void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN PFP */
 void led_effect_callback(TimerHandle_t xTimer);
+
+void rtc_report_callback(TimerHandle_t xTimer);
 
 /* USER CODE END PFP */
 
@@ -145,6 +148,8 @@ int main(void)
 
 	for(int i = -1; i++ < 4;)
 		h_led_timer[i] = xTimerCreate("led_timer", pdMS_TO_TICKS(500), pdTRUE, (void*)(i+1), led_effect_callback);
+
+	rtc_timer = xTimerCreate("rtc_report_timer", pdMS_TO_TICKS(1000), pdTRUE, (void*)0, rtc_report_callback);
 
 	HAL_UART_Receive_IT(&huart1, (void*)&user_data, 1);
 
@@ -315,9 +320,11 @@ void led_effect_callback(TimerHandle_t xTimer){
 			LED_effect4();
 			break;
 	}
-
 }
 
+void rtc_report_callback(TimerHandle_t xTimer){
+	show_time_date_itm();
+}
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
 
 	if( ! xQueueIsQueueFullFromISR(InputData_Queue)){
