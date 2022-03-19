@@ -74,6 +74,8 @@ extern UART_HandleTypeDef huart1;
 extern state_t curr_state;
 
 extern TimerHandle_t h_led_timer[4];
+
+extern TimerHandle_t rtc_timer;
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
