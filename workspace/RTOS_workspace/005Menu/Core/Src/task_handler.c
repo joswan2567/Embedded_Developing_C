@@ -99,7 +99,7 @@ uint8_t getnumber(uint8_t *p , int len)
 	int value ;
 
 	if(len > 1)
-	   value =  ( ((p[0]-48) * 10) + (p[1] - 48) );
+		value =  ( ((p[0]-48) * 10) + (p[1] - 48) );
 	else
 		value = p[0] - 48;
 
@@ -242,14 +242,48 @@ void rtc_task(void *pvParameters){
 
 			case sRtcDateConfig:{
 
-				/*TODO : get date, month, day , year info and configure RTC */
+				switch(rtc_state)
+				{
+				case DATE_CONFIG:{
+					uint8_t d = getnumber(cmd->payLoad , cmd->len);
+					date.Date = d;
+					rtc_state = MONTH_CONFIG;
+					xQueueSend(Print_Queue,&msg_rtc_mo,portMAX_DELAY);
+					break;}
+				case MONTH_CONFIG:{
+					uint8_t month = getnumber(cmd->payLoad , cmd->len);
+					date.Month = month;
+					rtc_state = DAY_CONFIG;
+					xQueueSend(Print_Queue,&msg_rtc_dow,portMAX_DELAY);
+					break;}
+				case DAY_CONFIG:{
+					uint8_t day = getnumber(cmd->payLoad , cmd->len);
+					date.WeekDay = day;
+					rtc_state = YEAR_CONFIG;
+					xQueueSend(Print_Queue,&msg_rtc_yr,portMAX_DELAY);
+					break;}
+				case YEAR_CONFIG:{
+					uint8_t year = getnumber(cmd->payLoad , cmd->len);
+					date.Year = year;
 
-				/*TODO: take care of invalid entries */
+					if(!validate_rtc_information(NULL,&date))
+					{
+						rtc_configure_date(&date);
+						xQueueSend(Print_Queue,&msg_conf,portMAX_DELAY);
+						show_time_date();
+					}else
+						xQueueSend(Print_Queue,&msg_inv,portMAX_DELAY);
+
+					curr_state = sMainMenu;
+					rtc_state = 0;
+					break;}
+				}
+
 
 				break;}
 
 			case sRtcReport:{
-				/*TODO: enable or disable RTC current time reporting over ITM printf */
+
 				break;}
 
 			}// switch end
