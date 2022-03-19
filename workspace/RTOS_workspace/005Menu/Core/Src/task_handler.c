@@ -283,7 +283,21 @@ void rtc_task(void *pvParameters){
 				break;}
 
 			case sRtcReport:{
+				if(cmd->len == 1)
+				{
+					if(cmd->payLoad[0] == 'y'){
+						if(xTimerIsTimerActive(rtc_timer) == pdFALSE)
+							xTimerStart(rtc_timer,portMAX_DELAY);
+					}else if (cmd->payLoad[0] == 'n'){
+						xTimerStop(rtc_timer,portMAX_DELAY);
+					}else{
+						xQueueSend(Print_Queue,&msg_inv,portMAX_DELAY);
+					}
 
+				}else
+					xQueueSend(Print_Queue,&msg_inv,portMAX_DELAY);
+
+				curr_state = sMainMenu;
 				break;}
 
 			}// switch end
