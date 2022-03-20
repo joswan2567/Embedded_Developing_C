@@ -46,11 +46,11 @@ void show_time_date(void)
 	HAL_RTC_GetDate(&hrtc, &rtc_date, RTC_FORMAT_BIN);
 
 	/* Display time Format : hh:mm:ss [AM/PM] */
-	sprintf((char*)showtime,"%s:\n\t%02d:%02d:%02d\n","\nCurrent Time&Date",rtc_time.Hours, rtc_time.Minutes, rtc_time.Seconds);
+	sprintf((char*)showtime,"%s:\t%02d:%02d:%02d\r","\nCurrent Time&Date",rtc_time.Hours, rtc_time.Minutes, rtc_time.Seconds);
 	xQueueSend(Print_Queue, &time, portMAX_DELAY);
 
 	/* Display date Format : date-month-year */
-	sprintf((char*)showdate,"\t%02d-%02d-%2d\n",rtc_date.Month, rtc_date.Date, 2000 + rtc_date.Year);
+	sprintf((char*)showdate,"\r\t%02d-%02d-%2d\r",rtc_date.Month, rtc_date.Date, 2000 + rtc_date.Year);
 	xQueueSend(Print_Queue, &date, portMAX_DELAY);
 }
 
