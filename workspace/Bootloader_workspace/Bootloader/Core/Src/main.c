@@ -102,8 +102,8 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_CRC_Init();
-  MX_USART2_UART_Init();
   MX_DMA_Init();
+  MX_USART2_UART_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
@@ -351,18 +351,22 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 /* USER CODE END Header_StartDefaultTask */
 void StartDefaultTask(void const * argument)
 {
-	/* USER CODE BEGIN 5 */
+  /* USER CODE BEGIN 5 */
 	HAL_UART_Receive_DMA(&huart2, rxUart, 100);
 	__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
 	xSemaphoreTake(semaphoreUartTxHandle, pdMS_TO_TICKS(1));
 	/* Infinite loop */
 	for(;;)
 	{
+		HAL_UART_Abort(&huart2);
 		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)"TESTE\n\r", 7);
 		xSemaphoreTake(semaphoreUartTxHandle, pdMS_TO_TICKS(100));
-		osDelay(1);
+
+		HAL_UART_Receive_DMA(&huart2, rxUart, 100);
+		__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
+//		osDelay(200);
 	}
-	/* USER CODE END 5 */
+  /* USER CODE END 5 */
 }
 
 /**
