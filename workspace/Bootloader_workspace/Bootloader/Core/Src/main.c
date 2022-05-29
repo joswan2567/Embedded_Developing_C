@@ -322,22 +322,20 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-	if(huart == NULL)
-	{
-		return;
-	}
+    if(huart == NULL) return;
+
 	xSemaphoreGiveFromISR(semaphoreUartTxHandle, &xHigherPriorityTaskWoken);
 	portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 }
 
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size)
 {
 	if(huart == NULL)
 	{
 		return;
 	}
-
-	HAL_UART_Receive_DMA(&huart2, rxUart, 100);
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart2, rxUart, 100);
 	__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
 }
 /* USER CODE END 4 */
@@ -352,7 +350,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN 5 */
-	HAL_UART_Receive_DMA(&huart2, rxUart, 100);
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart2, rxUart, 100);
 	__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
 	xSemaphoreTake(semaphoreUartTxHandle, pdMS_TO_TICKS(1));
 	/* Infinite loop */
@@ -362,9 +360,9 @@ void StartDefaultTask(void const * argument)
 		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)"TESTE\n\r", 7);
 		xSemaphoreTake(semaphoreUartTxHandle, pdMS_TO_TICKS(100));
 
-		HAL_UART_Receive_DMA(&huart2, rxUart, 100);
+		HAL_UARTEx_ReceiveToIdle_DMA(&huart2, rxUart, 100);
 		__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
-//		osDelay(200);
+		osDelay(500);
 	}
   /* USER CODE END 5 */
 }
