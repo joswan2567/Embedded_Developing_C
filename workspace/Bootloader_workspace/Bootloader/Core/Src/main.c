@@ -357,8 +357,9 @@ void StartDefaultTask(void const * argument)
 	for(;;)
 	{
 		HAL_UART_Abort(&huart2);
-		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)"TESTE\n\r", 7);
+		HAL_UART_Transmit_DMA(&huart2, (uint8_t*)"TESTE\r\n", 7);
 		xSemaphoreTake(semaphoreUartTxHandle, pdMS_TO_TICKS(100));
+		HAL_UART_Transmit(&huart3, "teste\r\n", 7, 100);
 
 		HAL_UARTEx_ReceiveToIdle_DMA(&huart2, rxUart, 100);
 		__HAL_DMA_DISABLE_IT(&hdma_usart2_rx, DMA_IT_HT);
